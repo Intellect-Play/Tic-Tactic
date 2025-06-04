@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +15,7 @@ public class PieceSpawner : MonoBehaviour
     {
         GameActions.Instance.OnStartGame += StartSpawn;
     }
-    private void Start()
-    {
-        GameActions.Instance.OnStartGame += StartSpawn;
-    }
-
+  
     private void OnDisable()
     {
         GameActions.Instance.OnStartGame -= StartSpawn;
@@ -28,26 +24,39 @@ public class PieceSpawner : MonoBehaviour
     public void StartSpawn()
     {
         //Debug.Log("Spawning pieces...");
-        //SpawnPlayerPieces(StartSpawnCount);
-        //SpawnEnemyPieces(StartSpawnCount);
+        SpawnPlayerPieces(StartSpawnCount);
+        SpawnEnemyPieces(StartSpawnCount);
     }
     
     public void SpawnPlayerPieces(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            SpawnPiece(PlayerPiecePrefab, PlayerPieceParent);
+            GameObject piece = Instantiate(PlayerPiecePrefab, PlayerPieceParent);
+            RectTransform rect = piece.GetComponent<RectTransform>();
+
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
+
+            // Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)
+            rect.anchoredPosition = new Vector2(-50f + i * 110f, -50f);
         }
     }
     public void SpawnEnemyPieces(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            SpawnPiece(EnemyPiecePrefab, EnemyPieceParent.transform);
+            GameObject piece = Instantiate(EnemyPiecePrefab, EnemyPieceParent.transform);
+            RectTransform rect = piece.GetComponent<RectTransform>();
+
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
+
+            // Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)
+            rect.anchoredPosition = new Vector2(-50f + i * 110f, -50f);
         }
     }
     public void SpawnPiece(GameObject piece, Transform parentTransform)
     {
-        GameObject playerPiece = Instantiate(piece, parentTransform);      
+        GameObject playerPiece = Instantiate(piece, parentTransform);
+       
     }
 }

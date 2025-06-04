@@ -13,14 +13,14 @@ public class GameActions : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject); // Opsional olaraq səhnələrarası saxlayır
     }
 
     // Bu metodlar vasitəsilə çağırmaq daha doğrudur:

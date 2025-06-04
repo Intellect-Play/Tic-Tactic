@@ -40,6 +40,8 @@ public class PlayerPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
+        transform.parent = canvas.transform;
+ 
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -65,7 +67,7 @@ public class PlayerPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 return;
             }
         }
-        
+        //transform.parent = originalParent;
         rectTransform.localPosition = originalPos;
     }
     
