@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,9 +26,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void OnEnable()
+    private void Start()
     {
         GameActions.Instance.OnEndTurn += EndTurn;
+        StartCoroutine(StartTime());
     }
 
     private void OnDisable()
@@ -35,14 +37,15 @@ public class GameManager : MonoBehaviour
         GameActions.Instance.OnEndTurn -= EndTurn;
     }
 
-    private void Start()
+    IEnumerator StartTime()
     {
+        yield return new WaitForSeconds(1f);
         GameActions.Instance.InvokeStartGame();
    
     }
 
 
-    void EndTurn()
+    public void EndTurn()
     {
         CheckResult();
         SwitchTurn();
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviour
         WinResult winResult = board.Cells.CheckWin();
         if (winResult.hasWon)
         {
-            enemyAttack.Attack(winResult.winCells);
+            enemyAttack.AttackEnemy(winResult.winCells);
             ShowResult($"{winResult.winner} Wins!");
         }
         else if (board.IsFull())

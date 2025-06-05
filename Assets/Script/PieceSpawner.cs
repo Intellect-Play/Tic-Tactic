@@ -11,7 +11,7 @@ public class PieceSpawner : MonoBehaviour
     [SerializeField] private Transform EnemyPieceParent;
 
     public int StartSpawnCount = 5;
-    private void OnEnable()
+    private void Start()
     {
         GameActions.Instance.OnStartGame += StartSpawn;
     }
@@ -59,4 +59,11 @@ public class PieceSpawner : MonoBehaviour
         GameObject playerPiece = Instantiate(piece, parentTransform);
        
     }
+}
+
+public enum PieceType
+{
+    Player,
+    Enemy,
+    Null
 }

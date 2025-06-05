@@ -12,8 +12,9 @@ public class PlayerPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     private Vector3 originalPos;
+    [SerializeField] private Image targetImage; // Hədəf şəkil komponenti
 
-    [SerializeField] public string playerValue;
+    [SerializeField] public PieceType playerValue;
     [SerializeField] private TextMeshProUGUI valueText;
 
     private Transform originalParent;
@@ -24,18 +25,19 @@ public class PlayerPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public bool IsPlaced => PieceCell != null && PieceCell.HasValue;
     private void Awake()
     {
+        targetImage = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
         originalPos = rectTransform.localPosition;
-        valueText.text = playerValue;
+        //valueText.text = playerValue;
         originalParent = transform.parent; 
     }
 
-    public void Init(string value)
+    public void Init(PieceType value)
     {
         playerValue = value;
-        valueText.text = playerValue;
+        //valueText.text = playerValue;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -81,13 +83,31 @@ public class PlayerPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void AttackDestroy(RectTransform targetPosition)
     {
-        rectTransform.DOMove(targetPosition.position, moveDuration)
-           .SetEase(moveEase)
-           .OnComplete(() =>
-           {
-               Debug.Log("Hədəfə çatdı! Attack tamamlandı.");
-               // Burada zərbə animasiyası və ya digər effekti əlavə edə bilərsən
-               Destroy(gameObject);
-           });
+        PlayPopFade();
+        //rectTransform.DOMove(targetPosition.position, moveDuration)
+        //   .SetEase(moveEase)
+        //   .OnComplete(() =>
+        //   {
+        //       Debug.Log("Hədəfə çatdı! Attack tamamlandı.");
+        //       // Burada zərbə animasiyası və ya digər effekti əlavə edə bilərsən
+        //       Destroy(gameObject);
+        //   });
+    }
+    public void PlayPopFade(float scaleAmount = 1.5f, float duration = 0.5f)
+    {
+        // Reset state
+        targetImage.color = new Color(1f, 1f, 1f, 1f); // fully visible
+        targetImage.transform.localScale = Vector3.one;
+
+        // Paralel olaraq scale və fade
+        Sequence seq = DOTween.Sequence();
+
+        seq.Join(targetImage.transform.DOScale(scaleAmount, duration).SetEase(Ease.OutBack));
+        seq.Join(targetImage.DOFade(0f, duration).SetEase(Ease.InOutSine));
+
+        seq.OnComplete(() =>
+        {
+            targetImage.gameObject.SetActive(false); // yox olma effekti
+        });
     }
 }

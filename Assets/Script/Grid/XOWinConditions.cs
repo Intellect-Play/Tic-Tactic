@@ -5,7 +5,7 @@ public static class XOWinConditions
 {
     public static WinResult CheckWin(this List<Cell> board)
     {
-        string winner;
+        PieceType winner;
         List<Cell> winCells = new List<Cell>();
         bool verticalBool = CheckRows(board, out winner, ref winCells);
         bool horizontalBool = CheckColumns(board, out winner, ref winCells);
@@ -15,10 +15,10 @@ public static class XOWinConditions
         {
             return new WinResult(true, winner, winCells);
         }
-        return new WinResult(false, null, null);
+        return new WinResult(false, PieceType.Null, null);
     }
 
-    private static bool CheckRows(List<Cell> board, out string winner, ref List<Cell> winCells)
+    private static bool CheckRows(List<Cell> board, out PieceType winner, ref List<Cell> winCells)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -29,11 +29,11 @@ public static class XOWinConditions
                 return true;
             }
         }
-        winner = null;
+        winner = PieceType.Null;
         return false;
     }
 
-    private static bool CheckColumns(List<Cell> board, out string winner,ref List<Cell> winCells)
+    private static bool CheckColumns(List<Cell> board, out PieceType winner,ref List<Cell> winCells)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -44,11 +44,11 @@ public static class XOWinConditions
             }
                 
         }
-        winner = null;
+        winner = PieceType.Null;
         return false;
     }
 
-    private static bool CheckDiagonals(List<Cell> board, out string winner, ref List<Cell> winCells)
+    private static bool CheckDiagonals(List<Cell> board, out PieceType winner, ref List<Cell> winCells)
     {
         if (CheckValues(board[0], board[4], board[8], out winner))
         {
@@ -62,15 +62,15 @@ public static class XOWinConditions
             return true;
         }
 
-        winner = null;
+        winner = PieceType.Null;
         return false;
     }
 
-    private static bool CheckValues(Cell a, Cell b, Cell c, out string winner)
+    private static bool CheckValues(Cell a, Cell b, Cell c, out PieceType winner)
     {
-        if (string.IsNullOrEmpty(a.cellValue) || string.IsNullOrEmpty(b.cellValue) || string.IsNullOrEmpty(c.cellValue))
+        if (a.cellValue == PieceType.Null || b.cellValue == PieceType.Null || c.cellValue == PieceType.Null)
         {
-            winner = null;
+            winner = PieceType.Null;
             return false;
         }
 
@@ -81,7 +81,7 @@ public static class XOWinConditions
             return true;
         }
 
-        winner = null;
+        winner = PieceType.Null;
         return false;
     }
 
@@ -90,9 +90,9 @@ public static class XOWinConditions
 public struct WinResult
 {
     public bool hasWon;
-    public string winner; 
+    public PieceType winner; 
     public List<Cell> winCells;
-    public WinResult(bool hasWon, string winner,List<Cell> cells)
+    public WinResult(bool hasWon, PieceType winner,List<Cell> cells)
     {
         this.hasWon = hasWon;
         this.winner = winner;

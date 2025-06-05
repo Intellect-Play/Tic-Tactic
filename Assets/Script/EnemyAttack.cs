@@ -5,16 +5,38 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public RectTransform EnnemyAttackPoint;
-    public void Attack(List<Cell> cells)
+
+    public RectTransform PlayerAttackPoint;
+
+    public void Attack(List<Cell> cells, PieceType playerType)
     {
-        StartCoroutine(AttackTime(cells));
+        if (playerType == PieceType.Enemy)
+        {
+            AttackEnemy(cells);
+        }
+        else if (playerType == PieceType.Player)
+        {
+            AttackPlayer(cells);
+        }
+        else
+        {
+            Debug.LogError("Invalid player type for attack.");
+        }
     }
-    IEnumerator AttackTime(List<Cell> cells)
+    public void AttackEnemy(List<Cell> cells)
+    {
+        StartCoroutine(AttackTime(cells, EnnemyAttackPoint));
+    }
+    public void AttackPlayer(List<Cell> cells)
+    {
+        StartCoroutine(AttackTime(cells, PlayerAttackPoint));
+    }
+    IEnumerator AttackTime(List<Cell> cells, RectTransform rectTransform)
     {
         foreach (Cell cell in cells)
         {
             cell._PlayerPiece.AttackDestroy(EnnemyAttackPoint);
-            yield return new WaitForSeconds(.1f); // Delay between attacks
+            yield return new WaitForSeconds(.1f); 
         }
         // Implement attack logic here
         Debug.Log("Enemy attacks!");

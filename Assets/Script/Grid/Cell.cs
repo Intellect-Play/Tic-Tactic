@@ -7,10 +7,10 @@ using UnityEngine.EventSystems;
 
 public class Cell : MonoBehaviour
 {
-    public string cellValue;
+    public PieceType cellValue;
     public PlayerPiece _PlayerPiece;
  
-    public bool HasValue => !string.IsNullOrEmpty(cellValue);
+    public bool HasValue => !(cellValue==PieceType.Null);
 
     private int x, y;
 
@@ -30,7 +30,7 @@ public class Cell : MonoBehaviour
     }
     public void RemoveCell()
     {
-        cellValue = string.Empty;
+        cellValue = PieceType.Null;
         if(_PlayerPiece != null)
         {
             Debug.Log($"Removing cell at ({x}, {y}) with value: {cellValue}");

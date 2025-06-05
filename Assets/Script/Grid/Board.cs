@@ -30,7 +30,7 @@ public class Board : MonoBehaviour
             {
                 GameObject cellObject = Instantiate(cellPrefab, transform);
                 Cell cell = cellObject.GetComponent<Cell>();
-                cell.cellValue = string.Empty;
+                cell.cellValue = PieceType.Null;
                 Cells.Add(cell);
             }
         }

@@ -674,7 +674,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab8aa89da7912e4499ef8f8388a1276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnnemyAttackPoint: {fileID: 0}
+  EnnemyAttackPoint: {fileID: 1293762876}
+  PlayerAttackPoint: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1126,7 @@ GameObject:
   - component: {fileID: 1721248989}
   - component: {fileID: 1721248988}
   - component: {fileID: 1721248987}
+  - component: {fileID: 1721248990}
   m_Layer: 5
   m_Name: End Turn
   m_TagString: Untagged
@@ -1246,6 +1248,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721248985}
   m_CullTransparentMesh: 1
+--- !u!114 &1721248990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721248985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fffa0866f6394418a4662efa4470bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1865951189
 GameObject:
   m_ObjectHideFlags: 0
