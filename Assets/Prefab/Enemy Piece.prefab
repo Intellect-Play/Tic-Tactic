@@ -90,11 +90,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47ba13bf40d4a44f9a5bcf8e0c2dd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerValue: O
+  canvas: {fileID: 0}
+  rectTransform: {fileID: 0}
+  canvasGroup: {fileID: 0}
+  originalPos: {x: 0, y: 0, z: 0}
+  targetImage: {fileID: 0}
+  playerValue: 2
   valueText: {fileID: 7322608048508440776}
+  originalParent: {fileID: 0}
   PieceCell: {fileID: 0}
   moveDuration: 0.5
   moveEase: 27
+  IsPlaced: 0
 --- !u!225 &379722524233295756
 CanvasGroup:
   m_ObjectHideFlags: 0

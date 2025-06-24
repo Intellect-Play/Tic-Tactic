@@ -3,40 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PieceMovePlayer : PlayerPiece
+public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    //// Start is called before the first frame update
-    //public void OnBeginDrag(PointerEventData eventData)
-    //{
-    //    canvasGroup.blocksRaycasts = false;
-    //    transform.parent = canvas.transform;
+    // Start is called before the first frame update
+    public virtual void OnBeginDrag(PointerEventData eventData)
+    {
+        if (IsPlaced) return;
+        targetImage.raycastTarget=false;
+        canvasGroup.blocksRaycasts = false;
+        transform.parent = canvas.transform;
 
-    //}
+    }
 
-    //public void OnDrag(PointerEventData eventData)
-    //{
-    //    rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-    //}
+    public virtual void OnDrag(PointerEventData eventData)
+    {
+        if (IsPlaced) return;
 
-    //public void OnEndDrag(PointerEventData eventData)
-    //{
-    //    RemoveCell();
-    //    canvasGroup.blocksRaycasts = true;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+    }
 
-    //    GameObject obj = eventData.pointerEnter;
-    //    if (obj != null && obj.TryGetComponent(out Cell cell))
-    //    {
-    //        if (!cell.HasValue)
-    //        {
-    //            transform.SetParent(obj.transform);
-    //            rectTransform.anchoredPosition = Vector2.zero;
-    //            transform.parent = originalParent;
-    //            PieceCell = cell; // Cell referansını saxla
-    //            cell.SetValue(this);
-    //            return;
-    //        }
-    //    }
-    //    //transform.parent = originalParent;
-    //    rectTransform.localPosition = originalPos;
-    //}
+    public virtual void OnEndDrag(PointerEventData eventData)
+    {
+        if (IsPlaced) return;
+
+        //RemoveCell();
+        canvasGroup.blocksRaycasts = true;
+
+        GameObject obj = eventData.pointerEnter;
+        if (obj != null && obj.TryGetComponent(out Cell cell))
+        {
+          
+            if (!cell.HasValue ||(cell.HasValue&&cell.cellValue==playerValue&&!cell._PlayerPiece.IsPlaced))
+            {
+                Debug.Log("Change Piece");
+                PlayerController.Instance.GetPiece(this);
+                ChangeCell(cell);
+
+                //cell.SetValue(this);
+                targetImage.raycastTarget = false;
+
+                return;
+            }
+        }
+        Back();
+    }
 }

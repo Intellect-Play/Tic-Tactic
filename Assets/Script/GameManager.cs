@@ -2,16 +2,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance;
   
-    [SerializeField]private Board board;
-    [SerializeField]private EnemyAttack enemyAttack;
+    [SerializeField] public Board board;
+    [SerializeField] private CellController cellController;
+    [SerializeField] private EnemyAttack enemyAttack;
+    [SerializeField] public PlayerController playerController;
+    [SerializeField] public AIController aiController;
+    [SerializeField] public AllSpecialPiecesMove allSpecialPiecesMove;
+    [SerializeField] public PieceSpawner pieceSpawner;
 
-    public string currentPlayer = "X";
+    [SerializeField] public GameObject GameFinish;
+    [SerializeField] public TextMeshProUGUI FinishText;
+    public PieceType currentPlayer;
 
     private void Awake()
     {
@@ -39,38 +47,83 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartTime()
     {
+
         yield return new WaitForSeconds(1f);
         GameActions.Instance.InvokeStartGame();
-   
+        cellController.cells = board.Cells;
+
     }
 
 
     public void EndTurn()
     {
-        CheckResult();
-        SwitchTurn();
+        Debug.Log("End Turn called.");
+        StartCoroutine(EndTurnTime());
+    }
+    IEnumerator EndTurnTime()
+    {
+        yield return StartCoroutine(CheckResult());
+        Debug.Log("End Turn called, checking result...");
+        //CheckResult();
+        yield return allSpecialPiecesMove.MoveSequentially(() =>
+        {
+            Debug.Log("All special pieces have moved.");
+            aiController.MakeMove(currentPlayer);
+            playerController.MakeMove(currentPlayer);
+        });
     }
     public void SwitchTurn()
     {
-        currentPlayer = currentPlayer == "X" ? "O" : "X";
+        currentPlayer = currentPlayer == PieceType.Player ? PieceType.Enemy : PieceType.Player;
+        
     }
 
-    public void CheckResult()
+    IEnumerator CheckResult()
     {
+        yield return new WaitForSeconds(.1f);
+
         WinResult winResult = board.Cells.CheckWin();
         if (winResult.hasWon)
         {
+
             enemyAttack.AttackEnemy(winResult.winCells);
-            ShowResult($"{winResult.winner} Wins!");
+            yield return new WaitForSeconds(1.3f);
+            //ShowResult($"{winResult.winner} Wins!");
         }
         else if (board.IsFull())
         {
+            board.CleanBoard();
+            yield return new WaitForSeconds(2f);
             ShowResult("Draw!");
         }
+        else {
+            SwitchTurn();
+        }
+        yield return new WaitForSeconds(.1f);
     }
 
     private void ShowResult(string message)
     {
       Debug.Log(message);
     }
+    public void DiedCase(PieceType pieceType)
+    {
+
+        StartCoroutine(FinishTime(pieceType.ToString() + " id Died"));
+    }
+    IEnumerator FinishTime(string WinPlayer)
+    {
+        GameFinish.SetActive(true);
+        FinishText.text = WinPlayer;
+
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(0);
+
+    }
+}
+public enum PieceType
+{
+    Null,
+    Player,
+    Enemy
 }

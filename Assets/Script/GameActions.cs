@@ -10,18 +10,17 @@ public class GameActions : MonoBehaviour
     public event Action OnAttack;
     public event Action OnWinGame;
     public event Action OnLoseGame;
-
     private void Awake()
     {
-        Instance = this;
-        //if (Instance == null)
-        //{
-        //    Instance = this;
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
+        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Bu metodlar vasitəsilə çağırmaq daha doğrudur:

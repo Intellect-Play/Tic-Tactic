@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: MainGameDatas
   m_EditorClassIdentifier: 
   BoardSize: 3
+  SpawnCount: 5
+  MoveDuration: 0.4
+  PlayerHealth: 10
+  EnemyHealth: 5

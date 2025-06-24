@@ -8,21 +8,23 @@ using UnityEngine.EventSystems;
 public class Cell : MonoBehaviour
 {
     public PieceType cellValue;
-    public PlayerPiece _PlayerPiece;
+    public PieceBase _PlayerPiece;
  
     public bool HasValue => !(cellValue==PieceType.Null);
 
-    private int x, y;
+    public int x, y;
 
     public void Init(int _x, int _y)
     {
+        cellValue = PieceType.Null;
         x = _x;
         y = _y;
     }
 
-    public void SetValue(PlayerPiece value)
+    public void SetValue(PieceBase value)
     {
-        if (HasValue) return;
+       // if (HasValue) return;
+        if(_PlayerPiece!=null) _PlayerPiece.RemoveCell();
 
         _PlayerPiece = value;
         cellValue = value.playerValue;
@@ -33,7 +35,6 @@ public class Cell : MonoBehaviour
         cellValue = PieceType.Null;
         if(_PlayerPiece != null)
         {
-            Debug.Log($"Removing cell at ({x}, {y}) with value: {cellValue}");
 
             _PlayerPiece.PieceCell = null;
             _PlayerPiece = null;
@@ -45,10 +46,8 @@ public class Cell : MonoBehaviour
     {
         if (HasValue)
         {
-            Debug.Log($"Cell at ({x}, {y}) already has a value: {cellValue}");
             return false;
         }
-        Debug.Log($"Cell at ({x}, {y}) is empty, can set value.");
         return true;
     }
  

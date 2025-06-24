@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6396138531708022652}
   - component: {fileID: 5598440113508271502}
   - component: {fileID: 379722524233295756}
-  - component: {fileID: -8279282474063296429}
+  - component: {fileID: 4915615667306293992}
   m_Layer: 5
-  m_Name: Player Piece
+  m_Name: TwoSideGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &-8279282474063296429
+--- !u!114 &4915615667306293992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2586757807563176191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b7597950df22d84ab1c9b4babadb15a, type: 3}
+  m_Script: {fileID: 11500000, guid: bc44d0ac8661f4242850672b321f07e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}

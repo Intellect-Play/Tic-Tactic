@@ -12,7 +12,7 @@ public class EndTurn : MonoBehaviour
         button = GetComponent<Button>();
         if (button != null)
         {
-            button.onClick.AddListener(OnEndTurnButtonClicked);
+            //button.onClick.AddListener(OnEndTurnButtonClicked);
         }
     }
     public void OnEndTurnButtonClicked()
