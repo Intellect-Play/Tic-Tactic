@@ -42,6 +42,7 @@ public class AIController : MonoBehaviour
     }
     public void MakeMove(PieceType pieceType)
     {
+        Debug.Log("AI Make Move: " + pieceType);
         CheckSizePieces();
         if (pieceType == currentPlayer)
         {

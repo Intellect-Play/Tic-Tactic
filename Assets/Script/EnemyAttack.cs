@@ -25,14 +25,15 @@ public class EnemyAttack : MonoBehaviour
     }
     public void AttackEnemy(List<Cell> cells)
     {
-        StartCoroutine(AttackTime(cells, EnnemyAttackPoint));
+        StartCoroutine(AttackTime(cells, EnnemyAttackPoint,0));
     }
     public void AttackPlayer(List<Cell> cells)
     {
-        StartCoroutine(AttackTime(cells, PlayerAttackPoint));
+        StartCoroutine(AttackTime(cells, PlayerAttackPoint,1));
     }
-    IEnumerator AttackTime(List<Cell> cells, RectTransform rectTransform)
+    IEnumerator AttackTime(List<Cell> cells, RectTransform rectTransform,float time)
     {
+
         foreach (Cell cell in cells)
         {
             cell._PlayerPiece.AttackDestroy(EnnemyAttackPoint);

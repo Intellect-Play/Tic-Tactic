@@ -48,7 +48,7 @@ public class Board : MonoBehaviour
             }
         }
     }
-    public void DestroyPiece(int x, int y)
+    public void DestroyPiece(int x, int y,PieceType pieceType)
     {
         Cell cell = GetCell(x, y);
         if (cell == null)
@@ -56,18 +56,29 @@ public class Board : MonoBehaviour
             //Debug.Log($"does not exist Cell at coordinates ({x}, {y}) .");
             return;
         }
-        if (cell != null && cell._PlayerPiece != null)
+        if (cell != null && cell._PlayerPiece != null&&cell._PlayerPiece.playerValue!=pieceType)
         {
             //Debug.Log($"Destroying piece at coordinates ({x}, {y})");
             cell._PlayerPiece.DestroyPiece();
         }
+    }
+    public void DestroyAllPiece(PieceType pieceType)
+    {
+        foreach (var cell in Cells)
+        {
+            if (cell != null && cell._PlayerPiece != null && cell._PlayerPiece.playerValue != pieceType)
+            {
+                //Debug.Log($"Destroying piece at coordinates ({x}, {y})");
+                cell._PlayerPiece.DestroyPiece();
+            }
+        }
+      
     }
     Cell GetCell(int x, int y)
     {
         //Debug.Log($"Getting cell at coordinates ({x}, {y})cdsc"+boardSize);
         if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
         {
-            Debug.Log("Cell coordinates out of bounds");
             return null;
         }
         //Debug.Log($"2  Getting cell at coordinates ({x}, {y})cdsc" + boardSize);

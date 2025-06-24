@@ -52,12 +52,17 @@ public class PieceBase : MonoBehaviour
     
     public virtual void RemoveCell()
     {
+        RemoveCellBase();
+        transform.parent = originalParent;
+        rectTransform.localPosition = originalPos;
+    }
+    public void RemoveCellBase()
+    {
         if (PieceCell != null)
         {
             targetImage.raycastTarget = true;
 
-            transform.parent = originalParent;
-            rectTransform.localPosition = originalPos;
+            
             PieceCell.RemoveCell();
         }
     }
@@ -121,6 +126,8 @@ public class PieceBase : MonoBehaviour
     }
     public virtual void PlayPopFade(float scaleAmount = 1.5f, float duration = 0.5f)
     {
+        RemoveCellBase();
+
         targetImage.color = new Color(1f, 1f, 1f, 1f); 
         targetImage.transform.localScale = Vector3.one;
 
@@ -131,7 +138,6 @@ public class PieceBase : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            RemoveCell();
             targetImage.gameObject.SetActive(false); 
         });
         

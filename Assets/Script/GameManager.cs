@@ -57,24 +57,34 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
-        Debug.Log("End Turn called.");
-        StartCoroutine(EndTurnTime());
-    }
-    IEnumerator EndTurnTime()
-    {
-        yield return StartCoroutine(CheckResult());
-        Debug.Log("End Turn called, checking result...");
-        //CheckResult();
-        yield return allSpecialPiecesMove.MoveSequentially(() =>
+        allSpecialPiecesMove.MoveSpecialPieces(() =>
         {
-            Debug.Log("All special pieces have moved.");
-            aiController.MakeMove(currentPlayer);
-            playerController.MakeMove(currentPlayer);
+            EndTurnFunc();
+
+
+
         });
+        //StartCoroutine(EndTurnTime());
     }
+    public void EndTurnFunc() {
+        StartCoroutine(CheckResult());
+    }
+    //IEnumerator EndTurnTime()
+    //{
+    //   // yield return StartCoroutine(CheckResult());
+    //    Debug.Log("End Turn called, checking result...");
+    //    //CheckResult();
+    //    allSpecialPiecesMove.MoveSequentially(() =>
+    //    {
+    //        StartCoroutine(CheckResult());
+    //        Debug.Log("All special pieces have moved.");
+           
+    //    });
+    //}
     public void SwitchTurn()
     {
         currentPlayer = currentPlayer == PieceType.Player ? PieceType.Enemy : PieceType.Player;
+        Debug.Log("Switching turn to: " + currentPlayer);
         
     }
 
@@ -85,8 +95,19 @@ public class GameManager : MonoBehaviour
         WinResult winResult = board.Cells.CheckWin();
         if (winResult.hasWon)
         {
+            if(winResult.winner == PieceType.Player)
+            {
+                Debug.Log("Player wins!");
+                enemyAttack.AttackPlayer(winResult.winCells);
+            }
+            else if (winResult.winner == PieceType.Enemy)
+            {
+               yield return new WaitForSeconds(.5f);
+               Debug.Log("Enemy wins!");
+                enemyAttack.AttackEnemy(winResult.winCells);
 
-            enemyAttack.AttackEnemy(winResult.winCells);
+            }
+            Debug.Log($"{winResult.winner} Wins!");
             yield return new WaitForSeconds(1.3f);
             //ShowResult($"{winResult.winner} Wins!");
         }
@@ -100,6 +121,8 @@ public class GameManager : MonoBehaviour
             SwitchTurn();
         }
         yield return new WaitForSeconds(.1f);
+        aiController.MakeMove(currentPlayer);
+        playerController.MakeMove(currentPlayer);
     }
 
     private void ShowResult(string message)

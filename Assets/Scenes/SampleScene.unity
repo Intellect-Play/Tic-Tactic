@@ -277,14 +277,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243a6db750a84fa4c98d5805dc534b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPiecePrefab: {fileID: 2586757807563176191, guid: 8a4484596833bbd4eb6866920cfb17a1,
+  PlayerPiecePrefab: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
     type: 3}
   EnemyPiecePrefab: {fileID: 2586757807563176191, guid: 5e9a2ea3d7db00949b4ca5924cecbd3e,
     type: 3}
-  SpecialPiecePrefab: {fileID: 2586757807563176191, guid: 0ec339ef09209ae4d93592b4938013e4,
+  SpecialPiecePrefab: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
     type: 3}
   PlayerPieceParent: {fileID: 868426217}
   EnemyPieceParent: {fileID: 1865951190}
+  ThunderScript: {fileID: 11500000, guid: a94601c89e64e7c42b6cd33aa42cef14, type: 3}
   StartSpawnCount: 5
 --- !u!4 &279717417
 Transform:
@@ -1897,19 +1898,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1721248988}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1721248990}
-        m_TargetAssemblyTypeName: EndTurn, Assembly-CSharp
-        m_MethodName: OnEndTurnButtonClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1721248988
 MonoBehaviour:
   m_ObjectHideFlags: 0

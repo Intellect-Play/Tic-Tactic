@@ -33,13 +33,11 @@ public class AllSpecialPiecesMove : MonoBehaviour
     public IEnumerator MoveSequentially(Action onAllComplete)
     {
 
-        //Debug.Log("allMovePieces " + allMovePieces.Count);
         foreach (var piece in allMovePieces)
         {
            
 
             bool isDone = false;
-            //Debug.Log($"Moving piece: {piece.name}");
             piece.MoveStart(() =>
             {
                 //Debug.Log($"Piece {piece.name} has finished moving.");
@@ -51,7 +49,6 @@ public class AllSpecialPiecesMove : MonoBehaviour
             // Gözlə bu piece bitirsin
             yield return new WaitUntil(() => isDone);
         }
-        //Debug.Log("allMovePieces " + allMovePieces.Count);
         allMovePieces.Clear();
         onAllComplete?.Invoke();
     }
