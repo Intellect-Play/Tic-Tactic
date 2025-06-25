@@ -59,6 +59,19 @@ public class Health : MonoBehaviour
         }
         ChechkDiedCase();
     }
+    public void Heal(int health, PieceType pieceType)
+    {
+        if (pieceType == PieceType.Player)
+        {
+            HealthPlayer += health;
+            TextPlayer(HealthPlayer);
+        }
+        else
+        {
+            HealthEnemy += health;
+            TextEnemy(HealthEnemy);
+        }
+    }
 
     public void ChechkDiedCase()
     {

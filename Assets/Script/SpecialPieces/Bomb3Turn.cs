@@ -6,30 +6,38 @@ using UnityEngine;
 public class Bomb3Turn : SpecialPieceCore
 {
     int turnCount = 0;
-    private void Start()
+    public override void Start()
     {
-        GameActions.Instance.OnEndTurn += Turn;
+        base.Start();
+        
     }
 
     private void OnDisable()
     {
         GameActions.Instance.OnEndTurn -= Turn;
     }
-    public void Turn() { 
-    
+    public void Turn() {
+        Debug.Log("Bomb3Turn");
+
         turnCount++;
-        if (turnCount >= 2)
+        if (turnCount >= 4)
         {
             Debug.Log("Bomb3Turn Turn");
             AddToList();
             turnCount = 0;
         }
     }
-    public override void ChangeCell(Cell cell)
+    public override void Placed(bool _isPlaced)
     {
-        base.ChangeCell(cell);
-        //AddToList();
+
+        if (!IsPlaced && _isPlaced)
+        {
+            GameActions.Instance.OnEndTurn += Turn;
+
+        }
+        IsPlaced = _isPlaced;
     }
+
     public override void MoveStart(Action onMoveComplete)
     {
         Debug.Log("Bomb3Turn MoveStart");

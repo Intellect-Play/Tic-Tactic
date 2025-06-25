@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6396138531708022652}
   - component: {fileID: 5598440113508271502}
   - component: {fileID: 379722524233295756}
-  - component: {fileID: 7407265794269867110}
+  - component: {fileID: 1736468084640499737}
   m_Layer: 5
-  m_Name: Thunder
+  m_Name: RandomPiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7407265794269867110
+--- !u!114 &1736468084640499737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2586757807563176191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af88a05a8126737478df385406e949c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 08ddb2776ce296645941bddf59a0b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 0}
   originalPos: {x: 0, y: 0, z: 0}
   targetImage: {fileID: 0}
-  playerValue: 1
+  playerValue: 0
   valueText: {fileID: 7322608048508440776}
   originalParent: {fileID: 0}
   PieceCell: {fileID: 0}

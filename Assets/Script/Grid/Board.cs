@@ -51,14 +51,15 @@ public class Board : MonoBehaviour
     public void DestroyPiece(int x, int y,PieceType pieceType)
     {
         Cell cell = GetCell(x, y);
+        Debug.Log($"Destroying piece at coordinates ({x}, {y}) with type {pieceType}.");
         if (cell == null)
         {
-            //Debug.Log($"does not exist Cell at coordinates ({x}, {y}) .");
+            Debug.Log($"does not exist Cell at coordinates ({x}, {y}) .");
             return;
         }
         if (cell != null && cell._PlayerPiece != null&&cell._PlayerPiece.playerValue!=pieceType)
         {
-            //Debug.Log($"Destroying piece at coordinates ({x}, {y})");
+            Debug.Log($"Destroying piece at coordinates ({x}, {y})");
             cell._PlayerPiece.DestroyPiece();
         }
     }

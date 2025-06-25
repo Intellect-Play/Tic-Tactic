@@ -6,14 +6,14 @@ public class CellController : MonoBehaviour
 {
     public List<Cell> cells;
 
-    private void Start()
-    {
-        GameActions.Instance.OnEndTurn += IsPlacedCellPieces;
-    }
-    private void OnDisable()
-    {
-        GameActions.Instance.OnEndTurn -= IsPlacedCellPieces;
-    }
+    //private void Start()
+    //{
+    //    GameActions.Instance.OnEndTurn += IsPlacedCellPieces;
+    //}
+    //private void OnDisable()
+    //{
+    //    GameActions.Instance.OnEndTurn -= IsPlacedCellPieces;
+    //}
     public void IsPlacedCellPieces()
     {
         foreach (var cell in cells)

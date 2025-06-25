@@ -25,7 +25,7 @@ public class PieceBase : MonoBehaviour
     public float moveDuration = 0.5f; 
     public Ease moveEase = Ease.OutBack; 
     public bool IsPlaced;
-    private void Start()
+    public virtual void Start()
     {
         moveDuration = GameDatas.Instance.mainGameDatasSO.MoveDuration;
         IsPlaced = false;

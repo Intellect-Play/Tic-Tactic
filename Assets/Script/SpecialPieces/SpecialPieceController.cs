@@ -10,18 +10,20 @@ public class SpecialPieceController : MonoBehaviour
 [System.Serializable]
 public class SpecialPieceData
 {
-    public string pieceName;
-    public int pieceId;
+    public SpecialPieceType specialPieceType; // Xüsusi parça tipi
     public GameObject piecePrefab;
-    public int spawnCount;
-    public float spawnInterval;
-
-    // Əlavə xüsusiyyətlər əlavə etmək istəsəniz, buraya əlavə edin
+    public Sprite pieceSprite; // Xüsusi parça üçün sprite
 }
 
 public enum SpecialPieceType
 {
-
+    TwoSideGun,
     ThunderGun,
-    // Burada digər xüsusi parça tiplərini əlavə edə bilərsiniz
+    Bomb3Turn,
+    EatEnemies,
+    Snayper,
+    Plus2,
+    ImMortal,
+    Random,
+    Healer
 }

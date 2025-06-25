@@ -258,6 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 279717417}
   - component: {fileID: 279717416}
+  - component: {fileID: 279717418}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -277,15 +278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243a6db750a84fa4c98d5805dc534b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPiecePrefab: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
+  PlayerPiecePrefab: {fileID: 2586757807563176191, guid: 8a4484596833bbd4eb6866920cfb17a1,
     type: 3}
   EnemyPiecePrefab: {fileID: 2586757807563176191, guid: 5e9a2ea3d7db00949b4ca5924cecbd3e,
     type: 3}
-  SpecialPiecePrefab: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
-    type: 3}
   PlayerPieceParent: {fileID: 868426217}
   EnemyPieceParent: {fileID: 1865951190}
-  ThunderScript: {fileID: 11500000, guid: a94601c89e64e7c42b6cd33aa42cef14, type: 3}
   StartSpawnCount: 5
 --- !u!4 &279717417
 Transform:
@@ -302,6 +300,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279717418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279717415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24863a77383e8de4d8d1de8d3653a8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialPieces:
+  - specialPieceType: 0
+    piecePrefab: {fileID: 2586757807563176191, guid: 0ec339ef09209ae4d93592b4938013e4,
+      type: 3}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 1
+    piecePrefab: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
+      type: 3}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 2
+    piecePrefab: {fileID: 2586757807563176191, guid: 662abd99e49630348b895c6388e17987,
+      type: 3}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 4
+    piecePrefab: {fileID: 2586757807563176191, guid: a17f654f28cf2ae468128e04a7b90197,
+      type: 3}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 5
+    piecePrefab: {fileID: 2586757807563176191, guid: b6d17c394b7f0b24ba1a54e28eb5bd71,
+      type: 3}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 7
+    piecePrefab: {fileID: 2586757807563176191, guid: 28cfccbdf007efb48a68b22f57ad9daa,
+      type: 3}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 8
+    piecePrefab: {fileID: 2586757807563176191, guid: b5f0da6a3a402494bb58098aaa28d911,
+      type: 3}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 0
+    piecePrefab: {fileID: 0}
+    pieceSprite: {fileID: 0}
+  - specialPieceType: 0
+    piecePrefab: {fileID: 0}
+    pieceSprite: {fileID: 0}
 --- !u!1 &281497078
 GameObject:
   m_ObjectHideFlags: 0

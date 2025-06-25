@@ -9,7 +9,7 @@ public class TwoSideGun : SpecialPieceCore
 
     public override void MoveStart(Action onMoveComplete)
     {
-        //Debug.Log("TwoSideGun MoveStart");
+        Debug.Log("TwoSideGun MoveStart");
         GameManager.Instance.board.DestroyPiece(PieceCell.x,PieceCell.y+1, playerValue);
         GameManager.Instance.board.DestroyPiece(PieceCell.x , PieceCell.y-1, playerValue);
 

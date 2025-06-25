@@ -9,6 +9,7 @@ public abstract class SpecialPieceCore : PieceMovePlayer
 {
     public void AddToList()
     {
+        Debug.Log("Adding to AllSpecialPiecesMove list: " + this.name); 
         AllSpecialPiecesMove.Instance.AddPiece(this);
     }
 
@@ -27,7 +28,7 @@ public abstract class SpecialPieceCore : PieceMovePlayer
     public override void ChangeCell(Cell cell)
     {
         base.ChangeCell(cell);
-        AddToList();
+        //AddToList();
     }
     public override void Back()
     {
@@ -43,6 +44,7 @@ public abstract class SpecialPieceCore : PieceMovePlayer
     {
         if (!IsPlaced&&_isPlaced)
         {
+
             AddToList();
         }
         base.Placed(_isPlaced);

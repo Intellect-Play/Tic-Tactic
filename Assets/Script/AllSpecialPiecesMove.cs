@@ -32,23 +32,24 @@ public class AllSpecialPiecesMove : MonoBehaviour
 
     public IEnumerator MoveSequentially(Action onAllComplete)
     {
+        Debug.Log("All pieces have finished moving.___"+ allMovePieces.Count);
 
-        foreach (var piece in allMovePieces)
+        for (int i = 0; i < allMovePieces.Count; i++)
         {
-           
-
             bool isDone = false;
-            piece.MoveStart(() =>
+            allMovePieces[i].MoveStart(() =>
             {
                 //Debug.Log($"Piece {piece.name} has finished moving.");
                 // Bu callback MoveEnd çağırıldıqda gələcək
                 isDone = true;
-                 // Parçanı siyahıdan sil
+                // Parçanı siyahıdan sil
             });
-
             // Gözlə bu piece bitirsin
             yield return new WaitUntil(() => isDone);
+            //Debug.Log($"Moving piece: {piece.name}");
         }
+       
+        Debug.Log("All pieces have finished moving.2");
         allMovePieces.Clear();
         onAllComplete?.Invoke();
     }

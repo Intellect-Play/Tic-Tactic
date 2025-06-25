@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
+        cellController.IsPlacedCellPieces();
         allSpecialPiecesMove.MoveSpecialPieces(() =>
         {
             EndTurnFunc();
@@ -120,7 +121,7 @@ public class GameManager : MonoBehaviour
         else {
             SwitchTurn();
         }
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.3f);
         aiController.MakeMove(currentPlayer);
         playerController.MakeMove(currentPlayer);
     }
