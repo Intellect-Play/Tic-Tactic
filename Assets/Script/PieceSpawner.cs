@@ -56,9 +56,9 @@ public class PieceSpawner : MonoBehaviour
     public void SpawnEnemyPieces(int count)
     {
         PieceType pieceType = PieceType.Enemy;
-        SpawnSpecialPiece(0, SpecialPieceType.TwoSideGun, "2SX", pieceType);
-        SpawnSpecialPiece(1, SpecialPieceType.Random, "RX", pieceType);
-        for (int i = 2; i < count; i++)
+        //SpawnSpecialPiece(0, SpecialPieceType.TwoSideGun, "2SX", pieceType);
+        //SpawnSpecialPiece(1, SpecialPieceType.Random, "RX", pieceType);
+        for (int i = 1; i < count; i++)
         {
             SpawnPlayerPiece(i, EnemyPiecePrefab, "X", pieceType);
 
@@ -71,12 +71,18 @@ public class PieceSpawner : MonoBehaviour
             //rect.anchoredPosition = new Vector2(-50f + i * 110f, -50f);
             //GameManager.Instance.aiController.GetAiPiece(piece.GetComponent<PieceBase>());
         }
-       
+        SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], pieceType);
+
+
     }
-    
-    public void SpawnSpecialPiece(int count,SpecialPieceType specialPieceType,string text,PieceType pieceType)
+
+    public void SpawnSpecialPiece(int count, SpecialPieceType specialPieceType,string text,PieceType pieceType)
     {
         SpawnPlayerPiece(count, specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType).piecePrefab, text,pieceType);
+    }
+    public void SpawnSpecialPieceEnemy(int count, string specialPieceType, string text, PieceType pieceType)
+    {
+        SpawnPlayerPiece(count, specialPieceController.specialPieces.Find(x => x.specialPieceType.ToString() == specialPieceType).piecePrefab, text, pieceType);
     }
     public void SpawnPlayerPiece(int i,GameObject gameObject,string text,PieceType pieceType)
     {

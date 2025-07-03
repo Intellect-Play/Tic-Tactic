@@ -20,6 +20,17 @@ public class AIController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        GameActions.Instance.OnStartGame += EnemyStart;
+    }
+    private void OnDisable()
+    {
+        GameActions.Instance.OnStartGame -= EnemyStart;
+    }
+    public void EnemyStart() { 
+    
+    }
 
     public void GetAiPiece(PieceBase piece)
     {

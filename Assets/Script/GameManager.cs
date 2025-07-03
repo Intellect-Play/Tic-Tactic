@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject GameFinish;
     [SerializeField] public TextMeshProUGUI FinishText;
     public PieceType currentPlayer;
-
+    public GameUnChangedData currenGameUnChangedData;
     private void Awake()
     {
         if (Instance == null)
@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.Current.CurrentLevel];
+
         GameActions.Instance.OnEndTurn += EndTurn;
         StartCoroutine(StartTime());
     }
@@ -132,7 +134,8 @@ public class GameManager : MonoBehaviour
     }
     public void DiedCase(PieceType pieceType)
     {
-
+        if(pieceType == PieceType.Enemy)SaveDataService.Current.CurrentLevel++;
+        SaveDataService.Save();
         StartCoroutine(FinishTime(pieceType.ToString() + " id Died"));
     }
     IEnumerator FinishTime(string WinPlayer)

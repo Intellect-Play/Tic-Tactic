@@ -25,9 +25,19 @@ public class Health : MonoBehaviour
             Destroy(this);
         }
     }
+
     private void Start()
     {
-        InitHealth(GameDatas.Instance.mainGameDatasSO.PlayerHealth,GameDatas.Instance.mainGameDatasSO.EnemyHealth);
+        GameActions.Instance.OnStartGame += StartHealth;
+    }
+    private void OnDisable()
+    {
+        GameActions.Instance.OnStartGame -= StartHealth;
+    }
+    public void StartHealth()
+    {
+        InitHealth(GameManager.Instance.currenGameUnChangedData.PlayerHP, GameManager.Instance.currenGameUnChangedData.EnemyHP);
+
     }
     public void InitHealth(int healthPlayer,int healthEnemy)
     {
