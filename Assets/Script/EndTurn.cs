@@ -17,6 +17,8 @@ public class EndTurn : MonoBehaviour
     }
     public void OnEndTurnButtonClicked()
     {
+        if(!GameManager.Instance.EndTurnButtonPressed) return;
+        GameManager.Instance.EndTurnButtonPressed = false;
         //Debug.Log("End Turn button clicked");
         GameActions.Instance.InvokeEndTurn();
     }

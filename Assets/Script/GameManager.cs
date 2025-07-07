@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public PieceType currentPlayer;
     public GameUnChangedData currenGameUnChangedData;
     public List<GameUnChangedData> gameUnChangedDatas;
-
+    public bool EndTurnButtonPressed = false;
     private void Awake()
     {
         if (Instance == null)
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        EndTurnButtonPressed = true;
     }
 
     private void Start()
@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
 
             }
             yield return new WaitForSeconds(1.3f);
+
             //ShowResult($"{winResult.winner} Wins!");
         }
         else if (board.IsFull())
@@ -124,6 +125,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         aiController.MakeMove(currentPlayer);
         playerController.MakeMove(currentPlayer);
+        //EndTurnButtonPressed = true;
+
     }
 
     private void ShowResult(string message)

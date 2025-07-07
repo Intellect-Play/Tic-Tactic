@@ -44,6 +44,6 @@ public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndD
                 return;
             }
         }
-        Back();
+        BackCell();
     }
 }

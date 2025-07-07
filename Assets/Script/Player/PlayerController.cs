@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
             currentPlayer.Back();
         }
         currentPlayer = piece;
-      
+        GameManager.Instance.EndTurnButtonPressed = true;
+
     }
     private void EndTurn() { 
         if(currentPlayer != null)

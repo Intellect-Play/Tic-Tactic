@@ -9,7 +9,6 @@ public abstract class SpecialPieceCore : PieceMovePlayer
 {
     public void AddToList()
     {
-        Debug.Log("Adding to AllSpecialPiecesMove list: " + this.name); 
         AllSpecialPiecesMove.Instance.AddPiece(this);
     }
 

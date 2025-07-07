@@ -87,7 +87,6 @@ public class Health : MonoBehaviour
     public void ChechkDiedCase()
     {
         if (!isLive) return;
-        Debug.Log("Checking Died Case");
          // Prevent further checks until the next game starts
         if (HealthEnemy <= 0)
         {

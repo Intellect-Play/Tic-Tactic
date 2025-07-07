@@ -25,6 +25,7 @@ public class PieceBase : MonoBehaviour
     public float moveDuration = 0.5f; 
     public Ease moveEase = Ease.OutBack; 
     public bool IsPlaced;
+    RectTransform targetCell;
     public virtual void Start()
     {
         moveDuration = GameDatas.Instance.mainGameDatasSO.MoveDuration;
@@ -98,7 +99,7 @@ public class PieceBase : MonoBehaviour
     public virtual void ChangeCellDelay(Cell cell)
     {
        
-        RectTransform targetCell = cell.GetComponent<RectTransform>();
+        targetCell = cell.GetComponent<RectTransform>();
         Vector3 worldTargetPos = targetCell.GetComponent<RectTransform>().position;
         PieceCell = cell;
         cell.SetValue(this);
@@ -122,6 +123,40 @@ public class PieceBase : MonoBehaviour
         //rectTransform.localPosition = originalPos;
         if(PieceCell != null)
             PieceCell.RemoveCell();
+
+    }
+    public virtual void BackCell()
+    {
+        //Debug.Log("Back to original position");
+        targetImage.raycastTarget = true;
+
+        if (PieceCell == null)
+        {
+            Debug.Log("No target cell, moving to original position");
+            transform.parent = originalParent;
+            rectTransform.DOLocalMove(originalPos, GameDatas.Instance.mainGameDatasSO.MoveDuration).SetEase(Ease.InOutQuad);
+        }
+        else
+        {
+            Debug.Log("Moving to target cell position");
+            Vector3 worldTargetPos = PieceCell.GetComponent<RectTransform>().position;
+            transform.SetParent(PieceCell.gameObject.transform);
+            rectTransform.anchoredPosition = Vector2.zero;
+            transform.parent = originalParent;
+
+            //rectTransform.DOLocalMove(worldTargetPos, GameDatas.Instance.mainGameDatasSO.MoveDuration).SetEase(Ease.InOutQuad).OnComplete (() =>
+            //{
+
+            //    //Debug.Log("Moved to target cell position");
+            //});            ;
+
+            // Mövcud rectTransform'u dünya mövqeyinə animasiya ilə apar
+
+        }
+
+
+        //rectTransform.localPosition = originalPos;
+
 
     }
     public virtual void PlayPopFade(float scaleAmount = 1.5f, float duration = 0.5f)
