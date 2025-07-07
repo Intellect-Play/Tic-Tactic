@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI FinishText;
     public PieceType currentPlayer;
     public GameUnChangedData currenGameUnChangedData;
+    public List<GameUnChangedData> gameUnChangedDatas;
+
     private void Awake()
     {
         if (Instance == null)
@@ -36,8 +39,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.Current.CurrentLevel];
-
+        gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
+        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.Current.CurrentLevel-1];
         GameActions.Instance.OnEndTurn += EndTurn;
         StartCoroutine(StartTime());
     }
@@ -87,7 +90,6 @@ public class GameManager : MonoBehaviour
     public void SwitchTurn()
     {
         currentPlayer = currentPlayer == PieceType.Player ? PieceType.Enemy : PieceType.Player;
-        Debug.Log("Switching turn to: " + currentPlayer);
         
     }
 
@@ -100,17 +102,14 @@ public class GameManager : MonoBehaviour
         {
             if(winResult.winner == PieceType.Player)
             {
-                Debug.Log("Player wins!");
                 enemyAttack.AttackPlayer(winResult.winCells);
             }
             else if (winResult.winner == PieceType.Enemy)
             {
                yield return new WaitForSeconds(.5f);
-               Debug.Log("Enemy wins!");
                 enemyAttack.AttackEnemy(winResult.winCells);
 
             }
-            Debug.Log($"{winResult.winner} Wins!");
             yield return new WaitForSeconds(1.3f);
             //ShowResult($"{winResult.winner} Wins!");
         }
@@ -118,7 +117,6 @@ public class GameManager : MonoBehaviour
         {
             board.CleanBoard();
             yield return new WaitForSeconds(2f);
-            ShowResult("Draw!");
         }
         else {
             SwitchTurn();
@@ -134,9 +132,25 @@ public class GameManager : MonoBehaviour
     }
     public void DiedCase(PieceType pieceType)
     {
-        if(pieceType == PieceType.Enemy)SaveDataService.Current.CurrentLevel++;
+        if (pieceType == PieceType.Enemy)SaveDataService.Current.CurrentLevel++;
+
+        if (currenGameUnChangedData.PlayerSpecialUnlock != "")
+        {
+           // Debug.Log("Player Special Unlock: " + currenGameUnChangedData.PlayerSpecialUnlock);
+
+            SaveDataService.Current.UnlockedWeapons.Add(currenGameUnChangedData.PlayerSpecialUnlock);
+        }
         SaveDataService.Save();
         StartCoroutine(FinishTime(pieceType.ToString() + " id Died"));
+    }
+
+    public void GameWin()
+    {
+        StartCoroutine(FinishTime("Game Over"));
+    }
+    public void GameLose()
+    {
+        StartCoroutine(FinishTime("Game Over"));
     }
     IEnumerator FinishTime(string WinPlayer)
     {

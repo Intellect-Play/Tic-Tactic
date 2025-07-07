@@ -3,90 +3,78 @@ using UnityEngine;
 
 public static class XOWinConditions
 {
+    private const int WinCount = 3;
+
     public static WinResult CheckWin(this List<Cell> board)
     {
-        PieceType winner = PieceType.Null;
-        List<Cell> winCells = new List<Cell>();
-        bool verticalBool = CheckRows(board, ref winner, ref winCells);
-        bool horizontalBool = CheckColumns(board, ref winner, ref winCells);
-        bool diagonalBool = CheckDiagonals(board, ref winner, ref winCells);
-
-        if (verticalBool || horizontalBool || diagonalBool)
+        int rowCount = GameDatas.Instance.mainGameDatasSO.BoardSizeY;
+        int colCount = GameDatas.Instance.mainGameDatasSO.BoardSizeX;
+        if (rowCount * colCount != board.Count)
         {
+            Debug.LogError("Invalid board: Dimensions do not match board size.");
+            return new WinResult(false, PieceType.Null, null);
+        }
+
+        List<Cell> winCells = new List<Cell>();
+        HashSet<int> visitedIndices = new HashSet<int>();
+
+        for (int y = 0; y < rowCount; y++)
+        {
+            for (int x = 0; x < colCount; x++)
+            {
+                var current = board[y * colCount + x];
+                if (current.cellValue == PieceType.Null)
+                    continue;
+
+                TryDirection(board, rowCount, colCount, x, y, 1, 0, current.cellValue, winCells, visitedIndices);  // →
+                TryDirection(board, rowCount, colCount, x, y, 0, 1, current.cellValue, winCells, visitedIndices);  // ↓
+                TryDirection(board, rowCount, colCount, x, y, 1, 1, current.cellValue, winCells, visitedIndices);  // ↘
+                TryDirection(board, rowCount, colCount, x, y, -1, 1, current.cellValue, winCells, visitedIndices); // ↙
+            }
+        }
+
+        if (winCells.Count > 0)
+        {
+            PieceType winner = winCells[0].cellValue;
             return new WinResult(true, winner, winCells);
         }
+
         return new WinResult(false, PieceType.Null, null);
     }
 
-    private static bool CheckRows(List<Cell> board, ref PieceType winner, ref List<Cell> winCells)
+    private static void TryDirection(List<Cell> board, int rowCount, int colCount, int startX, int startY, int stepX, int stepY, PieceType pieceType, List<Cell> winCells, HashSet<int> visited)
     {
-        for (int i = 0; i < 3; i++)
+        List<Cell> temp = new List<Cell>();
+        int x = startX;
+        int y = startY;
+
+        while (x >= 0 && x < colCount && y >= 0 && y < rowCount)
         {
-            int start = i * 3;
-            if (CheckValues(board[start], board[start + 1], board[start + 2], ref winner))
+            int index = y * colCount + x;
+            if (board[index].cellValue != pieceType)
+                break;
+
+            temp.Add(board[index]);
+            x += stepX;
+            y += stepY;
+        }
+
+        if (temp.Count >= WinCount)
+        {
+            foreach (var cell in temp)
             {
-                winCells.AddRange(new[] { board[start], board[start + 1], board[start + 2] });
-                return true;
+                int idx = board.IndexOf(cell);
+                if (!visited.Contains(idx))
+                {
+                    visited.Add(idx);
+                    winCells.Add(cell);
+                }
             }
         }
-       // winner = PieceType.Null;
-        return false;
     }
-
-    private static bool CheckColumns(List<Cell> board, ref PieceType winner,ref List<Cell> winCells)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (CheckValues(board[i], board[i + 3], board[i + 6], ref winner))
-            {
-                winCells.AddRange(new[] { board[i], board[i + 3], board[i + 6] });
-                return true;
-            }
-                
-        }
-        //winner = PieceType.Null;
-        return false;
-    }
-
-    private static bool CheckDiagonals(List<Cell> board, ref PieceType winner, ref List<Cell> winCells)
-    {
-        if (CheckValues(board[0], board[4], board[8], ref winner))
-        {
-            winCells.AddRange(new[] { board[0], board[4], board[8] });
-            return true;
-        }
-        ;
-        if (CheckValues(board[2], board[4], board[6], ref winner))
-        {
-            winCells.AddRange(new[] { board[2], board[4], board[6] });
-            return true;
-        }
-
-        //winner = PieceType.Null;
-        return false;
-    }
-
-    private static bool CheckValues(Cell a, Cell b, Cell c, ref PieceType winner)
-    {
-        if (a.cellValue == PieceType.Null || b.cellValue == PieceType.Null || c.cellValue == PieceType.Null)
-        {
-            //winner = PieceType.Null;
-            return false;
-        }
-
-        if (a.cellValue == b.cellValue && a.cellValue == c.cellValue)
-        {
-
-            winner = a.cellValue;
-            return true;
-        }
-
-        //winner = PieceType.Null;
-        return false;
-    }
-
- 
 }
+
+
 public struct WinResult
 {
     public bool hasWon;

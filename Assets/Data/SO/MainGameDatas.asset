@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d73e6684cf5bb439d4350fd239a465, type: 3}
   m_Name: MainGameDatas
   m_EditorClassIdentifier: 
-  BoardSize: 3
+  BoardSizeX: 4
+  BoardSizeY: 3
   SpawnCount: 3
   MoveDuration: 0.4
   PlayerHealth: 10

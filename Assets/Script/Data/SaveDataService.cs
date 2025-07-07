@@ -8,7 +8,7 @@ public class SaveData
     public int CurrentLevel = 1;
 
     // Əgər sonra açmaq istəsən:
-    // public List<int> UnlockedWeapons = new List<int>();
+     public List<string> UnlockedWeapons = new List<string>();
     // public List<int> WeaponLevels = new List<int>();
 }
 
@@ -16,7 +16,7 @@ public static class SaveDataService
 {
     private const string SaveKey = "SaveDataJson";
     public static SaveData Current { get; private set; }
-
+    
     static SaveDataService()
     {
         Load(); // İlk dəfə yüklənir
@@ -32,11 +32,14 @@ public static class SaveDataService
 
     public static void Load()
     {
+        //DeleteSave();
         if (PlayerPrefs.HasKey(SaveKey))
         {
             string json = PlayerPrefs.GetString(SaveKey);
             Current = JsonUtility.FromJson<SaveData>(json);
             Debug.Log("Game loaded: " + json);
+            if(Current.UnlockedWeapons.Count>0) Debug.Log("Game loaded: " + json + Current.UnlockedWeapons[0]);
+
         }
         else
         {

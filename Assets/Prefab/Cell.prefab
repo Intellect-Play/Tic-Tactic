@@ -135,3 +135,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellValue: 0
   _PlayerPiece: {fileID: 0}
+  x: 0
+  y: 0

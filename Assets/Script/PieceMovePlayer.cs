@@ -35,7 +35,6 @@ public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndD
           
             if (!cell.HasValue ||(cell.HasValue&&cell.cellValue==playerValue&&!cell._PlayerPiece.IsPlaced))
             {
-                Debug.Log("Change Piece");
                 PlayerController.Instance.GetPiece(this);
                 ChangeCell(cell);
 

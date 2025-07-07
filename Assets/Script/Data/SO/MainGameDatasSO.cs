@@ -7,7 +7,10 @@ using UnityEngine;
 public class MainGameDatasSO : ScriptableObject
 {
    
-    public int BoardSize;
+    //public int BoardSize;
+    public int BoardSizeX;
+    public int BoardSizeY;
+
     public int SpawnCount;
     public float MoveDuration;
     public int PlayerHealth;

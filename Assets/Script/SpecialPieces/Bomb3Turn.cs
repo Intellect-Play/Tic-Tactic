@@ -17,12 +17,10 @@ public class Bomb3Turn : SpecialPieceCore
         GameActions.Instance.OnEndTurn -= Turn;
     }
     public void Turn() {
-        Debug.Log("Bomb3Turn");
 
         turnCount++;
         if (turnCount >= 4)
         {
-            Debug.Log("Bomb3Turn Turn");
             AddToList();
             turnCount = 0;
         }
@@ -40,7 +38,6 @@ public class Bomb3Turn : SpecialPieceCore
 
     public override void MoveStart(Action onMoveComplete)
     {
-        Debug.Log("Bomb3Turn MoveStart");
         for (int dx = -1; dx <= 1; dx++)
         {
             for (int dy = -1; dy <= 1; dy++)

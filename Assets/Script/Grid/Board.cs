@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class Board : MonoBehaviour
 {
 
-    [SerializeField]private int boardSize;
+    [SerializeField]private int boardSizeX;
+    [SerializeField] private int boardSizeY;
+
     [SerializeField]private GameObject cellPrefab;
     GridLayoutGroup gridLayoutGroup;
     public List<Cell> Cells = new List<Cell>();
@@ -20,10 +22,12 @@ public class Board : MonoBehaviour
     }
     private void OnEnable()
     {
-        boardSize = GameDatas.Instance.mainGameDatasSO.BoardSize;
-        CellArray = new Cell[boardSize, boardSize];
+        boardSizeX = GameDatas.Instance.mainGameDatasSO.BoardSizeX;
+        boardSizeY = GameDatas.Instance.mainGameDatasSO.BoardSizeY;
+
+        CellArray = new Cell[boardSizeX, boardSizeY];
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
-        gridLayoutGroup.constraintCount = boardSize;
+        gridLayoutGroup.constraintCount = boardSizeX;
         GameActions.Instance.OnStartGame += Generate;
 
     }
@@ -35,31 +39,27 @@ public class Board : MonoBehaviour
 
     public void Generate()
     {
-        Debug.Log("Generate");
-        for (int i = 0; i < boardSize; i++)
+        for (int i = 0; i < boardSizeY; i++)
         {
-            for (int j = 0; j < boardSize; j++)
+            for (int j = 0; j < boardSizeX; j++)
             {
                 GameObject cellObject = Instantiate(cellPrefab, transform);
                 Cell cell = cellObject.GetComponent<Cell>();             
-                cell.Init(i, j);
+                cell.Init(j, i);
                 Cells.Add(cell);
-                CellArray[i,j] = cell;
+                CellArray[j,i] = cell;
             }
         }
     }
     public void DestroyPiece(int x, int y,PieceType pieceType)
     {
         Cell cell = GetCell(x, y);
-        Debug.Log($"Destroying piece at coordinates ({x}, {y}) with type {pieceType}.");
         if (cell == null)
         {
-            Debug.Log($"does not exist Cell at coordinates ({x}, {y}) .");
             return;
         }
         if (cell != null && cell._PlayerPiece != null&&cell._PlayerPiece.playerValue!=pieceType)
         {
-            Debug.Log($"Destroying piece at coordinates ({x}, {y})");
             cell._PlayerPiece.DestroyPiece();
         }
     }
@@ -78,7 +78,7 @@ public class Board : MonoBehaviour
     Cell GetCell(int x, int y)
     {
         //Debug.Log($"Getting cell at coordinates ({x}, {y})cdsc"+boardSize);
-        if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
+        if (x < 0 || x >= boardSizeX || y < 0 || y >= boardSizeY)
         {
             return null;
         }

@@ -25,5 +25,6 @@ public enum SpecialPieceType
     Plus2,
     ImMortal,
     Random,
-    Healer
+    Healer,
+    Flame
 }

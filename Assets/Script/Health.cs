@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
     public PieceType pieceType;
     [SerializeField] TextMeshProUGUI PlayerHealthText;
     [SerializeField] TextMeshProUGUI EnemyHealthText;
-
+    public bool isLive = true;
 
     private void Awake()
     {
@@ -24,6 +24,7 @@ public class Health : MonoBehaviour
         {
             Destroy(this);
         }
+        isLive = true;
     }
 
     private void Start()
@@ -85,12 +86,16 @@ public class Health : MonoBehaviour
 
     public void ChechkDiedCase()
     {
+        if (!isLive) return;
+        Debug.Log("Checking Died Case");
+         // Prevent further checks until the next game starts
         if (HealthEnemy <= 0)
         {
+            isLive = false;
             GameManager.Instance.DiedCase(PieceType.Enemy);
 
         } if (HealthPlayer <= 0) {
-
+            isLive = false;
             GameManager.Instance.DiedCase(PieceType.Player);
 
 

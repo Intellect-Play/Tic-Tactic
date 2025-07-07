@@ -32,7 +32,6 @@ public class AllSpecialPiecesMove : MonoBehaviour
 
     public IEnumerator MoveSequentially(Action onAllComplete)
     {
-        Debug.Log("All pieces have finished moving.___"+ allMovePieces.Count);
 
         for (int i = 0; i < allMovePieces.Count; i++)
         {
@@ -49,7 +48,6 @@ public class AllSpecialPiecesMove : MonoBehaviour
             //Debug.Log($"Moving piece: {piece.name}");
         }
        
-        Debug.Log("All pieces have finished moving.2");
         allMovePieces.Clear();
         onAllComplete?.Invoke();
     }

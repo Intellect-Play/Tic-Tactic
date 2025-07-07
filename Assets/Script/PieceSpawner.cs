@@ -37,19 +37,25 @@ public class PieceSpawner : MonoBehaviour
     public void SpawnPlayerPieces(int count)
     {
         PieceType pieceType = PieceType.Player;
-        for (int i = 0; i <= 1; i++)
+        for (int i = 1; i < count; i++)
         {
             SpawnPlayerPiece(i, PlayerPiecePrefab,"O", pieceType);
         }
-        SpawnSpecialPiece(3, SpecialPieceType.Healer, "+", pieceType);
+        if (SaveDataService.Current.UnlockedWeapons.Count > 0) {
+            string special = SaveDataService.Current.UnlockedWeapons[Random.Range(0, SaveDataService.Current.UnlockedWeapons.Count)];
+            SpawnSpecialPieceEnemy(0, special, special, pieceType);
+        }
+        
 
-        SpawnSpecialPiece(4,SpecialPieceType.Plus2,"-2", pieceType);
-        SpawnSpecialPiece(5,SpecialPieceType.Bomb3Turn,"3B", pieceType);    
-        SpawnSpecialPiece(6, SpecialPieceType.Snayper, "S", pieceType);
+        //SpawnSpecialPiece(3, SpecialPieceType.Healer, "+", pieceType);
 
-        SpawnSpecialPiece(7, SpecialPieceType.ThunderGun, "T", pieceType);
-        SpawnSpecialPiece(8, SpecialPieceType.TwoSideGun, "2S", pieceType);
-        SpawnSpecialPiece(2, SpecialPieceType.Random, "R",pieceType );
+        //SpawnSpecialPiece(4,SpecialPieceType.Plus2,"-2", pieceType);
+        //SpawnSpecialPiece(5,SpecialPieceType.Bomb3Turn,"3B", pieceType);    
+        //SpawnSpecialPiece(6, SpecialPieceType.Snayper, "S", pieceType);
+
+        //SpawnSpecialPiece(7, SpecialPieceType.ThunderGun, "T", pieceType);
+        //SpawnSpecialPiece(8, SpecialPieceType.TwoSideGun, "2S", pieceType);
+        //SpawnSpecialPiece(2, SpecialPieceType.Random, "R",pieceType );
 
 
     }
@@ -61,17 +67,8 @@ public class PieceSpawner : MonoBehaviour
         for (int i = 1; i < count; i++)
         {
             SpawnPlayerPiece(i, EnemyPiecePrefab, "X", pieceType);
-
-            //GameObject piece = Instantiate(EnemyPiecePrefab, EnemyPieceParent.transform);
-            //RectTransform rect = piece.GetComponent<RectTransform>();
-
-            //rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
-
-            //// Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)
-            //rect.anchoredPosition = new Vector2(-50f + i * 110f, -50f);
-            //GameManager.Instance.aiController.GetAiPiece(piece.GetComponent<PieceBase>());
         }
-        SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], pieceType);
+        SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], GameManager.Instance.currenGameUnChangedData.EnemySpecials[Random.Range(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials.Count)], pieceType);
 
 
     }
@@ -105,8 +102,9 @@ public class PieceSpawner : MonoBehaviour
         rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
 
         // Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)
-        rect.anchoredPosition = new Vector2(-150f + i * 110f, -50f);
+        rect.anchoredPosition = new Vector2(-150f + i * 200f, -50f);
         piece.GetComponent<PieceBase>().valueText.text = text; // Oyuncu parçalarının dəyərini göstərmək üçün
+        piece.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
     }
     public void SpawnPiece(GameObject piece, Transform parentTransform)
     {

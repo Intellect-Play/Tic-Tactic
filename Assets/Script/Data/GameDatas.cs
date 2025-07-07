@@ -21,10 +21,10 @@ public class GameDatas : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        //DeleteData();
         Instance = this;
-
-        SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas");
+        
+        SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas5");
         LoadData();
     }
 
@@ -51,7 +51,7 @@ public class GameDatas : MonoBehaviour
         {
             Debug.Log(Equals(null) ? "GameDataService is null" : "GameDataService is not null");
             // First time: copy from Resources to persistent path
-            TextAsset jsonAsset = Resources.Load<TextAsset>("GameData/GameUnChangedDatas");
+            TextAsset jsonAsset = Resources.Load<TextAsset>("GameData/GameUnChangedDatas5");
             if (File.Exists(SaveFilePath))
             {
                 File.Delete(SaveFilePath);
@@ -78,8 +78,30 @@ public class GameDatas : MonoBehaviour
         }
     }
 
-  
 
+    public void DeleteData()
+    {
+        try
+        {
+            // Yaddaşdakı Data obyektini təmizlə
+            Data = null;
+
+            // Fayl mövcuddursa sil
+            if (File.Exists(SaveFilePath))
+            {
+                File.Delete(SaveFilePath);
+                Debug.Log("Game data file deleted: " + SaveFilePath);
+            }
+            else
+            {
+                Debug.Log("No file to delete at path: " + SaveFilePath);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Failed to delete game data: " + ex.Message);
+        }
+    }
 
 
     public void SaveData()

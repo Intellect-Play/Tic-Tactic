@@ -1,6 +1,6 @@
 {
   "gameUnChangedDatas": [
-    { "CurrentLevel": 1, "PlayerHP": 7, "EnemyHP": 4, "EnemySpecials": ["ThunderGun"] ,"PlayerSpecialUnlock":[]},
+    { "CurrentLevel": 1, "PlayerHP": 7, "EnemyHP": 3, "EnemySpecials": ["ThunderGun"] ,"PlayerSpecialUnlock":["TwoSideGun"]},
     { "CurrentLevel": 2, "PlayerHP": 7, "EnemyHP": 4, "EnemySpecials": ["ThunderGun"] ,"PlayerSpecialUnlock":[]},
     { "CurrentLevel": 3, "PlayerHP": 7, "EnemyHP": 4, "EnemySpecials": ["ThunderGun"] ,"PlayerSpecialUnlock":[]},
     { "CurrentLevel": 4, "PlayerHP": 7, "EnemyHP": 6, "EnemySpecials": ["ThunderGun"] ,"PlayerSpecialUnlock":["ThunderGun"]},
