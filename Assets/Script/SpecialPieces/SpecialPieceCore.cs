@@ -1,12 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Script;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Animation))]
 public abstract class SpecialPieceCore : PieceMovePlayer
 {
+    public Animation anim;
+    public Sprite sprite;
+    public void SetupAnime(Animation animation = null)
+    {
+        if (anim == null)
+        {
+            anim = GetComponent<Animation>();
+        }
+        if (anim == null)
+        {
+            Debug.LogError("Animation component is missing on " + gameObject.name);
+        }
+    }
     public void AddToList()
     {
         AllSpecialPiecesMove.Instance.AddPiece(this);

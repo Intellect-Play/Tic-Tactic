@@ -12,7 +12,9 @@ public class SpecialPieceData
 {
     public SpecialPieceType specialPieceType; // Xüsusi parça tipi
     public GameObject piecePrefab;
-    public Sprite pieceSprite; // Xüsusi parça üçün sprite
+    public Object pieceSprite; // Xüsusi parça üçün sprite
+    public Animation EnemyAnime;
+    public Animation PlayerAnime;
 }
 
 public enum SpecialPieceType

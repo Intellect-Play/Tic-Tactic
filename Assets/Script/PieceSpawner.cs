@@ -103,8 +103,7 @@ public class PieceSpawner : MonoBehaviour
 
         // Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)
         rect.anchoredPosition = new Vector2(-150f + i * 200f, -50f);
-        piece.GetComponent<PieceBase>().valueText.text = text; // Oyuncu parçalarının dəyərini göstərmək üçün
-        piece.GetComponent<RectTransform>().localScale = new Vector2(1.5f, 1.5f);
+        piece.GetComponent<RectTransform>().localScale = new Vector2(2, 2);
     }
     public void SpawnPiece(GameObject piece, Transform parentTransform)
     {
