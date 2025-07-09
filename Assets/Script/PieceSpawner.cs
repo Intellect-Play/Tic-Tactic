@@ -79,9 +79,10 @@ public class PieceSpawner : MonoBehaviour
     }
     public void SpawnSpecialPieceEnemy(int count, string specialPieceType, string text, PieceType pieceType)
     {
-        SpawnPlayerPiece(count, specialPieceController.specialPieces.Find(x => x.specialPieceType.ToString() == specialPieceType).piecePrefab, text, pieceType);
+        SpecialPieceData specialPieceData = specialPieceController.specialPieces.Find(x => x.specialPieceType.ToString() == specialPieceType);
+        SpawnPlayerPiece(count, specialPieceData.piecePrefab, text, pieceType, specialPieceData);
     }
-    public void SpawnPlayerPiece(int i,GameObject gameObject,string text,PieceType pieceType)
+    public void SpawnPlayerPiece(int i,GameObject gameObject,string text,PieceType pieceType,SpecialPieceData specialPieceData=null)
     {
         GameObject piece;
         if (pieceType == PieceType.Enemy)
@@ -96,6 +97,7 @@ public class PieceSpawner : MonoBehaviour
             GameManager.Instance.playerController.playerPieces.Add(piece.GetComponent<PieceBase>());
 
         }
+
         RectTransform rect = piece.GetComponent<RectTransform>();
         piece.GetComponent<PieceBase>().playerValue = pieceType;
 
@@ -104,6 +106,10 @@ public class PieceSpawner : MonoBehaviour
         // Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)
         rect.anchoredPosition = new Vector2(-150f + i * 200f, -50f);
         piece.GetComponent<RectTransform>().localScale = new Vector2(2, 2);
+        if(specialPieceData != null)
+        {
+            piece.GetComponent<SpecialPieceCore>().SetupSpecial(specialPieceData);
+        }
     }
     public void SpawnPiece(GameObject piece, Transform parentTransform)
     {

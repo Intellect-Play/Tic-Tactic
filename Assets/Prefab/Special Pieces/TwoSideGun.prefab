@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5598440113508271502}
   - component: {fileID: 379722524233295756}
   - component: {fileID: 4915615667306293992}
+  - component: {fileID: 3747261036891459432}
   m_Layer: 5
   m_Name: TwoSideGun
   m_TagString: Untagged
@@ -114,6 +115,35 @@ MonoBehaviour:
   moveDuration: 0.5
   moveEase: 27
   IsPlaced: 0
+  anim: {fileID: 0}
+  sprite: {fileID: 0}
+  specialPieceData:
+    specialPieceType: 0
+    piecePrefab: {fileID: 0}
+    pieceSprite: {fileID: 0}
+    EnemyAnime: {fileID: 0}
+    PlayerAnime: {fileID: 0}
+--- !u!95 &3747261036891459432
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586757807563176191}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 84c2446a70237c841b893866a1a46f4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8393728940903512895
 GameObject:
   m_ObjectHideFlags: 0

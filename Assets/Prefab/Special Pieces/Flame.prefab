@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5598440113508271502}
   - component: {fileID: 379722524233295756}
   - component: {fileID: 3662126962307772209}
+  - component: {fileID: 516707116570499144}
   m_Layer: 5
   m_Name: Flame
   m_TagString: Untagged
@@ -114,6 +115,40 @@ MonoBehaviour:
   moveDuration: 0.5
   moveEase: 27
   IsPlaced: 0
+  animator: {fileID: 0}
+  overrideController: {fileID: 0}
+  sprite: {fileID: 0}
+  specialPieceData:
+    pieceName: 
+    specialPieceType: 0
+    piecePrefab: {fileID: 0}
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 0}
+--- !u!95 &516707116570499144
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586757807563176191}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: f3ae0706ed058b449aaa9d2ed43a4b97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8393728940903512895
 GameObject:
   m_ObjectHideFlags: 0

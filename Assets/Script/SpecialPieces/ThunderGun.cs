@@ -10,6 +10,7 @@ public class ThunderGun : SpecialPieceCore
     {
         base.Start();
         board = GameManager.Instance.board;
+        //anim.Play();
     }
     public override void MoveStart(Action onMoveComplete)
     {

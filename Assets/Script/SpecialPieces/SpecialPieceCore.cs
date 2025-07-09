@@ -1,23 +1,39 @@
-using System;
-
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(Animation))]
 public abstract class SpecialPieceCore : PieceMovePlayer
 {
-    public Animation anim;
+    public Animator animator;
+    public AnimatorOverrideController overrideController;
     public Sprite sprite;
-    public void SetupAnime(Animation animation = null)
+    public SpecialPieceData specialPieceData;   
+    public void SetupSpecial(SpecialPieceData _specialPieceData)
     {
-        if (anim == null)
+        GetComponent<Image>().sprite = _specialPieceData.XSprite;        
+        specialPieceData = _specialPieceData;
+        if (animator == null)
         {
-            anim = GetComponent<Animation>();
+            animator = GetComponent<Animator>();
         }
-        if (anim == null)
+        if (animator == null)
         {
             Debug.LogError("Animation component is missing on " + gameObject.name);
         }
+        overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        animator.runtimeAnimatorController = overrideController;
+        if (playerValue == PieceType.Enemy)
+        {
+            overrideController["IdlePlaceholder"] = _specialPieceData.EnemyAnimeIdle;
+            overrideController["Attack"] = _specialPieceData.EnemyAnimeAttack;
+        }
+        else
+        {
+            overrideController["IdlePlaceholder"] = _specialPieceData.PlayerAnimeIdle;
+            overrideController["Attack"] = _specialPieceData.PlayerAnimeAttack;
+        }
+        animator.Rebind();
     }
     public void AddToList()
     {

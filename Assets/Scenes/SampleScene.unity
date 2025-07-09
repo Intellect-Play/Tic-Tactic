@@ -236,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &133383698
 RectTransform:
   m_ObjectHideFlags: 0
@@ -251,10 +251,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1690764868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 600}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &133383699
 MonoBehaviour:
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3ece143e6f2ea3f49949664fcbf6d3ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -407,60 +407,96 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specialPieces:
-  - specialPieceType: 0
+  - pieceName: Two Side
+    specialPieceType: 0
     piecePrefab: {fileID: 2586757807563176191, guid: 0ec339ef09209ae4d93592b4938013e4,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 1
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: Thunder
+    specialPieceType: 1
     piecePrefab: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 2
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 7400000, guid: e62f3d3e0a44f03408ee781dfc12b3b6, type: 2}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 7400000, guid: b52a03a102331fa48b7dc53fb4698e06, type: 2}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: Bomb
+    specialPieceType: 2
     piecePrefab: {fileID: 2586757807563176191, guid: 662abd99e49630348b895c6388e17987,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 4
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: Snayper
+    specialPieceType: 4
     piecePrefab: {fileID: 2586757807563176191, guid: a17f654f28cf2ae468128e04a7b90197,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 5
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 7400000, guid: 984bb11c54622514d9df99200a5a2b5a, type: 2}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 7400000, guid: daa9a8f33557d0c4aa8d66402c520a3f, type: 2}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: Plus2
+    specialPieceType: 5
     piecePrefab: {fileID: 2586757807563176191, guid: b6d17c394b7f0b24ba1a54e28eb5bd71,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 7
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: Random
+    specialPieceType: 7
     piecePrefab: {fileID: 2586757807563176191, guid: 28cfccbdf007efb48a68b22f57ad9daa,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 8
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: Healer
+    specialPieceType: 8
     piecePrefab: {fileID: 2586757807563176191, guid: b5f0da6a3a402494bb58098aaa28d911,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 6
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: ImMortal
+    specialPieceType: 6
     piecePrefab: {fileID: 2586757807563176191, guid: 4e866570c9e1ece4d988ef7bba99fbdf,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
-  - specialPieceType: 9
+    OSprite: {fileID: 0}
+    XSprite: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 0}
+  - pieceName: Flame
+    specialPieceType: 9
     piecePrefab: {fileID: 2586757807563176191, guid: ea4ad45d4902acf4ba5e10b8ac4535d3,
       type: 3}
-    pieceSprite: {fileID: 0}
-    EnemyAnime: {fileID: 0}
-    PlayerAnime: {fileID: 0}
+    OSprite: {fileID: 21300000, guid: f1f6de853d2cd5c44b74b2de1c45d5b4, type: 3}
+    XSprite: {fileID: 21300000, guid: d95d3b3d9609bb14d82c7f169629ac20, type: 3}
+    EnemyAnimeIdle: {fileID: 7400000, guid: 3967276adf6e443439734fc8ce566e86, type: 2}
+    EnemyAnimeAttack: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 7400000, guid: 8747bbe1a46de56499399dd1eba0e384, type: 2}
+    PlayerAnimeAttack: {fileID: 0}
 --- !u!1 &281497078
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,21 +589,6 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6128354246202465928, guid: 13c1181b48d0d1c419b43de573c40b09,
-        type: 3}
-      propertyPath: m_Animation
-      value: 
-      objectReference: {fileID: 7400000, guid: 24c8576570a7bdb47901fd54c63cbff5, type: 2}
-    - target: {fileID: 6128354246202465928, guid: 13c1181b48d0d1c419b43de573c40b09,
-        type: 3}
-      propertyPath: m_Animations.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6128354246202465928, guid: 13c1181b48d0d1c419b43de573c40b09,
-        type: 3}
-      propertyPath: m_Animations.Array.data[0]
-      value: 
-      objectReference: {fileID: 7400000, guid: 24c8576570a7bdb47901fd54c63cbff5, type: 2}
     - target: {fileID: 6770460679303489472, guid: 13c1181b48d0d1c419b43de573c40b09,
         type: 3}
       propertyPath: m_Pivot.x
@@ -672,7 +693,7 @@ PrefabInstance:
         type: 3}
       propertyPath: anim
       value: 
-      objectReference: {fileID: 1267977913}
+      objectReference: {fileID: 0}
     - target: {fileID: 7407265794269867110, guid: 13c1181b48d0d1c419b43de573c40b09,
         type: 3}
       propertyPath: valueText
@@ -1792,12 +1813,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 414527553}
   m_PrefabAsset: {fileID: 0}
---- !u!111 &1267977913 stripped
-Animation:
-  m_CorrespondingSourceObject: {fileID: 6128354246202465928, guid: 13c1181b48d0d1c419b43de573c40b09,
-    type: 3}
-  m_PrefabInstance: {fileID: 414527553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1267977918
 Animator:
   serializedVersion: 5
@@ -1808,7 +1823,7 @@ Animator:
   m_GameObject: {fileID: 1267977911}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: feee9ee4beaddec45826021e1d6808ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

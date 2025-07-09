@@ -10,11 +10,19 @@ public class SpecialPieceController : MonoBehaviour
 [System.Serializable]
 public class SpecialPieceData
 {
+    public string pieceName; // Parçanın adı
     public SpecialPieceType specialPieceType; // Xüsusi parça tipi
     public GameObject piecePrefab;
-    public Object pieceSprite; // Xüsusi parça üçün sprite
-    public Animation EnemyAnime;
-    public Animation PlayerAnime;
+    public Sprite OSprite; // Xüsusi parça üçün sprite
+    public Sprite XSprite; // Xüsusi parça üçün sprite
+
+    [Header("O Animations")]
+    public AnimationClip EnemyAnimeIdle;
+    public AnimationClip EnemyAnimeAttack;
+
+    [Header("X Animations")]
+    public AnimationClip PlayerAnimeIdle;
+    public AnimationClip PlayerAnimeAttack;
 }
 
 public enum SpecialPieceType
