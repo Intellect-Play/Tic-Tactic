@@ -423,9 +423,9 @@ MonoBehaviour:
       type: 3}
     OSprite: {fileID: 0}
     XSprite: {fileID: 0}
-    EnemyAnimeIdle: {fileID: 7400000, guid: e62f3d3e0a44f03408ee781dfc12b3b6, type: 2}
+    EnemyAnimeIdle: {fileID: 7400000, guid: 097fdb49ac2fe1c4eb68d781018fc7b8, type: 2}
     EnemyAnimeAttack: {fileID: 0}
-    PlayerAnimeIdle: {fileID: 7400000, guid: b52a03a102331fa48b7dc53fb4698e06, type: 2}
+    PlayerAnimeIdle: {fileID: 7400000, guid: 5bc23f3c40366c3489b300ac4ecb7e7c, type: 2}
     PlayerAnimeAttack: {fileID: 0}
   - pieceName: Bomb
     specialPieceType: 2
@@ -443,9 +443,9 @@ MonoBehaviour:
       type: 3}
     OSprite: {fileID: 0}
     XSprite: {fileID: 0}
-    EnemyAnimeIdle: {fileID: 7400000, guid: 984bb11c54622514d9df99200a5a2b5a, type: 2}
+    EnemyAnimeIdle: {fileID: 7400000, guid: f59b8da12f88fcd49a401f4d595b0053, type: 2}
     EnemyAnimeAttack: {fileID: 0}
-    PlayerAnimeIdle: {fileID: 7400000, guid: daa9a8f33557d0c4aa8d66402c520a3f, type: 2}
+    PlayerAnimeIdle: {fileID: 7400000, guid: a62ee7b73f9968c4b98e2a17d68d1a8e, type: 2}
     PlayerAnimeAttack: {fileID: 0}
   - pieceName: Plus2
     specialPieceType: 5
@@ -473,20 +473,20 @@ MonoBehaviour:
       type: 3}
     OSprite: {fileID: 0}
     XSprite: {fileID: 0}
-    EnemyAnimeIdle: {fileID: 0}
+    EnemyAnimeIdle: {fileID: 7400000, guid: e05f816f32c263c44a5bc32fd3b13514, type: 2}
     EnemyAnimeAttack: {fileID: 0}
-    PlayerAnimeIdle: {fileID: 0}
+    PlayerAnimeIdle: {fileID: 7400000, guid: fc457b278ddb92d4488105b5e1bc0f1f, type: 2}
     PlayerAnimeAttack: {fileID: 0}
   - pieceName: ImMortal
     specialPieceType: 6
     piecePrefab: {fileID: 2586757807563176191, guid: 4e866570c9e1ece4d988ef7bba99fbdf,
       type: 3}
-    OSprite: {fileID: 0}
-    XSprite: {fileID: 0}
+    OSprite: {fileID: 21300000, guid: 99582a9f3cf4f4c45b6cd5740375634e, type: 3}
+    XSprite: {fileID: 21300000, guid: 73aaf77453b33ea4bb0a67a001ab6078, type: 3}
     EnemyAnimeIdle: {fileID: 0}
-    EnemyAnimeAttack: {fileID: 0}
+    EnemyAnimeAttack: {fileID: 7400000, guid: 65b69b2d267d1894fb53c58a9915c87d, type: 2}
     PlayerAnimeIdle: {fileID: 0}
-    PlayerAnimeAttack: {fileID: 0}
+    PlayerAnimeAttack: {fileID: 7400000, guid: 7b13e506e4695294e986221c59155e10, type: 2}
   - pieceName: Flame
     specialPieceType: 9
     piecePrefab: {fileID: 2586757807563176191, guid: ea4ad45d4902acf4ba5e10b8ac4535d3,
@@ -577,6 +577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thunder
+      objectReference: {fileID: 0}
+    - target: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5598440113508271502, guid: 13c1181b48d0d1c419b43de573c40b09,
         type: 3}

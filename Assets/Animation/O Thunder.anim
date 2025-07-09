@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: O_Thunder
+  m_Name: O Thunder
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -24,32 +24,32 @@ AnimationClip:
       value: {fileID: 21300000, guid: 467ecf96e66e44745a56b32d5f40619a, type: 3}
     - time: 0.083333336
       value: {fileID: 21300000, guid: b0dc220cff07be84bbe38d592c1ef3c3, type: 3}
-    - time: 0.16666667
+    - time: 0.18333334
       value: {fileID: 21300000, guid: ab4eb1c4c72a95a46a4945510b2c4fc4, type: 3}
-    - time: 0.25
+    - time: 0.26666668
       value: {fileID: 21300000, guid: b89e911f0263f1746b63e6828c92e1ec, type: 3}
-    - time: 0.33333334
+    - time: 0.35
       value: {fileID: 21300000, guid: fe9ef0696d71c254b8146e9966379d93, type: 3}
-    - time: 0.41666666
+    - time: 0.45
       value: {fileID: 21300000, guid: f61c23a9de4941849971c2ee3b4c12fa, type: 3}
-    - time: 0.5
+    - time: 0.53333336
       value: {fileID: 21300000, guid: e9d8582259757204995dcf52a926e8c3, type: 3}
-    - time: 0.5833333
+    - time: 0.6333333
       value: {fileID: 21300000, guid: 1e5afa0a20719dc4989116f50ca867f2, type: 3}
-    - time: 0.6666667
+    - time: 0.71666664
       value: {fileID: 21300000, guid: 361d35eaaf25ef14bbda745b5ce75ba1, type: 3}
-    - time: 0.75
+    - time: 0.8
       value: {fileID: 21300000, guid: 95ac557108e0a95419b086330095e1ce, type: 3}
-    - time: 0.8333333
+    - time: 0.9
       value: {fileID: 21300000, guid: 7934635723d99e8419cf87c3b94a4f41, type: 3}
-    - time: 0.9166667
+    - time: 0.98333335
       value: {fileID: 21300000, guid: 36f7f34dda49d97419a1914d265e0eb1, type: 3}
     attribute: m_Sprite
     path: 
-    classID: 212
-    script: {fileID: 0}
+    classID: 114
+    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 2
-  m_SampleRate: 12
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -58,10 +58,10 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
+      attribute: 2015549526
+      script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+      typeID: 114
+      customType: 0
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0

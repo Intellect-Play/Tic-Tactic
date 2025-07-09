@@ -44,8 +44,14 @@ public class PieceSpawner : MonoBehaviour
         if (SaveDataService.Current.UnlockedWeapons.Count > 0) {
             string special = SaveDataService.Current.UnlockedWeapons[Random.Range(0, SaveDataService.Current.UnlockedWeapons.Count)];
             SpawnSpecialPieceEnemy(0, special, special, pieceType);
+            //SpawnSpecialPieceEnemy(0, special, special, pieceType);
+            //SpawnSpecialPieceEnemy(0, special, special, pieceType);
+            SpawnSpecialPieceEnemy(3, SpecialPieceType.ThunderGun.ToString(), "T", pieceType);
+            SpawnSpecialPieceEnemy(4, SpecialPieceType.Healer.ToString(), "T", pieceType);
+            SpawnSpecialPieceEnemy(5, SpecialPieceType.Snayper.ToString(), "T", pieceType);
+
         }
-        
+
 
         //SpawnSpecialPiece(3, SpecialPieceType.Healer, "+", pieceType);
 
@@ -64,7 +70,7 @@ public class PieceSpawner : MonoBehaviour
         PieceType pieceType = PieceType.Enemy;
         //SpawnSpecialPiece(0, SpecialPieceType.TwoSideGun, "2SX", pieceType);
         //SpawnSpecialPiece(1, SpecialPieceType.Random, "RX", pieceType);
-        for (int i = 1; i < count; i++)
+        for (int i = 2; i < count; i++)
         {
             SpawnPlayerPiece(i, EnemyPiecePrefab, "X", pieceType);
         }
