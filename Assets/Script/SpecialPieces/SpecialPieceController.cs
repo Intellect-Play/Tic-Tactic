@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpecialPieceController : MonoBehaviour
 {
     public List<SpecialPieceData> specialPieces; // Xüsusi parçaların siyahısı
+
+    
 }
 
 [System.Serializable]
@@ -16,6 +18,9 @@ public class SpecialPieceData
     public Sprite OSprite; // Xüsusi parça üçün sprite
     public Sprite XSprite; // Xüsusi parça üçün sprite
 
+    public ParticleSystem SpecialParticleEffect; // O üçün xüsusi effekt
+    public GameObject SpecialAnimeEffect; // O üçün xüsusi effekt
+
     [Header("O Animations")]
     public AnimationClip EnemyAnimeIdle;
     public AnimationClip EnemyAnimeAttack;
@@ -23,6 +28,13 @@ public class SpecialPieceData
     [Header("X Animations")]
     public AnimationClip PlayerAnimeIdle;
     public AnimationClip PlayerAnimeAttack;
+
+    [Header("Bomb")]
+    [Header("Bomb O")]
+    public List<AnimationClip> EnemyBombs;
+    [Header("Bomb X")]
+    public List<AnimationClip> PlayerBombs;
+
 }
 
 public enum SpecialPieceType

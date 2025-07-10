@@ -8,7 +8,15 @@ public abstract class SpecialPieceCore : PieceMovePlayer
     public Animator animator;
     public AnimatorOverrideController overrideController;
     public Sprite sprite;
-    public SpecialPieceData specialPieceData;   
+    public SpecialPieceData specialPieceData;
+
+    public override void Start()
+    {
+        base.Start();
+
+        GetComponent<RectTransform>().localScale = new Vector2(2f, 2f);
+
+    }
     public void SetupSpecial(SpecialPieceData _specialPieceData)
     {
         GetComponent<Image>().sprite = _specialPieceData.XSprite;        
@@ -25,15 +33,37 @@ public abstract class SpecialPieceCore : PieceMovePlayer
         animator.runtimeAnimatorController = overrideController;
         if (playerValue == PieceType.Enemy)
         {
-            overrideController["IdlePlaceholder"] = _specialPieceData.EnemyAnimeIdle;
-            overrideController["Attack"] = _specialPieceData.EnemyAnimeAttack;
+            overrideController["IdlePlaceholder"] = specialPieceData.EnemyAnimeIdle;
+            overrideController["AttackPlaceholder"] = specialPieceData.EnemyAnimeAttack;
         }
         else
         {
-            overrideController["IdlePlaceholder"] = _specialPieceData.PlayerAnimeIdle;
-            overrideController["Attack"] = _specialPieceData.PlayerAnimeAttack;
+            overrideController["IdlePlaceholder"] = specialPieceData.PlayerAnimeIdle;
+            overrideController["AttackPlaceholder"] = specialPieceData.PlayerAnimeAttack;
+
+        }
+       // animator.Rebind();
+
+        if (_specialPieceData.EnemyBombs.Count > 0 && playerValue == PieceType.Enemy)
+        {
+            Debug.Log("Enemy Bombs Count: " + specialPieceData.EnemyBombs.Count);
+            overrideController["BombPlaceholder1"] = specialPieceData.EnemyBombs[0];
+            overrideController["BombPlaceholder2"] = specialPieceData.EnemyBombs[1];
+            overrideController["BombPlaceholder3"] = specialPieceData.EnemyBombs[1];
+
+            //animator.SetTrigger("Bomb");
+        }
+        else if (_specialPieceData.PlayerBombs.Count > 0 && playerValue == PieceType.Player)
+        {
+            Debug.Log("Player Bombs Count: " + _specialPieceData.PlayerBombs.Count);
+            overrideController["BombPlaceholder1"] = specialPieceData.PlayerBombs[0];
+            overrideController["BombPlaceholder2"] = specialPieceData.PlayerBombs[1];
+            overrideController["BombPlaceholder3"] = specialPieceData.PlayerBombs[2];
+     
+
         }
         animator.Rebind();
+
     }
     public void AddToList()
     {

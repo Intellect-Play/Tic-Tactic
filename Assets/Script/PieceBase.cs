@@ -28,6 +28,8 @@ public class PieceBase : MonoBehaviour
     RectTransform targetCell;
     public virtual void Start()
     {
+        GetComponent<RectTransform>().localScale = new Vector2(1.8f, 1.8f);
+
         moveDuration = GameDatas.Instance.mainGameDatasSO.MoveDuration;
         IsPlaced = false;
         targetImage = GetComponent<Image>();

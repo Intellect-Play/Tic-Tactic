@@ -7,6 +7,8 @@ public class Plus2 : SpecialPieceCore
 {
     public override void AttackDestroy(RectTransform targetPosition)
     {
+        animator.SetTrigger("Attack");
+
         Health.Instance.Damage(2, playerValue);
         DestroyPiece();
         //rectTransform.DOMove(targetPosition.position, moveDuration)

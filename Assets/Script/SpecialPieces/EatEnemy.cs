@@ -21,6 +21,8 @@ public class EatEnemy : SpecialPieceCore
         turnCount++;
         if (turnCount >= 4)
         {
+            animator.SetTrigger("Attack");
+
             AddToList();
             turnCount = 0;
         }

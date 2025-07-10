@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        currentPlayer = PieceType.Player;
         gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
         currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.Current.CurrentLevel-1];
         GameActions.Instance.OnEndTurn += EndTurn;
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
     public void SwitchTurn()
     {
         currentPlayer = currentPlayer == PieceType.Player ? PieceType.Enemy : PieceType.Player;
+        Debug.Log("Switching turn to: " + currentPlayer);
         
     }
 

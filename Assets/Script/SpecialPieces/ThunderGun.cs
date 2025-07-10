@@ -14,6 +14,8 @@ public class ThunderGun : SpecialPieceCore
     }
     public override void MoveStart(Action onMoveComplete)
     {
+        animator.SetTrigger("Attack");
+
         Debug.Log("TwoSideGun MoveStart");
         board.DestroyPiece(PieceCell.x + 1, PieceCell.y + 1, playerValue);
         board.DestroyPiece(PieceCell.x + 1, PieceCell.y - 1, playerValue);

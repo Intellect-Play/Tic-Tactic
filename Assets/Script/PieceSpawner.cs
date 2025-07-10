@@ -46,9 +46,9 @@ public class PieceSpawner : MonoBehaviour
             SpawnSpecialPieceEnemy(0, special, special, pieceType);
             //SpawnSpecialPieceEnemy(0, special, special, pieceType);
             //SpawnSpecialPieceEnemy(0, special, special, pieceType);
-            SpawnSpecialPieceEnemy(3, SpecialPieceType.ThunderGun.ToString(), "T", pieceType);
-            SpawnSpecialPieceEnemy(4, SpecialPieceType.Healer.ToString(), "T", pieceType);
-            SpawnSpecialPieceEnemy(5, SpecialPieceType.Snayper.ToString(), "T", pieceType);
+            SpawnSpecialPieceEnemy(3, SpecialPieceType.Bomb3Turn.ToString(), "T", pieceType);
+            SpawnSpecialPieceEnemy(4, SpecialPieceType.Random.ToString(), "T", pieceType);
+            SpawnSpecialPieceEnemy(5, SpecialPieceType.ImMortal.ToString(), "T", pieceType);
 
         }
 
@@ -70,7 +70,7 @@ public class PieceSpawner : MonoBehaviour
         PieceType pieceType = PieceType.Enemy;
         //SpawnSpecialPiece(0, SpecialPieceType.TwoSideGun, "2SX", pieceType);
         //SpawnSpecialPiece(1, SpecialPieceType.Random, "RX", pieceType);
-        for (int i = 2; i < count; i++)
+        for (int i = 1; i < count; i++)
         {
             SpawnPlayerPiece(i, EnemyPiecePrefab, "X", pieceType);
         }

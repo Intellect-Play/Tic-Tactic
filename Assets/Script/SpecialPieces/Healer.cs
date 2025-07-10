@@ -6,6 +6,8 @@ public class Healer : SpecialPieceCore
 {
     public override void AttackDestroy(RectTransform targetPosition)
     {
+        animator.SetTrigger("Attack");
+
         Health.Instance.Heal(1, playerValue);
 
         base.AttackDestroy(targetPosition);

@@ -12,6 +12,8 @@ public class Snayper : SpecialPieceCore
     }
     public override void MoveStart(Action onMoveComplete)
     {
+        animator.SetTrigger("Attack");
+
         PieceType pieceType = playerValue == PieceType.Player ? PieceType.Enemy : PieceType.Player;
         List<Cell> EnemyCells = board.Cells.FindAll(c => c._PlayerPiece != null&& c._PlayerPiece.playerValue== pieceType);
         Debug.Log("Snayper MoveStart: " + EnemyCells.Count + " cells found for piece type: " + pieceType);

@@ -5,6 +5,8 @@ public class RandomPiece : SpecialPieceCore
 {
     public override void AttackDestroy(RectTransform targetPosition)
     {
+        animator.SetTrigger("Attack");
+
         Health.Instance.Damage(UnityEngine.Random.Range(1,6), playerValue);
         DestroyPiece();
         //rectTransform.DOMove(targetPosition.position, moveDuration)

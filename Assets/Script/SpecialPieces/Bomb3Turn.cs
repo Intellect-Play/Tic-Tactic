@@ -18,12 +18,21 @@ public class Bomb3Turn : SpecialPieceCore
     }
     public void Turn() {
 
+        Debug.Log(GameManager.Instance.currentPlayer);
+        if (GameManager.Instance.currentPlayer != playerValue) return;
         turnCount++;
-        if (turnCount >= 4)
+        Debug.Log("Bomb3Turn Turn: " + turnCount);
+        if (turnCount >= 3)
         {
+            Debug.Log("Bomb3Turn Turn  END: " + turnCount);
+
+            animator.SetTrigger("Attack");
+
             AddToList();
             turnCount = 0;
         }
+        else animator.SetTrigger("Bomb" + turnCount);
+
     }
     public override void Placed(bool _isPlaced)
     {
