@@ -18,15 +18,13 @@ public class Bomb3Turn : SpecialPieceCore
     }
     public void Turn() {
 
-        Debug.Log(GameManager.Instance.currentPlayer);
         if (GameManager.Instance.currentPlayer != playerValue) return;
         turnCount++;
-        Debug.Log("Bomb3Turn Turn: " + turnCount);
         if (turnCount >= 3)
         {
-            Debug.Log("Bomb3Turn Turn  END: " + turnCount);
 
             animator.SetTrigger("Attack");
+            animator.SetTrigger("FinalIdle");
 
             AddToList();
             turnCount = 0;
@@ -45,8 +43,17 @@ public class Bomb3Turn : SpecialPieceCore
         IsPlaced = _isPlaced;
     }
 
+
+
     public override void MoveStart(Action onMoveComplete)
     {
+        StartCoroutine(WaitForAttackComplete(onMoveComplete));
+    }
+    IEnumerator WaitForAttackComplete(Action onMoveComplete)
+    {
+      
+        yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
+
         for (int dx = -1; dx <= 1; dx++)
         {
             for (int dy = -1; dy <= 1; dy++)
@@ -57,11 +64,12 @@ public class Bomb3Turn : SpecialPieceCore
 
                 int targetX = PieceCell.x + dx;
                 int targetY = PieceCell.y + dy;
+                if (targetX < 0 || targetX >= GameManager.Instance.board.boardSizeX || targetY < 0 || targetY >= GameManager.Instance.board.boardSizeY)
+                    continue;
 
-                GameManager.Instance.board.DestroyPiece(targetX, targetY, playerValue);
+                GameManager.Instance.board.DestroyPiece(targetX, targetY, playerValue, specialPieceData);
             }
         }
-
         MoveEnd(onMoveComplete);
     }
 }

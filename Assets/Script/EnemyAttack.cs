@@ -40,6 +40,5 @@ public class EnemyAttack : MonoBehaviour
             yield return new WaitForSeconds(.1f); 
         }
         // Implement attack logic here
-        Debug.Log("Enemy attacks!");
     }
 }

@@ -39,29 +39,21 @@ public class PieceSpawner : MonoBehaviour
         PieceType pieceType = PieceType.Player;
         for (int i = 1; i < count; i++)
         {
-            SpawnPlayerPiece(i, PlayerPiecePrefab,"O", pieceType);
+            SpawnPlayerPiece(i, PlayerPiecePrefab, pieceType);
         }
         if (SaveDataService.Current.UnlockedWeapons.Count > 0) {
             string special = SaveDataService.Current.UnlockedWeapons[Random.Range(0, SaveDataService.Current.UnlockedWeapons.Count)];
-            SpawnSpecialPieceEnemy(0, special, special, pieceType);
+            SpawnSpecialPieceEnemy(0, special, pieceType);
             //SpawnSpecialPieceEnemy(0, special, special, pieceType);
             //SpawnSpecialPieceEnemy(0, special, special, pieceType);
-            SpawnSpecialPieceEnemy(3, SpecialPieceType.Bomb3Turn.ToString(), "T", pieceType);
-            SpawnSpecialPieceEnemy(4, SpecialPieceType.Random.ToString(), "T", pieceType);
-            SpawnSpecialPieceEnemy(5, SpecialPieceType.ImMortal.ToString(), "T", pieceType);
+            SpawnSpecialPieceEnemy(3, SpecialPieceType.Flame.ToString(), pieceType);
+            SpawnSpecialPieceEnemy(4, SpecialPieceType.ThunderGun.ToString(), pieceType);
+            SpawnSpecialPieceEnemy(5, SpecialPieceType.Bomb3Turn.ToString(), pieceType);
 
         }
 
 
-        //SpawnSpecialPiece(3, SpecialPieceType.Healer, "+", pieceType);
 
-        //SpawnSpecialPiece(4,SpecialPieceType.Plus2,"-2", pieceType);
-        //SpawnSpecialPiece(5,SpecialPieceType.Bomb3Turn,"3B", pieceType);    
-        //SpawnSpecialPiece(6, SpecialPieceType.Snayper, "S", pieceType);
-
-        //SpawnSpecialPiece(7, SpecialPieceType.ThunderGun, "T", pieceType);
-        //SpawnSpecialPiece(8, SpecialPieceType.TwoSideGun, "2S", pieceType);
-        //SpawnSpecialPiece(2, SpecialPieceType.Random, "R",pieceType );
 
 
     }
@@ -70,25 +62,25 @@ public class PieceSpawner : MonoBehaviour
         PieceType pieceType = PieceType.Enemy;
         //SpawnSpecialPiece(0, SpecialPieceType.TwoSideGun, "2SX", pieceType);
         //SpawnSpecialPiece(1, SpecialPieceType.Random, "RX", pieceType);
-        for (int i = 1; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
-            SpawnPlayerPiece(i, EnemyPiecePrefab, "X", pieceType);
-        }
-        SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], GameManager.Instance.currenGameUnChangedData.EnemySpecials[Random.Range(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials.Count)], pieceType);
+            SpawnPlayerPiece(i, EnemyPiecePrefab, pieceType);
+        }  
+        // SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], pieceType);
 
 
     }
 
-    public void SpawnSpecialPiece(int count, SpecialPieceType specialPieceType,string text,PieceType pieceType)
+    public void SpawnSpecialPiece(int count, SpecialPieceType specialPieceType,PieceType pieceType)
     {
-        SpawnPlayerPiece(count, specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType).piecePrefab, text,pieceType);
+        SpawnPlayerPiece(count, specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType).piecePrefab, pieceType);
     }
-    public void SpawnSpecialPieceEnemy(int count, string specialPieceType, string text, PieceType pieceType)
+    public void SpawnSpecialPieceEnemy(int count, string specialPieceType, PieceType pieceType)
     {
         SpecialPieceData specialPieceData = specialPieceController.specialPieces.Find(x => x.specialPieceType.ToString() == specialPieceType);
-        SpawnPlayerPiece(count, specialPieceData.piecePrefab, text, pieceType, specialPieceData);
+        SpawnPlayerPiece(count, specialPieceData.piecePrefab, pieceType, specialPieceData);
     }
-    public void SpawnPlayerPiece(int i,GameObject gameObject,string text,PieceType pieceType,SpecialPieceData specialPieceData=null)
+    public void SpawnPlayerPiece(int i,GameObject gameObject,PieceType pieceType,SpecialPieceData specialPieceData=null)
     {
         GameObject piece;
         if (pieceType == PieceType.Enemy)

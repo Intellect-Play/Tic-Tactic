@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Plus2 : SpecialPieceCore
 {
+    public override void Start()
+    {
+        base.Start();
+        GetComponent<RectTransform>().localScale = new Vector2(1.8f, 1.8f);
+    }
     public override void AttackDestroy(RectTransform targetPosition)
     {
         animator.SetTrigger("Attack");

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +13,17 @@ public class TwoSideGun : SpecialPieceCore
 
     public override void MoveStart(Action onMoveComplete)
     {
+        StartCoroutine(WaitForAttackComplete(onMoveComplete));
+    }
+    IEnumerator WaitForAttackComplete(Action onMoveComplete)
+    {
         animator.SetTrigger("Attack");
+        animator.SetTrigger("FinalIdle");
+        yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
         Debug.Log("TwoSideGun MoveStart");
-        GameManager.Instance.board.DestroyPiece(PieceCell.x+1,PieceCell.y, playerValue);
-        GameManager.Instance.board.DestroyPiece(PieceCell.x-1 , PieceCell.y, playerValue);
-
+        GameManager.Instance.board.DestroyPiece(PieceCell.x + 1, PieceCell.y, playerValue, specialPieceData);
+        GameManager.Instance.board.DestroyPiece(PieceCell.x - 1, PieceCell.y, playerValue, specialPieceData);
         MoveEnd(onMoveComplete);
     }
-
 
 }

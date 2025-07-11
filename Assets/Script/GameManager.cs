@@ -91,7 +91,6 @@ public class GameManager : MonoBehaviour
     public void SwitchTurn()
     {
         currentPlayer = currentPlayer == PieceType.Player ? PieceType.Enemy : PieceType.Player;
-        Debug.Log("Switching turn to: " + currentPlayer);
         
     }
 
@@ -124,7 +123,7 @@ public class GameManager : MonoBehaviour
         else {
             SwitchTurn();
         }
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.5f);
         aiController.MakeMove(currentPlayer);
         playerController.MakeMove(currentPlayer);
         //EndTurnButtonPressed = true;

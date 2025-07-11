@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class Board : MonoBehaviour
 {
 
-    [SerializeField]private int boardSizeX;
-    [SerializeField] private int boardSizeY;
+    [SerializeField]public int boardSizeX;
+    [SerializeField] public int boardSizeY;
 
     [SerializeField]private GameObject cellPrefab;
     GridLayoutGroup gridLayoutGroup;
@@ -51,13 +51,17 @@ public class Board : MonoBehaviour
             }
         }
     }
-    public void DestroyPiece(int x, int y,PieceType pieceType)
+    public void DestroyPiece(int x, int y,PieceType pieceType, SpecialPieceData specialPieceData)
     {
+       
         Cell cell = GetCell(x, y);
         if (cell == null)
         {
             return;
         }
+        ParticleSystem particle = Instantiate(specialPieceData.SpecialParticleEffect, Vector3.zero, Quaternion.identity, GameManager.Instance.board.CellArray[x, y].transform);
+        particle.transform.localPosition = new Vector3(0, 0, particle.transform.localPosition.z);
+        particle.Play();
         if (cell != null && cell._PlayerPiece != null&&cell._PlayerPiece.playerValue!=pieceType)
         {
             cell._PlayerPiece.DestroyPiece();

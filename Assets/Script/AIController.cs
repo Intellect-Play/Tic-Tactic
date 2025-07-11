@@ -44,21 +44,28 @@ public class AIController : MonoBehaviour
         }
     }
 
-    public void CheckSizePieces()
+    public bool CheckSizePieces()
     {
         if (aiPieces.Count == 0)
         {
             GameManager.Instance.pieceSpawner.SpawnEnemyPieces(GameDatas.Instance.mainGameDatasSO.SpawnCount);
-        }
+            return true;
+        }return false;
     }
     public void MakeMove(PieceType pieceType)
     {
-        CheckSizePieces();
+        //CheckSizePieces();
         if (pieceType == currentPlayer)
         {
             aiPieces[0].ChangeCellDelay(GameManager.Instance.board.EmptyCell());
             aiPieces.RemoveAt(0);
             GameActions.Instance?.InvokeEndTurn();
+
+            if (!CheckSizePieces())
+            {
+               
+            }
+          
         }
     }
 

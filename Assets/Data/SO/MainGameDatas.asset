@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoardSizeX: 3
   BoardSizeY: 3
-  SpawnCount: 3
+  SpawnCount: 4
   MoveDuration: 0.4
   PlayerHealth: 10
   EnemyHealth: 5

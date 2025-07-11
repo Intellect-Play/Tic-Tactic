@@ -19,7 +19,6 @@ public abstract class SpecialPieceCore : PieceMovePlayer
     }
     public void SetupSpecial(SpecialPieceData _specialPieceData)
     {
-        GetComponent<Image>().sprite = _specialPieceData.XSprite;        
         specialPieceData = _specialPieceData;
         if (animator == null)
         {
@@ -33,11 +32,15 @@ public abstract class SpecialPieceCore : PieceMovePlayer
         animator.runtimeAnimatorController = overrideController;
         if (playerValue == PieceType.Enemy)
         {
+            GetComponent<Image>().sprite = _specialPieceData.OSprite;
+
             overrideController["IdlePlaceholder"] = specialPieceData.EnemyAnimeIdle;
             overrideController["AttackPlaceholder"] = specialPieceData.EnemyAnimeAttack;
         }
         else
         {
+            GetComponent<Image>().sprite = _specialPieceData.XSprite;
+
             overrideController["IdlePlaceholder"] = specialPieceData.PlayerAnimeIdle;
             overrideController["AttackPlaceholder"] = specialPieceData.PlayerAnimeAttack;
 
@@ -46,7 +49,6 @@ public abstract class SpecialPieceCore : PieceMovePlayer
 
         if (_specialPieceData.EnemyBombs.Count > 0 && playerValue == PieceType.Enemy)
         {
-            Debug.Log("Enemy Bombs Count: " + specialPieceData.EnemyBombs.Count);
             overrideController["BombPlaceholder1"] = specialPieceData.EnemyBombs[0];
             overrideController["BombPlaceholder2"] = specialPieceData.EnemyBombs[1];
             overrideController["BombPlaceholder3"] = specialPieceData.EnemyBombs[1];
@@ -55,7 +57,6 @@ public abstract class SpecialPieceCore : PieceMovePlayer
         }
         else if (_specialPieceData.PlayerBombs.Count > 0 && playerValue == PieceType.Player)
         {
-            Debug.Log("Player Bombs Count: " + _specialPieceData.PlayerBombs.Count);
             overrideController["BombPlaceholder1"] = specialPieceData.PlayerBombs[0];
             overrideController["BombPlaceholder2"] = specialPieceData.PlayerBombs[1];
             overrideController["BombPlaceholder3"] = specialPieceData.PlayerBombs[2];

@@ -106,6 +106,7 @@ public class PieceBase : MonoBehaviour
         PieceCell = cell;
         cell.SetValue(this);
         // Mövcud rectTransform'u dünya mövqeyinə animasiya ilə apar
+
         rectTransform.DOMove(worldTargetPos, GameDatas.Instance.mainGameDatasSO.MoveDuration)
             .SetEase(Ease.InOutQuad)
             .OnComplete(() => Debug.Log("Moved without parent change"));
@@ -120,11 +121,12 @@ public class PieceBase : MonoBehaviour
 
        
         transform.parent = originalParent;
+        //rectTransform.localPosition = originalPos;
+        if (PieceCell != null)
+            PieceCell.RemoveCell();
         rectTransform.DOLocalMove(originalPos, GameDatas.Instance.mainGameDatasSO.MoveDuration).SetEase(Ease.InOutQuad);
 
-        //rectTransform.localPosition = originalPos;
-        if(PieceCell != null)
-            PieceCell.RemoveCell();
+       
 
     }
     public virtual void BackCell()
@@ -134,13 +136,11 @@ public class PieceBase : MonoBehaviour
 
         if (PieceCell == null)
         {
-            Debug.Log("No target cell, moving to original position");
             transform.parent = originalParent;
             rectTransform.DOLocalMove(originalPos, GameDatas.Instance.mainGameDatasSO.MoveDuration).SetEase(Ease.InOutQuad);
         }
         else
         {
-            Debug.Log("Moving to target cell position");
             Vector3 worldTargetPos = PieceCell.GetComponent<RectTransform>().position;
             transform.SetParent(PieceCell.gameObject.transform);
             rectTransform.anchoredPosition = Vector2.zero;
@@ -161,7 +161,7 @@ public class PieceBase : MonoBehaviour
 
 
     }
-    public virtual void PlayPopFade(float scaleAmount = 1.5f, float duration = 0.5f)
+    public virtual void PlayPopFade(float scaleAmount = 1.5f, float duration = 0.1f)
     {
         RemoveCellBase();
 

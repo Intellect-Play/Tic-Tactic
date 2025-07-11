@@ -51,7 +51,7 @@ public class EatEnemy : SpecialPieceCore
                 int targetX = PieceCell.x + dx;
                 int targetY = PieceCell.y + dy;
 
-                GameManager.Instance.board.DestroyPiece(targetX, targetY, playerValue);
+                GameManager.Instance.board.DestroyPiece(targetX, targetY, playerValue, specialPieceData);
             }
         }
 

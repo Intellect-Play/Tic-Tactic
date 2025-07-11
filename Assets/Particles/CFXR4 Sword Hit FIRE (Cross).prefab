@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5009,6 +5009,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8525990746615576122, guid: b85d21f3b8fed714bacf0c4fd50fa512,
         type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525990746615576122, guid: b85d21f3b8fed714bacf0c4fd50fa512,
+        type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime0
       value: 0
       objectReference: {fileID: 0}
@@ -5174,6 +5179,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8525990746615576125, guid: b85d21f3b8fed714bacf0c4fd50fa512,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525990746615576125, guid: b85d21f3b8fed714bacf0c4fd50fa512,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525990746615576125, guid: b85d21f3b8fed714bacf0c4fd50fa512,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525990746615576125, guid: b85d21f3b8fed714bacf0c4fd50fa512,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5220,6 +5240,16 @@ PrefabInstance:
     - target: {fileID: 8525990746615576125, guid: b85d21f3b8fed714bacf0c4fd50fa512,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525990746615576125, guid: b85d21f3b8fed714bacf0c4fd50fa512,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8941974229056258646, guid: b85d21f3b8fed714bacf0c4fd50fa512,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8941974229056258646, guid: b85d21f3b8fed714bacf0c4fd50fa512,
@@ -5367,6 +5397,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 22df6ea84842b434c9b2c6e5008d3db3, type: 2}
+    - target: {fileID: 8941974229959612359, guid: b85d21f3b8fed714bacf0c4fd50fa512,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8941974229959612359, guid: b85d21f3b8fed714bacf0c4fd50fa512,
         type: 3}
       propertyPath: CustomDataModule.vector0_1.scalar
@@ -5553,15 +5588,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearBehavior: 2
+  clearBehavior: 0
   cameraShake:
-    enabled: 0
+    enabled: 1
     useMainCamera: 1
-    cameras: []
+    cameras:
+    - {fileID: 0}
     delay: 0
-    duration: 1
+    duration: 0.4
     shakeSpace: 0
-    shakeStrength: {x: 0.1, y: 0.1, z: 0.1}
+    shakeStrength: {x: 0.02, y: 0.03, z: 0}
     shakeCurve:
       serializedVersion: 2
       m_Curve:
@@ -5588,51 +5624,24 @@ MonoBehaviour:
       m_RotationOrder: 4
     shakesDelay: 0
   animatedLights:
-  - light: {fileID: 1692357798798035163}
+  - light: {fileID: 0}
     loop: 0
     animateIntensity: 1
-    intensityStart: 6
-    intensityEnd: 0
-    intensityDuration: 0.7
+    intensityStart: 1
+    intensityEnd: 3.0000002
+    intensityDuration: 0
     intensityCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.5
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.1
-        value: 1
-        inSlope: -2.5183675
-        outSlope: -2.5183675
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.05168906
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -0.10708683
-        outSlope: -0.10708683
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.06512006
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
       m_RotationOrder: 0
-    perlinIntensity: 0
-    perlinIntensitySpeed: 0
+    perlinIntensity: 1
+    perlinIntensitySpeed: 6
     fadeIn: 0
-    fadeInDuration: 0
-    fadeOut: 0
-    fadeOutDuration: 0
+    fadeInDuration: 0.5
+    fadeOut: 1
+    fadeOutDuration: 0.5
     animateRange: 0
     rangeStart: 0
     rangeEnd: 0
@@ -5644,7 +5653,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     perlinRange: 0
-    perlinRangeSpeed: 0
+    perlinRangeSpeed: 1
     animateColor: 0
     colorGradient:
       serializedVersion: 2
@@ -5684,5 +5693,6 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     perlinColor: 0
-    perlinColorSpeed: 0
-  fadeOutReference: {fileID: 0}
+    perlinColorSpeed: 1
+  fadeOutReference: {fileID: 1114689377544702125, guid: 5d6aa4e81416ba54d9e72a1c9a9b2cb5,
+    type: 3}

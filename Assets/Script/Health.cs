@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
     public static Health Instance;
-    public int HealthPlayer;
-    public int HealthEnemy;
-    public int MaxHealth;
+    public float HealthPlayer;
+    public float HealthEnemy;
+    public float MaxHealthPlayer;
+    public float MaxHealthEnemy;
+
     public PieceType pieceType;
     [SerializeField] TextMeshProUGUI PlayerHealthText;
     [SerializeField] TextMeshProUGUI EnemyHealthText;
+
+    [SerializeField] Slider PlayerHealthBar;
+    [SerializeField] Slider EnemyHealthBar;
     public bool isLive = true;
 
     private void Awake()
@@ -25,6 +31,7 @@ public class Health : MonoBehaviour
             Destroy(this);
         }
         isLive = true;
+   
     }
 
     private void Start()
@@ -44,16 +51,22 @@ public class Health : MonoBehaviour
     {
         HealthPlayer = healthPlayer;
         HealthEnemy = healthEnemy;
+        MaxHealthPlayer = healthPlayer;
+        MaxHealthEnemy = healthEnemy;
 
+        PlayerHealthBar.value = 1f;
+        EnemyHealthBar.value = 1f;
         PlayerHealthText.text = healthPlayer.ToString();
         EnemyHealthText.text = healthEnemy.ToString();
     }
-    public void TextEnemy(int health)
+    public void TextEnemy(float health)
     {
+        EnemyHealthBar.value = (float)health / MaxHealthEnemy;
         EnemyHealthText.text = health.ToString();
     }
-    public void TextPlayer(int health)
+    public void TextPlayer(float health)
     {
+        PlayerHealthBar.value = (float)health / MaxHealthPlayer;
         PlayerHealthText.text = health.ToString();
     }
     public void Damage(int health,PieceType pieceType)
