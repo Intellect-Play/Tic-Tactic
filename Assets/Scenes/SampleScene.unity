@@ -402,8 +402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainGameDatasSO: {fileID: 11400000, guid: 3e06e43196bfbf747a688b89698111d7, type: 2}
-  Data:
-    gameUnChangedDatas: []
+  Data: {fileID: 11400000, guid: cd022d69299b92e49af957076fdbf11d, type: 2}
+  gameUnChangedDatas: []
   SaveFilePath: 
 --- !u!4 &278851044
 Transform:
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   specialPieces:
   - pieceName: Two Side
-    specialPieceType: 0
+    specialPieceType: 1
     piecePrefab: {fileID: 2586757807563176191, guid: 0ec339ef09209ae4d93592b4938013e4,
       type: 3}
     OSprite: {fileID: 21300000, guid: 14830fe71ce227e488cdefcce2e59c2e, type: 3}
@@ -501,7 +501,7 @@ MonoBehaviour:
     EnemyBombs: []
     PlayerBombs: []
   - pieceName: Thunder
-    specialPieceType: 1
+    specialPieceType: 2
     piecePrefab: {fileID: 2586757807563176191, guid: 13c1181b48d0d1c419b43de573c40b09,
       type: 3}
     OSprite: {fileID: 0}
@@ -516,7 +516,7 @@ MonoBehaviour:
     EnemyBombs: []
     PlayerBombs: []
   - pieceName: Bomb
-    specialPieceType: 2
+    specialPieceType: 3
     piecePrefab: {fileID: 2586757807563176191, guid: 662abd99e49630348b895c6388e17987,
       type: 3}
     OSprite: {fileID: 21300000, guid: 54818616cf765da488ca38465cf7429b, type: 3}
@@ -537,7 +537,7 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 40b733e4d4de656449bcdb4de2f2c636, type: 2}
     - {fileID: 7400000, guid: 40b733e4d4de656449bcdb4de2f2c636, type: 2}
   - pieceName: Snayper
-    specialPieceType: 4
+    specialPieceType: 5
     piecePrefab: {fileID: 2586757807563176191, guid: a17f654f28cf2ae468128e04a7b90197,
       type: 3}
     OSprite: {fileID: 0}
@@ -552,7 +552,7 @@ MonoBehaviour:
     EnemyBombs: []
     PlayerBombs: []
   - pieceName: Plus2
-    specialPieceType: 5
+    specialPieceType: 6
     piecePrefab: {fileID: 2586757807563176191, guid: b6d17c394b7f0b24ba1a54e28eb5bd71,
       type: 3}
     OSprite: {fileID: 21300000, guid: d8ab312eab796b548a92bcbbbea2d1a4, type: 3}
@@ -566,7 +566,7 @@ MonoBehaviour:
     EnemyBombs: []
     PlayerBombs: []
   - pieceName: Random
-    specialPieceType: 7
+    specialPieceType: 8
     piecePrefab: {fileID: 2586757807563176191, guid: 28cfccbdf007efb48a68b22f57ad9daa,
       type: 3}
     OSprite: {fileID: 21300000, guid: 7dd59e650b84cdf48a31018bfd7645c0, type: 3}
@@ -580,7 +580,7 @@ MonoBehaviour:
     EnemyBombs: []
     PlayerBombs: []
   - pieceName: Healer
-    specialPieceType: 8
+    specialPieceType: 9
     piecePrefab: {fileID: 2586757807563176191, guid: b5f0da6a3a402494bb58098aaa28d911,
       type: 3}
     OSprite: {fileID: 0}
@@ -594,7 +594,7 @@ MonoBehaviour:
     EnemyBombs: []
     PlayerBombs: []
   - pieceName: ImMortal
-    specialPieceType: 6
+    specialPieceType: 7
     piecePrefab: {fileID: 2586757807563176191, guid: 4e866570c9e1ece4d988ef7bba99fbdf,
       type: 3}
     OSprite: {fileID: 21300000, guid: 99582a9f3cf4f4c45b6cd5740375634e, type: 3}
@@ -608,7 +608,7 @@ MonoBehaviour:
     EnemyBombs: []
     PlayerBombs: []
   - pieceName: Flame
-    specialPieceType: 9
+    specialPieceType: 10
     piecePrefab: {fileID: 2586757807563176191, guid: ea4ad45d4902acf4ba5e10b8ac4535d3,
       type: 3}
     OSprite: {fileID: 21300000, guid: f1f6de853d2cd5c44b74b2de1c45d5b4, type: 3}
@@ -1920,11 +1920,9 @@ MonoBehaviour:
   FinishText: {fileID: 439388436}
   currentPlayer: 1
   currenGameUnChangedData:
-    CurrentLevel: 0
     PlayerHP: 0
-    EnemyHP: 0
-    EnemySpecials: []
-    PlayerSpecialUnlock: 
+    Enemies: []
+    PlayerSpecialUnlock: 0
   gameUnChangedDatas: []
   EndTurnButtonPressed: 0
 --- !u!4 &894816550

@@ -5,27 +5,28 @@ using UnityEngine.EventSystems;
 
 public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    bool BeginBool = false;
     // Start is called before the first frame update
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        if (IsPlaced) return;
+        if (IsPlaced||GameManager.Instance.IsGameFinished||playerValue!=GameManager.Instance.currentPlayer) return;
         targetImage.raycastTarget=false;
         canvasGroup.blocksRaycasts = false;
         transform.parent = canvas.transform;
-
+        BeginBool = true;
     }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
-        if (IsPlaced) return;
+        if (IsPlaced||!BeginBool) return;
 
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
-        if (IsPlaced) return;
-
+        if (IsPlaced || GameManager.Instance.IsGameFinished || playerValue != GameManager.Instance.currentPlayer) return;
+        BeginBool = false;
         //RemoveCell();
         canvasGroup.blocksRaycasts = true;
 

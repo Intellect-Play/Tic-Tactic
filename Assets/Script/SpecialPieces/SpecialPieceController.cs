@@ -39,6 +39,7 @@ public class SpecialPieceData
 
 public enum SpecialPieceType
 {
+    Null,
     TwoSideGun,
     ThunderGun,
     Bomb3Turn,

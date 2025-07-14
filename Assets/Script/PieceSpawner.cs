@@ -29,6 +29,7 @@ public class PieceSpawner : MonoBehaviour
 
     public void StartSpawn()
     {
+        if(GameManager.Instance.IsGameFinished) return;
         StartSpawnCount = GameDatas.Instance.mainGameDatasSO.SpawnCount;
         SpawnPlayerPieces(StartSpawnCount);
         SpawnEnemyPieces(StartSpawnCount);
@@ -36,20 +37,24 @@ public class PieceSpawner : MonoBehaviour
     
     public void SpawnPlayerPieces(int count)
     {
+        if (GameManager.Instance.IsGameFinished) return;
+
         PieceType pieceType = PieceType.Player;
         for (int i = 1; i < count; i++)
         {
             SpawnPlayerPiece(i, PlayerPiecePrefab, pieceType);
         }
-        if (SaveDataService.Current.UnlockedWeapons.Count > 0) {
-            string special = SaveDataService.Current.UnlockedWeapons[Random.Range(0, SaveDataService.Current.UnlockedWeapons.Count)];
+        if (SaveDataService.Current.UnlockedWeapons.Count > 0)
+        {
+            SpecialPieceType special = SaveDataService.Current.UnlockedWeapons[Random.Range(0, SaveDataService.Current.UnlockedWeapons.Count)];
             SpawnSpecialPieceEnemy(0, special, pieceType);
             //SpawnSpecialPieceEnemy(0, special, special, pieceType);
             //SpawnSpecialPieceEnemy(0, special, special, pieceType);
-            SpawnSpecialPieceEnemy(3, SpecialPieceType.Flame.ToString(), pieceType);
-            SpawnSpecialPieceEnemy(4, SpecialPieceType.ThunderGun.ToString(), pieceType);
-            SpawnSpecialPieceEnemy(5, SpecialPieceType.Bomb3Turn.ToString(), pieceType);
-
+            //SpawnSpecialPieceEnemy(3, SpecialPieceType.Flame.ToString(), pieceType);
+            //SpawnSpecialPieceEnemy(4, SpecialPieceType.ThunderGun.ToString(), pieceType);
+            //SpawnSpecialPieceEnemy(5, SpecialPieceType.Bomb3Turn.ToString(), pieceType);
+            //List<string> specialStrings = GameManager.Instance.currenGameUnChangedData.EnemySpecials;
+            //SpawnSpecialPieceEnemy(0, specialStrings[Random.Range(0, specialStrings.Count - 1)], pieceType);
         }
 
 
@@ -59,14 +64,17 @@ public class PieceSpawner : MonoBehaviour
     }
     public void SpawnEnemyPieces(int count)
     {
+        if (GameManager.Instance.IsGameFinished) return;
+
         PieceType pieceType = PieceType.Enemy;
         //SpawnSpecialPiece(0, SpecialPieceType.TwoSideGun, "2SX", pieceType);
         //SpawnSpecialPiece(1, SpecialPieceType.Random, "RX", pieceType);
-        for (int i = 0; i < count; i++)
+        for (int i = 1; i < count; i++)
         {
             SpawnPlayerPiece(i, EnemyPiecePrefab, pieceType);
         }  
-        // SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.EnemySpecials[0], pieceType);
+        if(GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0]!= SpecialPieceType.Null)
+         SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0], pieceType);
 
 
     }
@@ -75,9 +83,11 @@ public class PieceSpawner : MonoBehaviour
     {
         SpawnPlayerPiece(count, specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType).piecePrefab, pieceType);
     }
-    public void SpawnSpecialPieceEnemy(int count, string specialPieceType, PieceType pieceType)
+    public void SpawnSpecialPieceEnemy(int count, SpecialPieceType specialPieceType, PieceType pieceType)
     {
-        SpecialPieceData specialPieceData = specialPieceController.specialPieces.Find(x => x.specialPieceType.ToString() == specialPieceType);
+        Debug.Log(pieceType + " " + specialPieceType+" "+ pieceType);
+       
+        SpecialPieceData specialPieceData = specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType);
         SpawnPlayerPiece(count, specialPieceData.piecePrefab, pieceType, specialPieceData);
     }
     public void SpawnPlayerPiece(int i,GameObject gameObject,PieceType pieceType,SpecialPieceData specialPieceData=null)

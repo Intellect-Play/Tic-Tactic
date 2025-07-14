@@ -8,8 +8,9 @@ public class GameDatas : MonoBehaviour
     public static GameDatas Instance { get; private set; }
     [SerializeField] public MainGameDatasSO mainGameDatasSO;
 
-    public GameUnChangedDatas Data;
+    public GameUnChangedDatasSO Data;
 
+    public List<GameUnChangedData> gameUnChangedDatas;
 
     public string SaveFilePath;
 
@@ -24,8 +25,9 @@ public class GameDatas : MonoBehaviour
         //DeleteData();
         Instance = this;
         
-        SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas5");
-        LoadData();
+        SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas7");
+        gameUnChangedDatas = Data.gameUnChangedDatas;
+        //LoadData();
     }
 
 
@@ -45,13 +47,13 @@ public class GameDatas : MonoBehaviour
             //{
             //    Debug.Log("Fayl tapılmadı: " + SaveFilePath);
             //}
-            Data = JsonUtility.FromJson<GameUnChangedDatas>(json);
+            Data = JsonUtility.FromJson<GameUnChangedDatasSO>(json);
         }
         else
         {
             Debug.Log(Equals(null) ? "GameDataService is null" : "GameDataService is not null");
             // First time: copy from Resources to persistent path
-            TextAsset jsonAsset = Resources.Load<TextAsset>("GameData/GameUnChangedDatas5");
+            TextAsset jsonAsset = Resources.Load<TextAsset>("GameData/GameUnChangedDatas7");
             if (File.Exists(SaveFilePath))
             {
                 File.Delete(SaveFilePath);
@@ -63,7 +65,7 @@ public class GameDatas : MonoBehaviour
             }
             if (jsonAsset != null)
             {
-                Data = JsonUtility.FromJson<GameUnChangedDatas>(jsonAsset.text);
+                Data = JsonUtility.FromJson<GameUnChangedDatasSO>(jsonAsset.text);
 
                 // Save initial copy for editing at runtime
                 string folder = Path.GetDirectoryName(SaveFilePath);

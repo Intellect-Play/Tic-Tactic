@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be5893e6d087464eb39a4da38af0d34, type: 3}
+  m_Name: GameUnChangedDatas
+  m_EditorClassIdentifier: 
+  gameUnChangedDatas:
+  - PlayerHP: 7
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 02000000
+    PlayerSpecialUnlock: 1
+  - PlayerHP: 7
+    Enemies:
+    - EnemyHP: 2
+      EnemySpecials: 00000000
+    - EnemyHP: 2
+      EnemySpecials: 02000000
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 7
+    Enemies:
+    - EnemyHP: 2
+      EnemySpecials: 02000000
+    - EnemyHP: 3
+      EnemySpecials: 02000000
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 10
+    Enemies:
+    - EnemyHP: 10
+      EnemySpecials: 02000000
+    - EnemyHP: 0
+      EnemySpecials: 
+    - EnemyHP: 0
+      EnemySpecials: 
+    PlayerSpecialUnlock: 2
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 0
+    Enemies: []
+    PlayerSpecialUnlock: 0

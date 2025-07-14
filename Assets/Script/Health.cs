@@ -44,7 +44,7 @@ public class Health : MonoBehaviour
     }
     public void StartHealth()
     {
-        InitHealth(GameManager.Instance.currenGameUnChangedData.PlayerHP, GameManager.Instance.currenGameUnChangedData.EnemyHP);
+        InitHealth(GameManager.Instance.currenGameUnChangedData.PlayerHP, GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemyHP);
 
     }
     public void InitHealth(int healthPlayer,int healthEnemy)

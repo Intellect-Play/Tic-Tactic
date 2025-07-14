@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameUnChangedData currenGameUnChangedData;
     public List<GameUnChangedData> gameUnChangedDatas;
     public bool EndTurnButtonPressed = false;
+    public bool IsGameFinished = false;
     private void Awake()
     {
         if (Instance == null)
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
+        if(IsGameFinished) return;
         cellController.IsPlacedCellPieces();
         allSpecialPiecesMove.MoveSpecialPieces(() =>
         {
@@ -136,9 +138,11 @@ public class GameManager : MonoBehaviour
     }
     public void DiedCase(PieceType pieceType)
     {
+        if (IsGameFinished) return;
+
         if (pieceType == PieceType.Enemy)SaveDataService.Current.CurrentLevel++;
 
-        if (currenGameUnChangedData.PlayerSpecialUnlock != "")
+        if (currenGameUnChangedData.PlayerSpecialUnlock != SpecialPieceType.Null)
         {
            // Debug.Log("Player Special Unlock: " + currenGameUnChangedData.PlayerSpecialUnlock);
 
@@ -150,11 +154,15 @@ public class GameManager : MonoBehaviour
 
     public void GameWin()
     {
+        if (IsGameFinished) return;
+        IsGameFinished = true;
         StartCoroutine(FinishTime("Game Over"));
     }
     public void GameLose()
     {
-        StartCoroutine(FinishTime("Game Over"));
+        if (IsGameFinished) return;
+        IsGameFinished = true;
+          StartCoroutine(FinishTime("Game Over"));
     }
     IEnumerator FinishTime(string WinPlayer)
     {

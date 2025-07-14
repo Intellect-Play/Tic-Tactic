@@ -8,7 +8,7 @@ public class SaveData
     public int CurrentLevel = 1;
 
     // Əgər sonra açmaq istəsən:
-     public List<string> UnlockedWeapons = new List<string>();
+     public List<SpecialPieceType> UnlockedWeapons = new List<SpecialPieceType>();
     // public List<int> WeaponLevels = new List<int>();
 }
 
@@ -32,7 +32,7 @@ public static class SaveDataService
 
     public static void Load()
     {
-        //DeleteSave();
+        DeleteSave();
         if (PlayerPrefs.HasKey(SaveKey))
         {
             string json = PlayerPrefs.GetString(SaveKey);

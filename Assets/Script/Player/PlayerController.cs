@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     public PieceType currentPlayerType = PieceType.Player;
     public PieceBase currentPlayer;
+    int x = 0;
     private void Awake()
     {
         if (Instance == null)
@@ -50,15 +51,17 @@ public class PlayerController : MonoBehaviour
     }
     public void CheckSizePieces()
     {
-        
+        x++;
+        UIManager.Instance.LevelText(x+ " Check "+playerPieces.Count);
+
         if (playerPieces.Count == 0)
         {
             GameManager.Instance.pieceSpawner.SpawnPlayerPieces(GameDatas.Instance.mainGameDatasSO.SpawnCount);
         }
     }
     public void MakeMove(PieceType pieceType) {
-        CheckSizePieces();
         ActivePieces(pieceType == currentPlayerType);
+        CheckSizePieces();
     }
     public void ActivePieces(bool active) {
         foreach (var piece in playerPieces)
