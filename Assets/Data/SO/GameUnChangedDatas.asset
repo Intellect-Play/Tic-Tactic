@@ -15,21 +15,23 @@ MonoBehaviour:
   gameUnChangedDatas:
   - PlayerHP: 7
     Enemies:
-    - EnemyHP: 3
-      EnemySpecials: 02000000
+    - EnemyHP: 1
+      EnemySpecials: 01000000
+    - EnemyHP: 1
+      EnemySpecials: 00000000
     PlayerSpecialUnlock: 1
   - PlayerHP: 7
     Enemies:
     - EnemyHP: 2
-      EnemySpecials: 00000000
-    - EnemyHP: 2
+      EnemySpecials: 02000000
+    - EnemyHP: 3
       EnemySpecials: 02000000
     PlayerSpecialUnlock: 0
   - PlayerHP: 7
     Enemies:
     - EnemyHP: 2
-      EnemySpecials: 02000000
-    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 2
       EnemySpecials: 02000000
     PlayerSpecialUnlock: 0
   - PlayerHP: 10

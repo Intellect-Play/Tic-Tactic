@@ -6,9 +6,14 @@ public class AIController : MonoBehaviour
 {
     public static AIController Instance;
 
+    public List<EnemiesUnChangedData> gameUnChangedDatas;
+
     public PieceType currentPlayer = PieceType.Enemy;
 
     public List<PieceBase> aiPieces = new List<PieceBase>();
+    public List<CharacterBase> aiCharacters = new List<CharacterBase>();
+
+    public List<RectTransform> aiCharactersSpawnPoints = new List<RectTransform>();
     private void Awake()
     {
         if (Instance == null)
@@ -28,8 +33,18 @@ public class AIController : MonoBehaviour
     {
         GameActions.Instance.OnStartGame -= EnemyStart;
     }
-    public void EnemyStart() { 
-    
+    public void EnemyStart() {
+
+        gameUnChangedDatas = GameManager.Instance.currenGameUnChangedData.Enemies;
+
+        for (int i = 0; i < gameUnChangedDatas.Count; i++)
+        {
+            Debug.Log("Enemy Start: " + i);
+            CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.EnemyYork);
+            aiCharacters.Add(enemyCharacterBase);
+            enemyCharacterBase.GetPosition(aiCharactersSpawnPoints[i],1-(0.1f*i));
+        }
+
     }
 
     public void GetAiPiece(PieceBase piece)

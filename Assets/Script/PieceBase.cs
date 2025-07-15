@@ -48,6 +48,8 @@ public class PieceBase : MonoBehaviour
     }
     public virtual void Init(PieceType value)
     {
+        targetImage.raycastTarget = false;
+
         playerValue = value;
         //valueText.text = playerValue;
     }
