@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System;
 
 public class GameDatas : MonoBehaviour
 {
     public static GameDatas Instance { get; private set; }
     [SerializeField] public MainGameDatasSO mainGameDatasSO;
 
+    public GameUnChangedDatasSO2 Data2;
     public GameUnChangedDatasSO Data;
 
     public List<GameUnChangedData> gameUnChangedDatas;
@@ -25,12 +27,66 @@ public class GameDatas : MonoBehaviour
         //DeleteData();
         Instance = this;
         
-        SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas7");
-        gameUnChangedDatas = Data.gameUnChangedDatas;
+        DeepCopy();
+        SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas8");
         //LoadData();
+        //ConvertData2ToData();
     }
+    public void ConvertData2ToData()
+    {
+        Data = ScriptableObject.CreateInstance<GameUnChangedDatasSO>();
+        Data.gameUnChangedDatas = new List<GameUnChangedData>();
 
+        foreach (var data in Data.gameUnChangedDatas)
+        {
+            GameUnChangedData converted = new GameUnChangedData
+            {
+                PlayerHP = data.PlayerHP,
+                PlayerSpecialUnlock = data.PlayerSpecialUnlock,
+                Enemies = new List<EnemiesUnChangedData>()
+            };
 
+            foreach (var enemy in data.Enemies)
+            {
+                EnemiesUnChangedData enemyConverted = new EnemiesUnChangedData
+                {
+                    EnemyHP = enemy.EnemyHP,
+                    EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials)
+                };
+
+                converted.Enemies.Add(enemyConverted);
+            }
+
+            Data.gameUnChangedDatas.Add(converted);
+        }
+
+        Debug.Log("Data has been converted to ScriptableObject-compatible format.");
+    }
+    public void DeepCopy()
+    {
+        gameUnChangedDatas = new List<GameUnChangedData>();
+        foreach (var data in Data.gameUnChangedDatas)
+        {
+            GameUnChangedData copy = new GameUnChangedData
+            {
+                PlayerHP = data.PlayerHP,
+                PlayerSpecialUnlock = data.PlayerSpecialUnlock,
+                Enemies = new List<EnemiesUnChangedData>()
+            };
+
+            foreach (var enemy in data.Enemies)
+            {
+                EnemiesUnChangedData enemyCopy = new EnemiesUnChangedData
+                {
+                    EnemyHP = enemy.EnemyHP,
+                    EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials)
+                };
+                copy.Enemies.Add(enemyCopy);
+            }
+
+            gameUnChangedDatas.Add(copy);
+        }
+    }
     private void LoadData()
     {
         if (File.Exists(SaveFilePath))
@@ -47,13 +103,13 @@ public class GameDatas : MonoBehaviour
             //{
             //    Debug.Log("Fayl tapılmadı: " + SaveFilePath);
             //}
-            Data = JsonUtility.FromJson<GameUnChangedDatasSO>(json);
+            Data2 = JsonUtility.FromJson<GameUnChangedDatasSO2>(json);
         }
         else
         {
             Debug.Log(Equals(null) ? "GameDataService is null" : "GameDataService is not null");
             // First time: copy from Resources to persistent path
-            TextAsset jsonAsset = Resources.Load<TextAsset>("GameData/GameUnChangedDatas7");
+            TextAsset jsonAsset = Resources.Load<TextAsset>("GameData/GameUnChangedDatas8");
             if (File.Exists(SaveFilePath))
             {
                 File.Delete(SaveFilePath);
@@ -65,7 +121,7 @@ public class GameDatas : MonoBehaviour
             }
             if (jsonAsset != null)
             {
-                Data = JsonUtility.FromJson<GameUnChangedDatasSO>(jsonAsset.text);
+                Data2 = JsonUtility.FromJson<GameUnChangedDatasSO2>(jsonAsset.text);
 
                 // Save initial copy for editing at runtime
                 string folder = Path.GetDirectoryName(SaveFilePath);
@@ -122,4 +178,24 @@ public class GameDatas : MonoBehaviour
     }
 
  
+}
+[Serializable]
+
+public class GameUnChangedDatasSO2 
+{
+    public List<GameUnChangedData2> gameUnChangedDatas;
+}
+
+[Serializable]
+public class GameUnChangedData2
+{
+    public int PlayerHP;
+    public List<EnemiesUnChangedData2> Enemies = new List<EnemiesUnChangedData2>(1);
+    public SpecialPieceType PlayerSpecialUnlock;
+}
+[Serializable]
+public class EnemiesUnChangedData2
+{
+    public int EnemyHP;
+    public List<SpecialPieceType> EnemySpecials = new List<SpecialPieceType>(1);
 }

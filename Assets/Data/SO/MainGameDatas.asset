@@ -16,5 +16,4 @@ MonoBehaviour:
   BoardSizeY: 3
   SpawnCount: 4
   MoveDuration: 0.4
-  PlayerHealth: 10
-  EnemyHealth: 5
+  CoinGet: 5

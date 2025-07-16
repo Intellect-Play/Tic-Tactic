@@ -1,58 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 
-[System.Serializable]
-public class SaveData
-{
-    public int Coins = 0;
-    public int CurrentLevel = 1;
+//[System.Serializable]
+//public class SaveData
+//{
+//    public int Coins = 0;
+//    public int CurrentLevel = 1;
 
-    // Əgər sonra açmaq istəsən:
-     public List<SpecialPieceType> UnlockedWeapons = new List<SpecialPieceType>();
-    // public List<int> WeaponLevels = new List<int>();
-}
+//    // Əgər sonra açmaq istəsən:
+//     public List<SpecialPieceType> UnlockedWeapons = new List<SpecialPieceType>();
+//    // public List<int> WeaponLevels = new List<int>();
+//}
 
 public static class SaveDataService
 {
-    private const string SaveKey = "SaveDataJson";
-    public static SaveData Current { get; private set; }
-    
-    static SaveDataService()
+    public static int Coins
     {
-        Load(); // İlk dəfə yüklənir
+        get => PlayerPrefs.GetInt("Coins", 0);
+        set => PlayerPrefs.SetInt("Coins", value);
+    }
+
+    public static int CurrentLevel
+    {
+        get => PlayerPrefs.GetInt("CurrentLevel", 1);
+        set => PlayerPrefs.SetInt("CurrentLevel", value);
+    }
+
+    public static List<SpecialPieceType> UnlockedWeapons
+    {
+        get
+        {
+            string raw = PlayerPrefs.GetString("UnlockedWeapons", "");
+            List<SpecialPieceType> result = new List<SpecialPieceType>();
+            if (!string.IsNullOrEmpty(raw))
+            {
+                foreach (var s in raw.Split(','))
+                {
+                    if (Enum.TryParse(s, out SpecialPieceType type))
+                        result.Add(type);
+                }
+            }
+            return result;
+        }
+        set
+        {
+            var raw = string.Join(",", value.Select(x => x.ToString()));
+            PlayerPrefs.SetString("UnlockedWeapons", raw);
+        }
     }
 
     public static void Save()
     {
-        string json = JsonUtility.ToJson(Current, true);
-        PlayerPrefs.SetString(SaveKey, json);
         PlayerPrefs.Save();
-        Debug.Log("Game saved: " + json);
     }
 
-    public static void Load()
+    public static void DeleteAll()
     {
-        DeleteSave();
-        if (PlayerPrefs.HasKey(SaveKey))
-        {
-            string json = PlayerPrefs.GetString(SaveKey);
-            Current = JsonUtility.FromJson<SaveData>(json);
-            Debug.Log("Game loaded: " + json);
-            if(Current.UnlockedWeapons.Count>0) Debug.Log("Game loaded: " + json + Current.UnlockedWeapons[0]);
-
-        }
-        else
-        {
-            Current = new SaveData(); // default dəyərlər
-            Save(); // İlk dəfə qeyd et
-            Debug.Log("New save created with defaults.");
-        }
-    }
-
-    public static void DeleteSave()
-    {
-        PlayerPrefs.DeleteKey(SaveKey);
-        Current = new SaveData();
-        Debug.Log("Save deleted.");
+        PlayerPrefs.DeleteAll();
     }
 }

@@ -1,5 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class AIController : MonoBehaviour
@@ -14,6 +15,8 @@ public class AIController : MonoBehaviour
     public List<CharacterBase> aiCharacters = new List<CharacterBase>();
 
     public List<RectTransform> aiCharactersSpawnPoints = new List<RectTransform>();
+
+    bool DiedAIBool;
     private void Awake()
     {
         if (Instance == null)
@@ -24,6 +27,7 @@ public class AIController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        DiedAIBool = false;
     }
     private void Start()
     {
@@ -35,18 +39,52 @@ public class AIController : MonoBehaviour
     }
     public void EnemyStart() {
 
-        gameUnChangedDatas = GameManager.Instance.currenGameUnChangedData.Enemies;
+        gameUnChangedDatas = new List<EnemiesUnChangedData>();
+        foreach (var enemy in GameManager.Instance.currenGameUnChangedData.Enemies)
+        {
+            var enemyCopy = new EnemiesUnChangedData
+            {
+                EnemyHP = enemy.EnemyHP,
+                EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials) // dəyişikliyi təsir etməsin
+            };
+
+            gameUnChangedDatas.Add(enemyCopy);
+        }
 
         for (int i = 0; i < gameUnChangedDatas.Count; i++)
         {
             Debug.Log("Enemy Start: " + i);
-            CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.EnemyYork);
+            CharacterBase enemyCharacterBase=null;
+            int lvl = SaveDataService.CurrentLevel;
+            if (lvl < 2) enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.Pyramid);
+
+            else if (lvl < 5 ) enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.Vodo);
+            else if (lvl < 8) enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.EnemyOrk);
+            else  enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.Pyramid);
+
             aiCharacters.Add(enemyCharacterBase);
-            enemyCharacterBase.GetPosition(aiCharactersSpawnPoints[i],1-(0.1f*i));
+            enemyCharacterBase.GetPosition(aiCharactersSpawnPoints[i],1-(0.3f*i));
         }
 
     }
 
+    public void Damage(float health)
+    {
+        Debug.Log("AIController Damage: " + health);
+        gameUnChangedDatas[0].EnemyHP = (int)health;
+        aiCharacters[0].Damage(health);
+
+
+    }
+    public void DiedAI()
+    {
+        aiCharacters[0].DestroyPiece();
+        DiedAIBool = true;
+    }
+    public void Attack() {
+        aiCharacters[0].Attack(PlayerController.Instance.playerCharacters[0].MainCharacter.GetComponent<RectTransform>());
+
+    }
     public void GetAiPiece(PieceBase piece)
     {
         aiPieces.Add(piece);
@@ -58,7 +96,16 @@ public class AIController : MonoBehaviour
             aiPieces.Remove(piece);
         }
     }
+    public void RemoveAllAiPieces()
+    {
+        foreach(var aiPiece in aiPieces)
+        {
+            Destroy(aiPiece.gameObject);
+        }
+        aiPieces.Clear();
+        GameManager.Instance.pieceSpawner.SpawnEnemyPieces(GameDatas.Instance.mainGameDatasSO.SpawnCount);
 
+    }
     public bool CheckSizePieces()
     {
         if (aiPieces.Count == 0)
@@ -69,6 +116,23 @@ public class AIController : MonoBehaviour
     }
     public void MakeMove(PieceType pieceType)
     {
+        if (DiedAIBool) {
+            aiCharacters.RemoveAt(0);
+            gameUnChangedDatas.RemoveAt(0);
+            if (aiCharacters.Count <= 0)
+            {
+                Health.Instance.isLive = false;
+                GameManager.Instance.DiedCase(PieceType.Enemy);
+            }
+            else
+            {
+                Health.Instance.Heal(2,PieceType.Player);
+                Health.Instance.InitEnemy(gameUnChangedDatas[0].EnemyHP);
+                aiCharacters[0].MovePosition(aiCharactersSpawnPoints[0]);
+                RemoveAllAiPieces();
+            }
+        }
+        DiedAIBool = false;
         //CheckSizePieces();
         if (pieceType == currentPlayer)
         {

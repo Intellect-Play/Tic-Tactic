@@ -41,8 +41,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentPlayer = PieceType.Player;
-        gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
-        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.Current.CurrentLevel-1];
+       // gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
+        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.CurrentLevel-1];
         GameActions.Instance.OnEndTurn += EndTurn;
         StartCoroutine(StartTime());
     }
@@ -105,6 +105,8 @@ public class GameManager : MonoBehaviour
         {
             if(winResult.winner == PieceType.Player)
             {
+                SaveDataService.Coins += (GameDatas.Instance.mainGameDatasSO.CoinGet* winResult.winCells.Count);
+                UIManager.Instance.UpdateCoinText(SaveDataService.Coins);
                 enemyAttack.AttackPlayer(winResult.winCells);
             }
             else if (winResult.winner == PieceType.Enemy)
@@ -139,24 +141,27 @@ public class GameManager : MonoBehaviour
     public void DiedCase(PieceType pieceType)
     {
         if (IsGameFinished) return;
+        IsGameFinished = true;
 
-        if (pieceType == PieceType.Enemy)SaveDataService.Current.CurrentLevel++;
+        if (pieceType == PieceType.Enemy)SaveDataService.CurrentLevel++;
 
         if (currenGameUnChangedData.PlayerSpecialUnlock != SpecialPieceType.Null)
         {
-           // Debug.Log("Player Special Unlock: " + currenGameUnChangedData.PlayerSpecialUnlock);
-
-            SaveDataService.Current.UnlockedWeapons.Add(currenGameUnChangedData.PlayerSpecialUnlock);
+           Debug.Log("Player Special Unlock: " + currenGameUnChangedData.PlayerSpecialUnlock);
+            var list = SaveDataService.UnlockedWeapons;
+            list.Add(currenGameUnChangedData.PlayerSpecialUnlock);
+            SaveDataService.UnlockedWeapons = list;
+            //SaveDataService.UnlockedWeapons.Add(currenGameUnChangedData.PlayerSpecialUnlock);
         }
         SaveDataService.Save();
-        StartCoroutine(FinishTime(pieceType.ToString() + " id Died"));
+        StartCoroutine(FinishTime(pieceType.ToString() + " is Died"));
     }
 
     public void GameWin()
     {
         if (IsGameFinished) return;
         IsGameFinished = true;
-        StartCoroutine(FinishTime("Game Over"));
+        StartCoroutine(FinishTime("Game Win"));
     }
     public void GameLose()
     {

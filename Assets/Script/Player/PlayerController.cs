@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
     public PieceType currentPlayerType = PieceType.Player;
     public PieceBase currentPlayer;
     int x = 0;
+    public List<SpecialPieceType> UnlockedWeapons;
+
+    public List<CharacterBase> playerCharacters = new List<CharacterBase>();
+
+    public List<RectTransform> playerCharactersSpawnPoints = new List<RectTransform>();
     private void Awake()
     {
         if (Instance == null)
@@ -24,6 +29,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
+        UnlockedWeapons = SaveDataService.UnlockedWeapons;
         GameActions.Instance.OnEndTurn += EndTurn;
         GameActions.Instance.OnStartGame += InitPlayerPieces;
     }
@@ -49,6 +55,15 @@ public class PlayerController : MonoBehaviour
             playerPieces.Remove(currentPlayer);
         }
     }
+    public void RemoveAllPlayerPieces()
+    {
+        foreach (var aiPiece in playerPieces)
+        {
+            Destroy(aiPiece.gameObject);
+        }
+        playerPieces.Clear();
+
+    }
     public void CheckSizePieces()
     {
         x++;
@@ -59,8 +74,22 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.pieceSpawner.SpawnPlayerPieces(GameDatas.Instance.mainGameDatasSO.SpawnCount);
         }
     }
+
+    public void Attack()
+    {
+        playerCharacters[0].Attack(AIController.Instance.aiCharacters[0].MainCharacter.GetComponent<RectTransform>());
+    }
+
+    public void Damage(float health)
+    {
+        playerCharacters[0].Damage(health);
+
+        
+    }
     public void MakeMove(PieceType pieceType) {
+        Debug.Log(pieceType.ToString());
         ActivePieces(pieceType == currentPlayerType);
+        GameManager.Instance.pieceSpawner.CheckBuy();
         CheckSizePieces();
     }
     public void ActivePieces(bool active) {
@@ -76,6 +105,11 @@ public class PlayerController : MonoBehaviour
     }
     private void InitPlayerPieces()
     {
+ 
+        
+        CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.PlayerCat);
+        playerCharacters.Add(enemyCharacterBase);            
+        enemyCharacterBase.GetPosition(playerCharactersSpawnPoints[0], 1);
        
     }
 }

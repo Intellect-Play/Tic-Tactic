@@ -49,5 +49,7 @@ public enum Characters
 {
     PlayerCat,
     EnemyOrk,
-    EnemyYork
+    EnemyYork,
+    Vodo,
+    Pyramid
 }

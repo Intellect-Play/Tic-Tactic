@@ -13,11 +13,11 @@ public class Health : MonoBehaviour
     public float MaxHealthEnemy;
 
     public PieceType pieceType;
-    [SerializeField] TextMeshProUGUI PlayerHealthText;
-    [SerializeField] TextMeshProUGUI EnemyHealthText;
+    //[SerializeField] TextMeshProUGUI PlayerHealthText;
+    //[SerializeField] TextMeshProUGUI EnemyHealthText;
 
-    [SerializeField] Slider PlayerHealthBar;
-    [SerializeField] Slider EnemyHealthBar;
+    //[SerializeField] Slider PlayerHealthBar;
+    //[SerializeField] Slider EnemyHealthBar;
     public bool isLive = true;
 
     private void Awake()
@@ -50,36 +50,47 @@ public class Health : MonoBehaviour
     public void InitHealth(int healthPlayer,int healthEnemy)
     {
         HealthPlayer = healthPlayer;
-        HealthEnemy = healthEnemy;
         MaxHealthPlayer = healthPlayer;
+        InitEnemy(healthEnemy);
+        //PlayerHealthBar.value = 1f;
+        //EnemyHealthBar.value = 1f;
+        //PlayerHealthText.text = healthPlayer.ToString();
+        //EnemyHealthText.text = healthEnemy.ToString();
+    }
+    public void InitEnemy(int healthEnemy)
+    {
+        HealthEnemy = healthEnemy;
         MaxHealthEnemy = healthEnemy;
 
-        PlayerHealthBar.value = 1f;
-        EnemyHealthBar.value = 1f;
-        PlayerHealthText.text = healthPlayer.ToString();
-        EnemyHealthText.text = healthEnemy.ToString();
     }
     public void TextEnemy(float health)
     {
-        EnemyHealthBar.value = (float)health / MaxHealthEnemy;
-        EnemyHealthText.text = health.ToString();
+        //EnemyHealthBar.value = (float)health / MaxHealthEnemy;
+        //EnemyHealthText.text = health.ToString();
     }
     public void TextPlayer(float health)
     {
-        PlayerHealthBar.value = (float)health / MaxHealthPlayer;
-        PlayerHealthText.text = health.ToString();
+        //PlayerHealthBar.value = (float)health / MaxHealthPlayer;
+        //PlayerHealthText.text = health.ToString();
     }
     public void Damage(int health,PieceType pieceType)
     {
         if (pieceType == PieceType.Player)
         {
             HealthEnemy -= health;
+
+            PlayerController.Instance.Attack();
+            AIController.Instance.Damage((float)HealthEnemy / MaxHealthEnemy);
+          
+            Debug.Log("Health Damage: " + health);
             TextEnemy(HealthEnemy);
         }
-        else { 
-        
+        else {
+            Debug.Log("Health Damage: " + health);
             HealthPlayer -= health;
-            TextPlayer(HealthPlayer);
+
+            AIController.Instance.Attack();
+            PlayerController.Instance.Damage((float)HealthPlayer / MaxHealthPlayer);
         }
         ChechkDiedCase();
     }
@@ -87,12 +98,16 @@ public class Health : MonoBehaviour
     {
         if (pieceType == PieceType.Player)
         {
+            //AIController.Instance.Damage((float)health / MaxHealthEnemy);
+
             HealthPlayer += health;
             TextPlayer(HealthPlayer);
         }
         else
         {
+
             HealthEnemy += health;
+
             TextEnemy(HealthEnemy);
         }
     }
@@ -103,10 +118,11 @@ public class Health : MonoBehaviour
          // Prevent further checks until the next game starts
         if (HealthEnemy <= 0)
         {
-            isLive = false;
-            GameManager.Instance.DiedCase(PieceType.Enemy);
+            AIController.Instance.DiedAI();
 
-        } if (HealthPlayer <= 0) {
+
+        }
+        if (HealthPlayer <= 0) {
             isLive = false;
             GameManager.Instance.DiedCase(PieceType.Player);
 

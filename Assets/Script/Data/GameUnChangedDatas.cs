@@ -23,6 +23,7 @@ public class EnemiesUnChangedData
     public List<SpecialPieceType> EnemySpecials=new List<SpecialPieceType>(1);
 }
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(GameUnChangedData))]
 public class GameUnChangedDataDrawer : PropertyDrawer
 {
@@ -36,15 +37,22 @@ public class GameUnChangedDataDrawer : PropertyDrawer
     {
         EditorGUI.BeginProperty(position, label, property);
 
-        // Element indeksini çıxart
         string indexString = property.propertyPath;
-        int indexStart = indexString.IndexOf("[") + 1;
-        int indexEnd = indexString.IndexOf("]");
-        string index = indexString.Substring(indexStart, indexEnd - indexStart);
+        string indexLabel = label.text;
 
-        label = new GUIContent("Level " + (int.Parse(index) + 1));
+        if (indexString.Contains("[") && indexString.Contains("]"))
+        {
+            int indexStart = indexString.IndexOf("[") + 1;
+            int indexEnd = indexString.IndexOf("]");
+            if (indexStart < indexEnd)
+            {
+                string index = indexString.Substring(indexStart, indexEnd - indexStart);
+                indexLabel = "Level " + (int.Parse(index) + 1);
+            }
+        }
 
-        // Sahələri düz layout-la çək
+        label = new GUIContent(indexLabel);
+
         position.height = EditorGUI.GetPropertyHeight(property, label, true);
         EditorGUI.PropertyField(position, property, label, true);
 
@@ -78,3 +86,4 @@ public class EnemiesUnChangedDataDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 }
+#endif

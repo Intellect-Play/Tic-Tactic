@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     public TextMeshProUGUI Level;
+    public TextMeshProUGUI Coin;
 
     private void Awake()
     {
@@ -22,10 +23,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        LevelText("Level: " + SaveDataService.Current.CurrentLevel.ToString());
+        LevelText("Level: " + SaveDataService.CurrentLevel.ToString());
     }
     public void LevelText(string x)
     {
         Level.text = x;
+    }
+    public void UpdateCoinText(int coins)
+    {
+        Coin.text = coins.ToString();
     }
 }

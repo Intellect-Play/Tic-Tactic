@@ -13,12 +13,14 @@ public abstract class SpecialPieceCore : PieceMovePlayer
     public override void Start()
     {
         base.Start();
-
-        GetComponent<RectTransform>().localScale = new Vector2(2f, 2f);
+        size = 2;
+        ShowPopupBounce();
+        //GetComponent<RectTransform>().localScale = new Vector2(2f, 2f);
 
     }
     public void SetupSpecial(SpecialPieceData _specialPieceData)
     {
+
         specialPieceData = _specialPieceData;
         if (animator == null)
         {

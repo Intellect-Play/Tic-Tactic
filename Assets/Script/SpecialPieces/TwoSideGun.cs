@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class TwoSideGun : SpecialPieceCore
 {
+
     public override void Start()
     {
         base.Start();
-        GetComponent<RectTransform>().localScale = new Vector2(2.4f, 2.4f);
+        size = 2.4f;
+        ShowPopupBounce();
+
+        //GetComponent<RectTransform>().localScale = new Vector2(2.4f, 2.4f);
     }
 
     public override void MoveStart(Action onMoveComplete)

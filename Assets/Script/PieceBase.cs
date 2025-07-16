@@ -25,10 +25,13 @@ public class PieceBase : MonoBehaviour
     public float moveDuration = 0.5f; 
     public Ease moveEase = Ease.OutBack; 
     public bool IsPlaced;
+    public PlayerSpawnButtons playerSpawnButtons;
     RectTransform targetCell;
+    public float size;
     public virtual void Start()
     {
-        GetComponent<RectTransform>().localScale = new Vector2(1.8f, 1.8f);
+        size = GameDatas.Instance.mainGameDatasSO.PieceSize;
+        GetComponent<RectTransform>().localScale = new Vector2(size, size);
 
         moveDuration = GameDatas.Instance.mainGameDatasSO.MoveDuration;
         IsPlaced = false;
@@ -39,11 +42,24 @@ public class PieceBase : MonoBehaviour
         originalPos = rectTransform.localPosition;
         //valueText.text = playerValue;
         originalParent = transform.parent; 
+        ShowPopupBounce();
     }
+    public void ShowPopupBounce()
+    {
+        rectTransform.localScale = Vector3.zero;
 
+        Sequence popupSequence = DOTween.Sequence();
+        popupSequence.Append(rectTransform.DOScale(size+0.2f, 0.2f).SetEase(Ease.OutQuad));  // 0 → 1.2x böyümə
+        popupSequence.Append(rectTransform.DOScale(1.5f, 0.15f).SetEase(Ease.InOutQuad)); // bir az balacalaşma
+        popupSequence.Append(rectTransform.DOScale(size, 0.1f).SetEase(Ease.OutBack)); // düz ölçüyə qayıtma
+    }
     public virtual void Placed(bool _isPlaced)
     {
         IsPlaced = _isPlaced;
+        if (IsPlaced&&playerSpawnButtons!=null) { 
+            playerSpawnButtons.pieceBase = null; // Remove reference to the playerSpawnButtons when placed        
+            playerSpawnButtons = null;
+        }
         
     }
     public virtual void Init(PieceType value)

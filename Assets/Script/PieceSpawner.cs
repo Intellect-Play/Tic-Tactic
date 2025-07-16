@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Script;
 using UnityEngine;
@@ -7,11 +8,13 @@ public class PieceSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject PlayerPiecePrefab;
     [SerializeField] private GameObject EnemyPiecePrefab;
-    [SerializeField] private Transform PlayerPieceParent;
-    [SerializeField] private Transform EnemyPieceParent;
+    [SerializeField] private List<PlayerSpawnButtons> PlayerPieceParent;
+    [SerializeField] private List<PlayerSpawnButtons> EnemyPieceParent;
 
     private SpecialPieceController specialPieceController;
     public int StartSpawnCount = 5;
+    public Action<PlayerSpawnButtons> BuyPlayerPieceOneA;
+    public Action<PlayerSpawnButtons> BuyPlayerPieceAllA;
 
     private void Awake()
     {
@@ -19,11 +22,15 @@ public class PieceSpawner : MonoBehaviour
     }
     private void Start()
     {
+        BuyPlayerPieceOneA += BuyPlayerPieceOne;
+        BuyPlayerPieceAllA += BuyPlayerPieceThree;
         GameActions.Instance.OnStartGame += StartSpawn;
     }
   
     private void OnDisable()
     {
+        BuyPlayerPieceOneA -= BuyPlayerPieceOne;
+        BuyPlayerPieceAllA -= BuyPlayerPieceThree;
         GameActions.Instance.OnStartGame -= StartSpawn;
     }
 
@@ -38,29 +45,72 @@ public class PieceSpawner : MonoBehaviour
     public void SpawnPlayerPieces(int count)
     {
         if (GameManager.Instance.IsGameFinished) return;
-
+        ResetBuys();
         PieceType pieceType = PieceType.Player;
-        for (int i = 1; i < count; i++)
+        int i = 0;
+        if (SaveDataService.UnlockedWeapons.Count > 0)
         {
-            SpawnPlayerPiece(i, PlayerPiecePrefab, pieceType);
+            SpecialPieceType special = SaveDataService.UnlockedWeapons[UnityEngine.Random.Range(0, SaveDataService.UnlockedWeapons.Count)];
+            SpawnSpecialPieceEnemy(PlayerPieceParent[i], special, pieceType);
+            i = 1;
         }
-        if (SaveDataService.Current.UnlockedWeapons.Count > 0)
+        for (; i < count - 1; i++)
         {
-            SpecialPieceType special = SaveDataService.Current.UnlockedWeapons[Random.Range(0, SaveDataService.Current.UnlockedWeapons.Count)];
-            SpawnSpecialPieceEnemy(0, special, pieceType);
-            //SpawnSpecialPieceEnemy(0, special, special, pieceType);
-            //SpawnSpecialPieceEnemy(0, special, special, pieceType);
-            //SpawnSpecialPieceEnemy(3, SpecialPieceType.Flame.ToString(), pieceType);
-            //SpawnSpecialPieceEnemy(4, SpecialPieceType.ThunderGun.ToString(), pieceType);
-            //SpawnSpecialPieceEnemy(5, SpecialPieceType.Bomb3Turn.ToString(), pieceType);
-            //List<string> specialStrings = GameManager.Instance.currenGameUnChangedData.EnemySpecials;
-            //SpawnSpecialPieceEnemy(0, specialStrings[Random.Range(0, specialStrings.Count - 1)], pieceType);
+            SpawnPlayerPiece(PlayerPieceParent[i], PlayerPiecePrefab, pieceType);
         }
+    }
+    public void CheckBuy() {
+        int j = 0;
+        Debug.Log("Check Buy F"  + PlayerPieceParent.Count);
 
+        for (int i = 0; i < PlayerPieceParent.Count-1; i++)
+        {
+            if (PlayerPieceParent[i].pieceBase == null)
+            {
+                Debug.Log("Check Buy "+i+" "+j);
+                if(j==0)
+                PlayerPieceParent[i].BuyPiece( BuyPlayerPieceOneA, 200,1);
+                else
+                    PlayerPieceParent[i].BuyPiece( BuyPlayerPieceAllA, 300, 3);
 
+                j++;
+            }
+        }
+    }
+    public void ResetBuys()
+    {
+        for (int i = 0; i < PlayerPieceParent.Count; i++)
+        {
+            PlayerPieceParent[i].ResetButton();
+        }
+    }
+    public void BuyPlayerPieceOne(PlayerSpawnButtons playerSpawnButtons)
+    {
+        Debug.Log("Buy One");
+        if (GameManager.Instance.IsGameFinished) return;
+        if (SaveDataService.UnlockedWeapons.Count > 0)
+        {
+            PieceType pieceType = PieceType.Player;
 
+            SpecialPieceType special = SaveDataService.UnlockedWeapons[UnityEngine.Random.Range(0, SaveDataService.UnlockedWeapons.Count)];
+            SpawnSpecialPieceEnemy(playerSpawnButtons, special, pieceType);
 
+        }
+    }
+    public void BuyPlayerPieceThree(PlayerSpawnButtons playerSpawnButtons)
+    {
+        if (GameManager.Instance.IsGameFinished) return;
+        if (SaveDataService.UnlockedWeapons.Count > 0)
+        {
+            PieceType pieceType = PieceType.Player;
+            PlayerController.Instance.RemoveAllPlayerPieces();
+            foreach (var i in PlayerPieceParent)
+            {
 
+                SpecialPieceType special = SaveDataService.UnlockedWeapons[UnityEngine.Random.Range(0, SaveDataService.UnlockedWeapons.Count)];
+                SpawnSpecialPieceEnemy(i, special, pieceType);
+            }
+        }
     }
     public void SpawnEnemyPieces(int count)
     {
@@ -69,51 +119,58 @@ public class PieceSpawner : MonoBehaviour
         PieceType pieceType = PieceType.Enemy;
         //SpawnSpecialPiece(0, SpecialPieceType.TwoSideGun, "2SX", pieceType);
         //SpawnSpecialPiece(1, SpecialPieceType.Random, "RX", pieceType);
-        for (int i = 1; i < count; i++)
+        //SpawnPlayerPiece(0, EnemyPiecePrefab, pieceType);
+        int i = 0;
+       
+        if (GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0] != SpecialPieceType.Null)
         {
-            SpawnPlayerPiece(i, EnemyPiecePrefab, pieceType);
-        }  
-        if(GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0]!= SpecialPieceType.Null)
-         SpawnSpecialPieceEnemy(0, GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0], pieceType);
+            SpawnSpecialPieceEnemy(EnemyPieceParent[i], GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0], pieceType);
+            i = 1;
+        }
+        for (; i < count - 1; ++i)
+        {
+            SpawnPlayerPiece(EnemyPieceParent[i], EnemyPiecePrefab, pieceType);
+        }
 
 
     }
 
-    public void SpawnSpecialPiece(int count, SpecialPieceType specialPieceType,PieceType pieceType)
+    public void SpawnSpecialPiece(PlayerSpawnButtons count, SpecialPieceType specialPieceType,PieceType pieceType)
     {
         SpawnPlayerPiece(count, specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType).piecePrefab, pieceType);
     }
-    public void SpawnSpecialPieceEnemy(int count, SpecialPieceType specialPieceType, PieceType pieceType)
+    public void SpawnSpecialPieceEnemy(PlayerSpawnButtons count, SpecialPieceType specialPieceType, PieceType pieceType)
     {
         Debug.Log(pieceType + " " + specialPieceType+" "+ pieceType);
        
         SpecialPieceData specialPieceData = specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType);
         SpawnPlayerPiece(count, specialPieceData.piecePrefab, pieceType, specialPieceData);
     }
-    public void SpawnPlayerPiece(int i,GameObject gameObject,PieceType pieceType,SpecialPieceData specialPieceData=null)
+    public void SpawnPlayerPiece(PlayerSpawnButtons i,GameObject gameObject,PieceType pieceType,SpecialPieceData specialPieceData=null)
     {
         GameObject piece;
         if (pieceType == PieceType.Enemy)
         {
-            piece = Instantiate(gameObject, EnemyPieceParent.transform);
+            piece = Instantiate(gameObject, i.transform);
             GameManager.Instance.aiController.GetAiPiece(piece.GetComponent<PieceBase>());
 
         }
         else
         {
-            piece = Instantiate(gameObject, PlayerPieceParent);
+
+            piece = Instantiate(gameObject, i.transform);
             GameManager.Instance.playerController.playerPieces.Add(piece.GetComponent<PieceBase>());
 
         }
-
+        i.GetPiece(piece.GetComponent<PieceBase>());
         RectTransform rect = piece.GetComponent<RectTransform>();
         piece.GetComponent<PieceBase>().playerValue = pieceType;
 
         rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
 
         // Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)
-        rect.anchoredPosition = new Vector2(-150f + i * 200f, -50f);
-        piece.GetComponent<RectTransform>().localScale = new Vector2(2, 2);
+        rect.anchoredPosition = Vector2.zero;
+        //piece.GetComponent<RectTransform>().localScale = new Vector2(2, 2);
         if(specialPieceData != null)
         {
             piece.GetComponent<SpecialPieceCore>().SetupSpecial(specialPieceData);
