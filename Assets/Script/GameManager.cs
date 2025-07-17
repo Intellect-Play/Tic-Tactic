@@ -105,7 +105,8 @@ public class GameManager : MonoBehaviour
         WinResult winResult = board.Cells.CheckWin();
         if (winResult.hasWon)
         {
-            if(winResult.winner == PieceType.Player)
+            CameraShakeVibration.Instance.Shake();
+            if (winResult.winner == PieceType.Player)
             {
                 SaveDataService.Coins += (GameDatas.Instance.mainGameDatasSO.CoinGet* winResult.winCells.Count);
                 UIManager.Instance.UpdateCoinText(SaveDataService.Coins);

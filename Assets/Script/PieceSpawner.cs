@@ -138,7 +138,6 @@ public class PieceSpawner : MonoBehaviour
     }
     public void SpawnSpecialPieceEnemy(PlayerSpawnButtons count, SpecialPieceType specialPieceType, PieceType pieceType)
     {
-        Debug.Log(pieceType + " " + specialPieceType+" "+ pieceType);
        
         SpecialPieceData specialPieceData = specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType);
         SpawnPlayerPiece(count, specialPieceData.piecePrefab, pieceType, specialPieceData);

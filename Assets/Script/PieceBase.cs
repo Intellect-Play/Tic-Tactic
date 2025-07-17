@@ -190,7 +190,7 @@ public class PieceBase : MonoBehaviour
 
 
     }
-    public virtual void PlayPopFade(float scaleAmount = .3f, float duration = 0.2f)
+    public virtual void PlayPopFade(float scaleAmount = .3f, float duration = 0.3f)
     {
         RemoveCellBase();
 

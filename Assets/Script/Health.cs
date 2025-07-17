@@ -82,11 +82,9 @@ public class Health : MonoBehaviour
             PlayerController.Instance.Attack();
             AIController.Instance.Damage((float)HealthEnemy / MaxHealthEnemy);
           
-            Debug.Log("Health Damage: " + health);
             TextEnemy(HealthEnemy);
         }
         else {
-            Debug.Log("Health Damage: " + health);
             HealthPlayer -= health;
 
             AIController.Instance.Attack();
