@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public List<CharacterBase> playerCharacters = new List<CharacterBase>();
 
     public List<RectTransform> playerCharactersSpawnPoints = new List<RectTransform>();
+    public List<Image> Cells = new List<Image>();
     private void Awake()
     {
         if (Instance == null)
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
         }
         currentPlayer = piece;
         GameManager.Instance.EndTurnButtonPressed = true;
-
+        GameManager.Instance.EndTurnButton.interactable=true;
     }
     private void EndTurn() { 
         if(currentPlayer != null)
@@ -67,14 +70,37 @@ public class PlayerController : MonoBehaviour
     public void CheckSizePieces()
     {
         x++;
-        UIManager.Instance.LevelText(x+ " Check "+playerPieces.Count);
+        UIManager.Instance.LevelText(x + " Check " + playerPieces.Count);
 
         if (playerPieces.Count == 0)
         {
             GameManager.Instance.pieceSpawner.SpawnPlayerPieces(GameDatas.Instance.mainGameDatasSO.SpawnCount);
         }
+        else foreach (var piece in playerPieces)
+            {
+                if (piece != null)
+                {
+                    piece.pieceImage.DOFade(1, 1).SetEase(Ease.OutQuad);
+                }
+            }
     }
-
+    public void ChangeColorsActive(bool active)
+    {
+        foreach (var piece in playerPieces)
+        {
+            if (piece != null)
+            {
+                piece.pieceImage.DOFade(active ? 1 : .5f, 0.2f).SetEase(Ease.OutQuad);
+            }
+        }
+        foreach (var piece in Cells)
+        {
+            if (piece != null)
+            {
+                piece.DOFade(active ? 1 : .5f, 0.1f).SetEase(Ease.OutQuad);
+            }
+        }
+    }
     public void Attack()
     {
         playerCharacters[0].Attack(AIController.Instance.aiCharacters[0].MainCharacter.GetComponent<RectTransform>());
@@ -87,7 +113,6 @@ public class PlayerController : MonoBehaviour
         
     }
     public void MakeMove(PieceType pieceType) {
-        Debug.Log(pieceType.ToString());
         ActivePieces(pieceType == currentPlayerType);
         GameManager.Instance.pieceSpawner.CheckBuy();
         CheckSizePieces();
@@ -100,7 +125,16 @@ public class PlayerController : MonoBehaviour
                 piece.ActivePiece(active);
             }
         }
-
+        if (!active)
+        {
+            foreach (var piece in playerPieces)
+            {
+                if (piece != null)
+                {
+                    piece.pieceImage.DOFade(.5f, 1).SetEase(Ease.OutQuad);
+                }
+            }
+        }
 
     }
     private void InitPlayerPieces()

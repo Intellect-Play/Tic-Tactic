@@ -44,7 +44,6 @@ public class CharacterBase : MonoBehaviour
             transform.SetParent(_rectTransform, false);
 
             rectTransform.anchoredPosition = Vector2.zero;
-            Debug.Log(scale);
             if (scale < 1) scale = .5f;
             else scale = 1;
             
@@ -151,6 +150,8 @@ public class CharacterBase : MonoBehaviour
     }
     private IEnumerator DiedE()
     {
+        yield return new WaitForSeconds(1f);
+
         PlayDeathEffect();
         yield return new WaitForSeconds(1.5f);
 

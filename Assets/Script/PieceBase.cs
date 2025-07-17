@@ -18,7 +18,7 @@ public class PieceBase : MonoBehaviour
 
     [SerializeField] public PieceType playerValue;
     [SerializeField] public TextMeshProUGUI valueText;
-
+    public Image pieceImage;
     public Transform originalParent;
     public Cell PieceCell;
 
@@ -28,11 +28,16 @@ public class PieceBase : MonoBehaviour
     public PlayerSpawnButtons playerSpawnButtons;
     RectTransform targetCell;
     public float size;
+    public float sizeX;
+
+
     public virtual void Start()
     {
+        pieceImage = GetComponent<Image>();
+        if (playerValue == PieceType.Player) sizeX = GameDatas.Instance.mainGameDatasSO.PlayerPieceSize;
+        else sizeX = GameDatas.Instance.mainGameDatasSO.EnemyPieceSize;
         size = GameDatas.Instance.mainGameDatasSO.PieceSize;
         GetComponent<RectTransform>().localScale = new Vector2(size, size);
-
         moveDuration = GameDatas.Instance.mainGameDatasSO.MoveDuration;
         IsPlaced = false;
         targetImage = GetComponent<Image>();
@@ -42,16 +47,16 @@ public class PieceBase : MonoBehaviour
         originalPos = rectTransform.localPosition;
         //valueText.text = playerValue;
         originalParent = transform.parent; 
-        ShowPopupBounce();
+        ShowPopupBounce(sizeX);
     }
-    public void ShowPopupBounce()
+    public void ShowPopupBounce(float x)
     {
-        rectTransform.localScale = Vector3.zero;
+        rectTransform.localScale = new Vector3(size-.4f,size - .4f, size - .4f);
 
         Sequence popupSequence = DOTween.Sequence();
-        popupSequence.Append(rectTransform.DOScale(size+0.2f, 0.2f).SetEase(Ease.OutQuad));  // 0 → 1.2x böyümə
-        popupSequence.Append(rectTransform.DOScale(1.5f, 0.15f).SetEase(Ease.InOutQuad)); // bir az balacalaşma
-        popupSequence.Append(rectTransform.DOScale(size, 0.1f).SetEase(Ease.OutBack)); // düz ölçüyə qayıtma
+        popupSequence.Append(rectTransform.DOScale((size+0.2f)*x, 0.2f).SetEase(Ease.OutQuad));  // 0 → 1.2x böyümə
+        popupSequence.Append(rectTransform.DOScale(1.5f * x, 0.15f).SetEase(Ease.InOutQuad)); // bir az balacalaşma
+        popupSequence.Append(rectTransform.DOScale(size * x, 0.1f).SetEase(Ease.OutBack)); // düz ölçüyə qayıtma
     }
     public virtual void Placed(bool _isPlaced)
     {
@@ -112,9 +117,11 @@ public class PieceBase : MonoBehaviour
         transform.SetParent(cell.gameObject.transform);
         rectTransform.anchoredPosition = Vector2.zero;
         transform.parent = originalParent;
-
+        rectTransform.DOScale(size, 0.1f).SetEase(Ease.OutBack);
         PieceCell = cell;
         cell.SetValue(this);
+        //ShowPopupBounce(1);
+
     }
     public virtual void ChangeCellDelay(Cell cell)
     {
@@ -124,13 +131,15 @@ public class PieceBase : MonoBehaviour
         PieceCell = cell;
         cell.SetValue(this);
         // Mövcud rectTransform'u dünya mövqeyinə animasiya ilə apar
-
         rectTransform.DOMove(worldTargetPos, GameDatas.Instance.mainGameDatasSO.MoveDuration)
             .SetEase(Ease.InOutQuad)
             .OnComplete(() => Debug.Log("Moved without parent change"));
+        rectTransform.DOScale(size, 0.1f).SetEase(Ease.OutBack);
+        //popupSequence.Append(rectTransform.DOScale(size , 0.1f).SetEase(Ease.OutBack)); // düz ölçüyə qayıtma
+        //ShowPopupBounce(1);
 
         // Əgər ehtiyac varsa loqika üçün bunu yenə saxla:
-      
+
     }
     public virtual void Back()
     {
@@ -144,13 +153,15 @@ public class PieceBase : MonoBehaviour
             PieceCell.RemoveCell();
         rectTransform.DOLocalMove(originalPos, GameDatas.Instance.mainGameDatasSO.MoveDuration).SetEase(Ease.InOutQuad);
 
-       
+        rectTransform.DOScale(size * sizeX, 0.1f).SetEase(Ease.OutBack);
+
 
     }
     public virtual void BackCell()
     {
         //Debug.Log("Back to original position");
         targetImage.raycastTarget = true;
+        //rectTransform.DOScale(size * sizeX, 0.1f).SetEase(Ease.OutBack);
 
         if (PieceCell == null)
         {
@@ -179,7 +190,7 @@ public class PieceBase : MonoBehaviour
 
 
     }
-    public virtual void PlayPopFade(float scaleAmount = 1.5f, float duration = 0.1f)
+    public virtual void PlayPopFade(float scaleAmount = .3f, float duration = 0.2f)
     {
         RemoveCellBase();
 
@@ -188,7 +199,7 @@ public class PieceBase : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(targetImage.transform.DOScale(scaleAmount, duration).SetEase(Ease.OutBack));
+        seq.Join(targetImage.transform.DOScale(scaleAmount+size, duration).SetEase(Ease.OutBack));
         seq.Join(targetImage.DOFade(0f, duration).SetEase(Ease.InOutSine));
 
         seq.OnComplete(() =>

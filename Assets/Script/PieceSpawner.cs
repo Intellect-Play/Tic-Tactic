@@ -61,13 +61,11 @@ public class PieceSpawner : MonoBehaviour
     }
     public void CheckBuy() {
         int j = 0;
-        Debug.Log("Check Buy F"  + PlayerPieceParent.Count);
 
         for (int i = 0; i < PlayerPieceParent.Count-1; i++)
         {
             if (PlayerPieceParent[i].pieceBase == null)
             {
-                Debug.Log("Check Buy "+i+" "+j);
                 if(j==0)
                 PlayerPieceParent[i].BuyPiece( BuyPlayerPieceOneA, 200,1);
                 else
@@ -86,7 +84,6 @@ public class PieceSpawner : MonoBehaviour
     }
     public void BuyPlayerPieceOne(PlayerSpawnButtons playerSpawnButtons)
     {
-        Debug.Log("Buy One");
         if (GameManager.Instance.IsGameFinished) return;
         if (SaveDataService.UnlockedWeapons.Count > 0)
         {
@@ -165,7 +162,6 @@ public class PieceSpawner : MonoBehaviour
         i.GetPiece(piece.GetComponent<PieceBase>());
         RectTransform rect = piece.GetComponent<RectTransform>();
         piece.GetComponent<PieceBase>().playerValue = pieceType;
-
         rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
 
         // Başlama nöqtəsi -50, sonra 110px ara ilə (100 genişlik + 10 boşluq kimi)

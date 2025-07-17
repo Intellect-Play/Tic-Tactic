@@ -53,7 +53,6 @@ public class AIController : MonoBehaviour
 
         for (int i = 0; i < gameUnChangedDatas.Count; i++)
         {
-            Debug.Log("Enemy Start: " + i);
             CharacterBase enemyCharacterBase=null;
             int lvl = SaveDataService.CurrentLevel;
             if (lvl < 2) enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.Pyramid);
@@ -70,7 +69,6 @@ public class AIController : MonoBehaviour
 
     public void Damage(float health)
     {
-        Debug.Log("AIController Damage: " + health);
         gameUnChangedDatas[0].EnemyHP = (int)health;
         aiCharacters[0].Damage(health);
 

@@ -10,7 +10,7 @@ public class TwoSideGun : SpecialPieceCore
     {
         base.Start();
         size = 2.4f;
-        ShowPopupBounce();
+        ShowPopupBounce(sizeX);
 
         //GetComponent<RectTransform>().localScale = new Vector2(2.4f, 2.4f);
     }
@@ -24,7 +24,6 @@ public class TwoSideGun : SpecialPieceCore
         animator.SetTrigger("Attack");
         animator.SetTrigger("FinalIdle");
         yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
-        Debug.Log("TwoSideGun MoveStart");
         GameManager.Instance.board.DestroyPiece(PieceCell.x + 1, PieceCell.y, playerValue, specialPieceData);
         GameManager.Instance.board.DestroyPiece(PieceCell.x - 1, PieceCell.y, playerValue, specialPieceData);
         MoveEnd(onMoveComplete);

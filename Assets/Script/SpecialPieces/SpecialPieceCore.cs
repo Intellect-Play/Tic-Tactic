@@ -14,7 +14,7 @@ public abstract class SpecialPieceCore : PieceMovePlayer
     {
         base.Start();
         size = 2;
-        ShowPopupBounce();
+        ShowPopupBounce(sizeX);
         //GetComponent<RectTransform>().localScale = new Vector2(2f, 2f);
 
     }
@@ -104,6 +104,7 @@ public abstract class SpecialPieceCore : PieceMovePlayer
     {
         if (!IsPlaced&&_isPlaced)
         {
+            ShowPopupBounce(1);
 
             AddToList();
         }

@@ -14,12 +14,11 @@ public class PlayerSpawnButtons : MonoBehaviour
     // Start is called before the first frame update
     public void BuyPiece(Action<PlayerSpawnButtons> buyEvent,int cost,int num)
     {
-        Debug.Log("Buy Piece " + num + " " + cost);
         if (BuyPieceImage.activeSelf) return;
       
         pieceBase = null;
         BuyPieceImage.SetActive(true);
-        CountText.text = num.ToString();
+        CountText.text = num.ToString()+" card";
         CoinText.text = cost.ToString();
         BuyButton.onClick.AddListener(() =>
         {

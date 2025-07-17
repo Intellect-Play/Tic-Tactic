@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public AIController aiController;
     [SerializeField] public AllSpecialPiecesMove allSpecialPiecesMove;
     [SerializeField] public PieceSpawner pieceSpawner;
+    [SerializeField] public Button EndTurnButton;
 
     [SerializeField] public GameObject GameFinish;
     [SerializeField] public TextMeshProUGUI FinishText;
@@ -93,7 +94,8 @@ public class GameManager : MonoBehaviour
     public void SwitchTurn()
     {
         currentPlayer = currentPlayer == PieceType.Player ? PieceType.Enemy : PieceType.Player;
-        
+        EndTurnButton.interactable = false;        
+        playerController.ChangeColorsActive(currentPlayer == PieceType.Player);
     }
 
     IEnumerator CheckResult()
