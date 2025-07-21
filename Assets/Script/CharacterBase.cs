@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using CartoonFX;
 
 public class CharacterBase : MonoBehaviour
 {
@@ -12,7 +13,12 @@ public class CharacterBase : MonoBehaviour
 
     [SerializeField] Image characterImage;
     [SerializeField] Slider healthBar;
+    [SerializeField] ParticleSystem HitEnemy;
+    [SerializeField] ParticleSystem DamageParticle;
 
+    [SerializeField] ShakeEffect HitShakeEnemy;
+
+    Button attackButton;
     RectTransform rectTransform;
     Vector3 originalAnchoredPos;
     private void Awake()
@@ -20,6 +26,9 @@ public class CharacterBase : MonoBehaviour
         characterAnimator = MainCharacter.GetComponent<Animator>();
         rectTransform = GetComponent<RectTransform>();
         healthBar.value = 1f; // Initialize health bar to full
+        attackButton = MainCharacter.GetComponent<Button>();
+        if(attackButton!=null)
+        attackButton.onClick.AddListener(AttackButton);
     }
     public void SetupSpecial(CharacterData _character)
     {
@@ -36,7 +45,13 @@ public class CharacterBase : MonoBehaviour
         AnimationStart(AnimationsEnum.Idle);
         originalAnchoredPos = rectTransform.anchoredPosition;
     }
-
+    public void AttackButton()
+    {
+        if (MainCharacter != null&&attackButton!=null)
+        {
+            AnimationStart(AnimationsEnum.Hit);
+        }
+    }
     public void GetPosition(RectTransform _rectTransform,float scale)
     {
         if (MainCharacter != null)
@@ -53,9 +68,9 @@ public class CharacterBase : MonoBehaviour
     }
     public void Damage(float health)
     {
-        AnimationStart(AnimationsEnum.Hit);
+        StartCoroutine(DamageE(health));
 
-        ChangeHealth(health);
+      
     }
     public void ChangeHealth(float health)
     {
@@ -78,7 +93,7 @@ public class CharacterBase : MonoBehaviour
     {
         transform.SetParent(_rectTransform, false);
 
-        rectTransform.DOAnchorPos(new Vector2(0, 0), 2).SetEase(Ease.OutQuad);
+        rectTransform.DOAnchorPos(new Vector2(0, 0), 3).SetEase(Ease.OutQuad);
         rectTransform.DOScale(new Vector3(1, 1,1), 1).SetEase(Ease.OutBack);
         originalAnchoredPos = rectTransform.anchoredPosition;
     }
@@ -148,12 +163,32 @@ public class CharacterBase : MonoBehaviour
 
         characterAnimator.SetInteger("AnimationInt", 0); // Idle
     }
+    private IEnumerator DamageE(float health)
+    {
+        AnimationStart(AnimationsEnum.Hit);
+        
+        ChangeHealth(health);
+        yield return new WaitForSeconds(.6f);
+        if (DamageParticle != null)
+            DamageParticle.Play();
+    }
     private IEnumerator DiedE()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.8f);
+        if (HitEnemy != null)
+        {
+            HitEnemy.gameObject.SetActive(true);
+            HitShakeEnemy.Shake();
 
-        PlayDeathEffect();
-        yield return new WaitForSeconds(1.5f);
+        }
+        PlayDeathEffect(); 
+        yield return new WaitForSeconds(.7f); 
+        if (HitEnemy != null)
+        {
+
+            HitShakeEnemy.Shake();
+        }
+        yield return new WaitForSeconds(.3f);
 
         Destroy(gameObject);
     }

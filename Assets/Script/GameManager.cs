@@ -19,8 +19,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] public PieceSpawner pieceSpawner;
     [SerializeField] public Button EndTurnButton;
 
-    [SerializeField] public GameObject GameFinish;
+    [SerializeField] public GameObject GameFinishWin;
+    [SerializeField] public GameObject GameFinishLose;
+    [SerializeField] public GameObject GetNewPiece;
+    [SerializeField] public Image GetNewPieceImage;
+
     [SerializeField] public TextMeshProUGUI FinishText;
+    [SerializeField] public SpecialPieceController specialPieceController;
+
     public PieceType currentPlayer;
     public GameUnChangedData currenGameUnChangedData;
     public List<GameUnChangedData> gameUnChangedDatas;
@@ -42,12 +48,22 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentPlayer = PieceType.Player;
-       // gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
+        gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
         currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.CurrentLevel-1];
         GameActions.Instance.OnEndTurn += EndTurn;
-        StartCoroutine(StartTime());
-    }
+        GameFinishLose.SetActive(false);
+        GameFinishWin.SetActive(false);
+        GetNewPiece.SetActive(false);
 
+        //StartCoroutine(StartTime());
+    }
+    public void StartGame()
+    {
+        GameActions.Instance.InvokeStartGame();
+        cellController.cells = board.Cells;
+        Debug.Log("Game Started");
+        //StartCoroutine(StartTime());
+    }
     private void OnDisable()
     {
         GameActions.Instance.OnEndTurn -= EndTurn;
@@ -141,44 +157,71 @@ public class GameManager : MonoBehaviour
     {
       Debug.Log(message);
     }
+
     public void DiedCase(PieceType pieceType)
     {
         if (IsGameFinished) return;
-        IsGameFinished = true;
-
-        if (pieceType == PieceType.Enemy)SaveDataService.CurrentLevel++;
-
-        if (currenGameUnChangedData.PlayerSpecialUnlock != SpecialPieceType.Null)
+        Debug.Log("Game Over: " + pieceType);
+        if (pieceType == PieceType.Enemy)
         {
-           Debug.Log("Player Special Unlock: " + currenGameUnChangedData.PlayerSpecialUnlock);
-            var list = SaveDataService.UnlockedWeapons;
-            list.Add(currenGameUnChangedData.PlayerSpecialUnlock);
-            SaveDataService.UnlockedWeapons = list;
-            //SaveDataService.UnlockedWeapons.Add(currenGameUnChangedData.PlayerSpecialUnlock);
+            SaveDataService.CurrentLevel++;
+            if (currenGameUnChangedData.PlayerSpecialUnlock != SpecialPieceType.Null)
+            {
+                Debug.Log("Player Special Unlock: " + currenGameUnChangedData.PlayerSpecialUnlock);
+                var list = SaveDataService.UnlockedWeapons;
+                list.Add(currenGameUnChangedData.PlayerSpecialUnlock);
+                SaveDataService.UnlockedWeapons = list;
+                GetNewPiece.SetActive(true);
+
+                GetNewPieceImage.sprite = specialPieceController.specialPieces.Find(x => x.specialPieceType == currenGameUnChangedData.PlayerSpecialUnlock).XSprite;
+                SaveDataService.Save();
+
+                //SaveDataService.UnlockedWeapons.Add(currenGameUnChangedData.PlayerSpecialUnlock);
+            }
+            else
+            {
+
+                GameWin();
+            }
         }
-        SaveDataService.Save();
-        StartCoroutine(FinishTime(pieceType.ToString() + " is Died"));
+        else GameLose();
+
+
+
+
+
     }
 
     public void GameWin()
     {
+        Debug.Log("Game Win");
         if (IsGameFinished) return;
         IsGameFinished = true;
-        StartCoroutine(FinishTime("Game Win"));
+        GameFinishWin.SetActive(true);
+
     }
     public void GameLose()
-    {
+    {Debug.Log("Game Lose");
         if (IsGameFinished) return;
         IsGameFinished = true;
-          StartCoroutine(FinishTime("Game Over"));
+          StartCoroutine(FinishTime(false));
     }
-    IEnumerator FinishTime(string WinPlayer)
+    IEnumerator FinishTime(bool Win)
     {
-        GameFinish.SetActive(true);
-        FinishText.text = WinPlayer;
+
 
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(0);
+        if(Win)
+        {
+            GameFinishWin.SetActive(true);
+            //FinishText.text = "You Win!";
+        }
+        else
+        {
+            GameFinishLose.SetActive(true);
+            //FinishText.text = "You Lose!";
+        }
+        //SceneManager.LoadScene(0);
 
     }
 }

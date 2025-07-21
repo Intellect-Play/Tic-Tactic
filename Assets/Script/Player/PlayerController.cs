@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     public void CheckSizePieces()
     {
         x++;
-        UIManager.Instance.LevelText(x + " Check " + playerPieces.Count);
+        //UIManager.Instance.LevelText(x + " Check " + playerPieces.Count);
 
         if (playerPieces.Count == 0)
         {

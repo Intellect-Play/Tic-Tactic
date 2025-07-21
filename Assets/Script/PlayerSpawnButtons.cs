@@ -14,7 +14,8 @@ public class PlayerSpawnButtons : MonoBehaviour
     // Start is called before the first frame update
     public void BuyPiece(Action<PlayerSpawnButtons> buyEvent,int cost,int num)
     {
-        if (BuyPieceImage.activeSelf) return;
+        Debug.Log(SaveDataService.CurrentLevel);
+        if (BuyPieceImage.activeSelf&&SaveDataService.CurrentLevel<2) return;
       
         pieceBase = null;
         BuyPieceImage.SetActive(true);

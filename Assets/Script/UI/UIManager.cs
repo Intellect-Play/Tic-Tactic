@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -10,13 +12,18 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI Level;
     public TextMeshProUGUI Coin;
     [Header("Buttons")]
+    public RectTransform Buttons;
     public Button playButton;
-    public Button deckButtonRight;
-    public Button deckButtonLeft;
+    public Button deckButton;
+    public Button myHeroButton;
     public Button exitButton;
 
     [Header("Deck Panel")]
-    public GameObject deckPanel;
+    public RectTransform deckPanel;
+
+    public Animation StartButtonAnime;
+    public List<GameObject> mainUIObjects = new List<GameObject>();
+    private Vector2 originalPosition;
     private void Awake()
     {
         if (Instance == null)
@@ -31,27 +38,82 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        deckPanel.SetActive(false); // Başda bağlı olsun
-
+        //deckPanel.SetActive(false); // Başda bağlı olsun
+        originalPosition = Buttons.anchoredPosition;
         playButton.onClick.AddListener(OnPlayClicked);
-        deckButtonRight.onClick.AddListener(ToggleDeckPanel);
-        LevelText("Level: " + SaveDataService.CurrentLevel.ToString());
+        deckButton.onClick.AddListener(DeckPanelClicked);
+        exitButton.onClick.AddListener(ExitClicked);
 
+        LevelText(SaveDataService.CurrentLevel.ToString());
+        StartButtonAnime.gameObject.SetActive(false);
+        MoveDown(deckPanel, Screen.height+200); // 100f qədər aşağı hərəkət et
+        Debug.Log(Screen.height+200);
     }
 
-    private void OnPlayClicked()
+    public void OnPlayClicked()
     {
         Debug.Log("Play clicked!");
-        // Burada oyuna keçid və ya səhnə yükləmə kodu ola bilər
+        StartCoroutine(StartGameDelay(1)); 
     }
-
-    private void ToggleDeckPanel()
+    IEnumerator StartGameDelay(float delay)
     {
-        deckPanel.SetActive(!deckPanel.activeSelf);
+        MoveDown(Buttons, 700f); // 100f qədər aşağı hərəkət et
+        StartButtonAnime.gameObject.SetActive(true);
+        StartButtonAnime.Play();
+        GameManager.Instance.StartGame();
+
+
+        yield return new WaitForSeconds(1);
+        foreach (var obj in mainUIObjects)
+        {
+            obj.SetActive(false);
+        }
+        yield return new WaitForSeconds(2);
+        StartButtonAnime.gameObject.SetActive(false);
+    }
+    public void MoveDown(RectTransform rectTransform,float amount)
+    {
+        rectTransform.DOAnchorPosY(originalPosition.y - amount, 0.4f)
+                     .SetEase(Ease.InOutSine);
+    }
+    public void DeckPanelClicked()
+    {
+        StartCoroutine(DeckDelay(.5f)); // 0.5 saniyə gecikmə ilə paneli aç
     }
 
+    IEnumerator DeckDelay(float delay)
+    {
+        MoveDown(Buttons,700f); // 100f qədər aşağı hərəkət et
 
- 
+        yield return new WaitForSeconds(delay);
+        MoveDown(deckPanel, 0); // 100f qədər aşağı hərəkət et
+
+        //MoveDown(deckPanel, 0); // 100f qədər aşağı hərəkət et
+
+    }
+    public void ExitClicked()
+    {
+        StartCoroutine(ExitDelay(3.5f)); // 0.5 saniyə gecikmə ilə paneli aç
+    }
+    public void Claim() { 
+    
+        GameManager.Instance.GetNewPiece.SetActive(false);
+        GameManager.Instance.GameWin();
+    }
+    IEnumerator ExitDelay(float delay)
+    {
+        MoveDown(deckPanel, Screen.height + 200); // 100f qədər aşağı hərəkət et
+
+        MoveDown(Buttons, 0); // 100f qədər aşağı hərəkət et
+        yield return new WaitForSeconds(delay);
+        MoveDown(Buttons, 0); // 100f qədər aşağı hərəkət et
+
+    }
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void LevelText(string x)
     {
         Level.text = x;

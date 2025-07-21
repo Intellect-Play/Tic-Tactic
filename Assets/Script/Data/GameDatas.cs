@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System;
+using UnityEditor;
 
 public class GameDatas : MonoBehaviour
 {
@@ -86,6 +87,10 @@ public class GameDatas : MonoBehaviour
 
             gameUnChangedDatas.Add(copy);
         }
+    }
+    private void OnDisable()
+    {
+        mainGameDatasSO = null;
     }
     private void LoadData()
     {
