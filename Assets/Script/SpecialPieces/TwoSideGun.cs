@@ -24,6 +24,8 @@ public class TwoSideGun : SpecialPieceCore
         animator.SetTrigger("Attack");
         animator.SetTrigger("FinalIdle");
         yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
+        SoundManager.Instance.PlaySound(SoundType.Shoot);
+
         GameManager.Instance.board.DestroyPiece(PieceCell.x + 1, PieceCell.y, playerValue, specialPieceData);
         GameManager.Instance.board.DestroyPiece(PieceCell.x - 1, PieceCell.y, playerValue, specialPieceData);
         MoveEnd(onMoveComplete);

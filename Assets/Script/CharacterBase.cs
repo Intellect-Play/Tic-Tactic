@@ -88,6 +88,8 @@ public class CharacterBase : MonoBehaviour
 
         AnimationStart(AnimationsEnum.Attack);
         MoveToAndBack(_rectTransform);
+        SoundManager.Instance.PlaySound(SoundType.Swoop);
+
     }
     public void MovePosition(RectTransform _rectTransform)
     {

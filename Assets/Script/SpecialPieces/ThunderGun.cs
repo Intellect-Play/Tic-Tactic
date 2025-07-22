@@ -24,6 +24,8 @@ public class ThunderGun : SpecialPieceCore
         animator.SetTrigger("Attack");
         animator.SetTrigger("FinalIdle");
         yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
+        SoundManager.Instance.PlaySound(SoundType.Thunder);
+
         board.DestroyPiece(PieceCell.x + 1, PieceCell.y + 1, playerValue, specialPieceData);
         board.DestroyPiece(PieceCell.x + 1, PieceCell.y - 1, playerValue, specialPieceData);
         board.DestroyPiece(PieceCell.x - 1, PieceCell.y + 1, playerValue, specialPieceData);

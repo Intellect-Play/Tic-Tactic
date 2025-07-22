@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
@@ -50,6 +50,21 @@ public class GameManager : MonoBehaviour
         currentPlayer = PieceType.Player;
         gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
         currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.CurrentLevel-1];
+        int lvl = SaveDataService.CurrentLevel;
+        int index;
+
+        if (lvl <= 40)
+        {
+            index = lvl - 1;
+        }
+        else
+        {
+            int loopStart = 35;  // 35-ci səviyyənin index-i (0-dan başladığı üçün)
+            int loopLength = 5;  // 35-40 səviyyələri → 6 data
+            index = loopStart + ((lvl - 35) % loopLength);
+        }
+
+        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[index];
         GameActions.Instance.OnEndTurn += EndTurn;
         GameFinishLose.SetActive(false);
         GameFinishWin.SetActive(false);
@@ -134,6 +149,7 @@ public class GameManager : MonoBehaviour
                 enemyAttack.AttackEnemy(winResult.winCells);
 
             }
+            SoundManager.Instance.PlaySound(SoundType.Line);
             yield return new WaitForSeconds(1.3f);
 
             //ShowResult($"{winResult.winner} Wins!");
@@ -175,6 +191,7 @@ public class GameManager : MonoBehaviour
 
                 GetNewPieceImage.sprite = specialPieceController.specialPieces.Find(x => x.specialPieceType == currenGameUnChangedData.PlayerSpecialUnlock).XSprite;
                 SaveDataService.Save();
+                SoundManager.Instance.PlaySound(SoundType.Win);
 
                 //SaveDataService.UnlockedWeapons.Add(currenGameUnChangedData.PlayerSpecialUnlock);
             }
@@ -198,7 +215,7 @@ public class GameManager : MonoBehaviour
         if (IsGameFinished) return;
         IsGameFinished = true;
         GameFinishWin.SetActive(true);
-
+        SoundManager.Instance.PlaySound(SoundType.Win);
     }
     public void GameLose()
     {Debug.Log("Game Lose");

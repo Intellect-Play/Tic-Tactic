@@ -10,6 +10,7 @@ public class Healer : SpecialPieceCore
         animator.SetTrigger("FinalIdle");
 
         Health.Instance.Heal(1, playerValue);
+        SoundManager.Instance.PlaySound(SoundType.Heal);
 
         base.AttackDestroy(targetPosition);
     }

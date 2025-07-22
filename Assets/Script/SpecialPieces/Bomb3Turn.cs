@@ -53,6 +53,7 @@ public class Bomb3Turn : SpecialPieceCore
     {
       
         yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
+        SoundManager.Instance.PlaySound(SoundType.Bomb);
 
         for (int dx = -1; dx <= 1; dx++)
         {

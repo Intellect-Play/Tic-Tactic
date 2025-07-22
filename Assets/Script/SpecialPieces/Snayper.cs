@@ -25,6 +25,7 @@ public class Snayper : SpecialPieceCore
         List<Cell> EnemyCells = board.Cells.FindAll(c => c._PlayerPiece != null && c._PlayerPiece.playerValue == pieceType);
         if (EnemyCells.Count != 0)
         {
+            SoundManager.Instance.PlaySound(SoundType.Shoot);
 
 
             Cell PieceCell = EnemyCells[UnityEngine.Random.Range(0, EnemyCells.Count)];

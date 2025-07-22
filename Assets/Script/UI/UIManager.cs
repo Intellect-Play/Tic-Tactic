@@ -61,9 +61,12 @@ public class UIManager : MonoBehaviour
         StartButtonAnime.gameObject.SetActive(true);
         StartButtonAnime.Play();
         GameManager.Instance.StartGame();
+        yield return new WaitForSeconds(.5f);
 
+        SoundManager.Instance.PlaySound(SoundType.Swoop);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.5f);
+
         foreach (var obj in mainUIObjects)
         {
             obj.SetActive(false);
