@@ -204,3 +204,17 @@ public class EnemiesUnChangedData2
     public int EnemyHP;
     public List<SpecialPieceType> EnemySpecials = new List<SpecialPieceType>(1);
 }
+
+/*
+
+TwoSideGun - 1, 
+ThunderGun - 4,
+Flame - 8,
+Snayper - 12,
+Plus2 - 16,
+Healer - 20,
+Bomb3Turn - 25,
+Random - 30,
+Immortal - 35
+
+ */

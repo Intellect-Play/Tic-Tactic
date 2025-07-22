@@ -37,35 +37,43 @@ public class AIController : MonoBehaviour
     {
         GameActions.Instance.OnStartGame -= EnemyStart;
     }
-    public void EnemyStart() {
-
+    public void EnemyStart()
+    {
         gameUnChangedDatas = new List<EnemiesUnChangedData>();
+
         foreach (var enemy in GameManager.Instance.currenGameUnChangedData.Enemies)
         {
             var enemyCopy = new EnemiesUnChangedData
             {
                 EnemyHP = enemy.EnemyHP,
-                EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials) // dəyişikliyi təsir etməsin
+                EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials)
             };
 
             gameUnChangedDatas.Add(enemyCopy);
         }
 
+        // Düşmən rotasiyası üçün dövr edən sıranı yarat
+        Characters[] characterCycle = new Characters[]
+        {
+        Characters.Pyramid,
+        Characters.Vodo,
+        Characters.EnemyOrk,
+        Characters.EnemyYork // Əgər 4-cü düşmənin yoxdursa, dəyişdir və ya sil
+        };
+
+        int lvl = SaveDataService.CurrentLevel;
+        int characterIndex = (lvl / 4) % characterCycle.Length;
+        Characters selectedCharacter = characterCycle[characterIndex];
+
         for (int i = 0; i < gameUnChangedDatas.Count; i++)
         {
-            CharacterBase enemyCharacterBase=null;
-            int lvl = SaveDataService.CurrentLevel;
-            if (lvl < 2) enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.Pyramid);
-
-            else if (lvl < 5 ) enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.Vodo);
-            else if (lvl < 8) enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.EnemyOrk);
-            else  enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.Pyramid);
-
+            CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(selectedCharacter);
             aiCharacters.Add(enemyCharacterBase);
-            enemyCharacterBase.GetPosition(aiCharactersSpawnPoints[i],1-(0.3f*i));
-        }
 
+            enemyCharacterBase.GetPosition(aiCharactersSpawnPoints[i], 1 - (0.3f * i));
+        }
     }
+
 
     public void Damage(float health)
     {

@@ -127,51 +127,233 @@ MonoBehaviour:
     - EnemyHP: 2
       EnemySpecials: 00000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 16
+    Enemies:
+    - EnemyHP: 2
+      EnemySpecials: 00000000
+    - EnemyHP: 2
+      EnemySpecials: 06000000
+    - EnemyHP: 1
+      EnemySpecials: 00000000
+    - EnemyHP: 4
+      EnemySpecials: 06000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 16
+    Enemies:
+    - EnemyHP: 2
+      EnemySpecials: 
+    - EnemyHP: 8
+      EnemySpecials: 06000000
+    PlayerSpecialUnlock: 6
+  - PlayerHP: 16
+    Enemies:
+    - EnemyHP: 4
+      EnemySpecials: 06000000
+    - EnemyHP: 4
+      EnemySpecials: 0500000002000000
+    - EnemyHP: 4
+      EnemySpecials: 0200000001000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 16
+    Enemies:
+    - EnemyHP: 2
+      EnemySpecials: 09000000
+    - EnemyHP: 4
+      EnemySpecials: 09000000
+    - EnemyHP: 3
+      EnemySpecials: 09000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 16
+    Enemies:
+    - EnemyHP: 4
+      EnemySpecials: 00000000
+    - EnemyHP: 2
+      EnemySpecials: 09000000
+    - EnemyHP: 2
+      EnemySpecials: 09000000
+    - EnemyHP: 1
+      EnemySpecials: 00000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 18
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 15
+      EnemySpecials: 09000000
+    PlayerSpecialUnlock: 9
+  - PlayerHP: 19
+    Enemies:
+    - EnemyHP: 5
+      EnemySpecials: 00000000
+    - EnemyHP: 5
+      EnemySpecials: 03000000
+    - EnemyHP: 5
+      EnemySpecials: 00000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 19
+    Enemies:
+    - EnemyHP: 5
+      EnemySpecials: 00000000
+    - EnemyHP: 5
+      EnemySpecials: 03000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 19
+    Enemies:
+    - EnemyHP: 5
+      EnemySpecials: 03000000
+    - EnemyHP: 5
+      EnemySpecials: 00000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 19
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 3
+      EnemySpecials: 03000000
+    - EnemyHP: 5
+      EnemySpecials: 03000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 20
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 11
+      EnemySpecials: 09000000
+    PlayerSpecialUnlock: 9
+  - PlayerHP: 20
+    Enemies:
+    - EnemyHP: 5
+      EnemySpecials: 00000000
+    - EnemyHP: 1
+      EnemySpecials: 08000000
+    - EnemyHP: 5
+      EnemySpecials: 00000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 20
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 08000000
+    - EnemyHP: 3
+      EnemySpecials: 08000000
+    - EnemyHP: 5
+      EnemySpecials: 00000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 21
+    Enemies:
+    - EnemyHP: 5
+      EnemySpecials: 0200000003000000
+    - EnemyHP: 5
+      EnemySpecials: 0100000006000000
+    - EnemyHP: 5
+      EnemySpecials: 090000000a000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 21
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 07000000
+    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 3
+      EnemySpecials: 08000000
+    - EnemyHP: 3
+      EnemySpecials: 00000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 23
+    Enemies:
+    - EnemyHP: 6
+      EnemySpecials: 00000000
+    - EnemyHP: 23
+      EnemySpecials: 08000000
+    PlayerSpecialUnlock: 8
+  - PlayerHP: 23
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 3
+      EnemySpecials: 07000000
+    - EnemyHP: 3
+      EnemySpecials: 07000000
+    - EnemyHP: 3
+      EnemySpecials: 07000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 23
+    Enemies:
+    - EnemyHP: 4
+      EnemySpecials: 00000000
+    - EnemyHP: 4
+      EnemySpecials: 07000000
+    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 6
+      EnemySpecials: 07000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 23
+    Enemies:
+    - EnemyHP: 6
+      EnemySpecials: 00000000
+    - EnemyHP: 23
+      EnemySpecials: 08000000
     PlayerSpecialUnlock: 0
-  - PlayerHP: 0
-    Enemies: []
+  - PlayerHP: 23
+    Enemies:
+    - EnemyHP: 6
+      EnemySpecials: 00000000
+    - EnemyHP: 7
+      EnemySpecials: 07000000
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 24
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 00000000
+    - EnemyHP: 10
+      EnemySpecials: 07000000
+    PlayerSpecialUnlock: 7
+  - PlayerHP: 24
+    Enemies:
+    - EnemyHP: 5
+      EnemySpecials: 00000000
+    - EnemyHP: 3
+      EnemySpecials: 080000000500000002000000
+    - EnemyHP: 6
+      EnemySpecials: 0100000005000000
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 24
+    Enemies:
+    - EnemyHP: 3
+      EnemySpecials: 0300000005000000
+    - EnemyHP: 2
+      EnemySpecials: 0600000007000000
+    - EnemyHP: 5
+      EnemySpecials: 0700000009000000
+    - EnemyHP: 8
+      EnemySpecials: 0a0000000100000002000000
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 24
+    Enemies:
+    - EnemyHP: 5
+      EnemySpecials: 0300000005000000
+    - EnemyHP: 2
+      EnemySpecials: 0600000007000000
+    - EnemyHP: 6
+      EnemySpecials: 0700000009000000
+    - EnemyHP: 8
+      EnemySpecials: 0a0000000100000002000000
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 24
+    Enemies:
+    - EnemyHP: 8
+      EnemySpecials: 0300000005000000
+    - EnemyHP: 9
+      EnemySpecials: 0600000007000000
+    PlayerSpecialUnlock: 0
+  - PlayerHP: 25
+    Enemies:
+    - EnemyHP: 4
+      EnemySpecials: 0300000005000000
+    - EnemyHP: 2
+      EnemySpecials: 0800000003000000
+    - EnemyHP: 7
+      EnemySpecials: 0700000009000000
+    - EnemyHP: 8
+      EnemySpecials: 0a0000000100000002000000
     PlayerSpecialUnlock: 0
