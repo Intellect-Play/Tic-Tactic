@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +9,16 @@ public class Board : MonoBehaviour
 
     [SerializeField]public int boardSizeX;
     [SerializeField] public int boardSizeY;
+    [SerializeField] public GameObject LinePlayer;
+    [SerializeField] public GameObject LineEnemy;
+    [SerializeField] public Transform Canvas;
 
     [SerializeField]private GameObject cellPrefab;
     GridLayoutGroup gridLayoutGroup;
     public List<Cell> Cells = new List<Cell>();
     public Cell[,] CellArray;
     private List<Cell> emptyCells = new List<Cell>();
-
+    public Cell MiddleCell;
     private void Start()
     {
        
@@ -31,6 +34,26 @@ public class Board : MonoBehaviour
         GameActions.Instance.OnStartGame += Generate;
 
     }
+
+    public void GetSTRIKE(Cell middleCell, Vector3 rotation,PieceType playerPiece)
+    {
+        MiddleCell = middleCell;
+        GameObject linePrefab = playerPiece == PieceType.Player ? LinePlayer : LineEnemy;
+
+        linePrefab.SetActive(true); // Aktiv etmək
+        linePrefab.transform.SetParent(middleCell.transform); // Canvas-a daxil etmək üçün
+        linePrefab.transform.localPosition = Vector3.zero; // Mərkəzdə yerləşdirmək üçün
+        // RectTransform-a daxil olub rotation-u qur
+        RectTransform rectTransform = linePrefab.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            //rectTransform.localRotation = Quaternion.Euler(new Vector3(-rotation.x,-rotation.y,0));
+            rectTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, rotation.z+90));
+
+            rectTransform.anchoredPosition3D = Vector3.zero; // mərkəzdə yerləşdirmək üçün
+        }
+    }
+
     private void OnDisable()
     {
         GameActions.Instance.OnStartGame -= Generate;

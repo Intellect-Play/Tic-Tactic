@@ -87,6 +87,7 @@ public class PieceSpawner : MonoBehaviour
         if (GameManager.Instance.IsGameFinished) return;
         if (SaveDataService.UnlockedWeapons.Count > 0)
         {
+            Debug.Log("BuyPlayerPieceOne");
             PieceType pieceType = PieceType.Player;
 
             SpecialPieceType special = SaveDataService.UnlockedWeapons[UnityEngine.Random.Range(0, SaveDataService.UnlockedWeapons.Count)];

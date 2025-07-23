@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance;
-  
+
+    [Header("Game Components")]
     [SerializeField] public Board board;
     [SerializeField] private CellController cellController;
     [SerializeField] private EnemyAttack enemyAttack;
@@ -18,11 +19,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] public AllSpecialPiecesMove allSpecialPiecesMove;
     [SerializeField] public PieceSpawner pieceSpawner;
     [SerializeField] public Button EndTurnButton;
+    [SerializeField] public HorizontalInfiniteScroll horizontalInfiniteScroll;
 
+    [Header("Game UI")]
     [SerializeField] public GameObject GameFinishWin;
     [SerializeField] public GameObject GameFinishLose;
     [SerializeField] public GameObject GetNewPiece;
     [SerializeField] public Image GetNewPieceImage;
+    [SerializeField] public GameObject RunPanel;
 
     [SerializeField] public TextMeshProUGUI FinishText;
     [SerializeField] public SpecialPieceController specialPieceController;
@@ -129,9 +133,29 @@ public class GameManager : MonoBehaviour
         playerController.ChangeColorsActive(currentPlayer == PieceType.Player);
     }
 
+    public void RunPlayer()
+    {
+
+        StartCoroutine(RunDelay());
+       
+    }
+    IEnumerator RunDelay()
+    {
+        yield return new WaitForSeconds(.5f);
+
+        RunPanel.SetActive(true);
+        horizontalInfiniteScroll.RunBool = true;
+        playerController.playerCharacters[0].characterAnimator.SetBool("CatRun", true);
+        yield return new WaitForSeconds(3f);
+        RunPanel.SetActive(false);
+        horizontalInfiniteScroll.RunBool = false;
+
+        playerController.playerCharacters[0].characterAnimator.SetBool("CatRun", false);
+
+    }
     IEnumerator CheckResult()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.3f);
 
         WinResult winResult = board.Cells.CheckWin();
         if (winResult.hasWon)
@@ -139,13 +163,17 @@ public class GameManager : MonoBehaviour
             CameraShakeVibration.Instance.Shake();
             if (winResult.winner == PieceType.Player)
             {
+                board.GetSTRIKE(winResult.middleCell, winResult.strikeRotation, PieceType.Player);
                 SaveDataService.Coins += (GameDatas.Instance.mainGameDatasSO.CoinGet* winResult.winCells.Count);
                 UIManager.Instance.UpdateCoinText(SaveDataService.Coins);
                 enemyAttack.AttackPlayer(winResult.winCells);
             }
             else if (winResult.winner == PieceType.Enemy)
             {
-               yield return new WaitForSeconds(.5f);
+                board.GetSTRIKE(winResult.middleCell, winResult.strikeRotation, PieceType.Enemy);
+
+                yield return new WaitForSeconds(.7f);
+
                 enemyAttack.AttackEnemy(winResult.winCells);
 
             }

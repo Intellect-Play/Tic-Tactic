@@ -31,6 +31,8 @@ public class EndTurn : MonoBehaviour
     public void OnEndTurnButtonClicked()
     {
         if(!GameManager.Instance.EndTurnButtonPressed) return;
+        SoundManager.Instance.PlaySound(SoundType.Click);
+
         ShowPopupBounce(size);  
         GameManager.Instance.EndTurnButtonPressed = false;
         //Debug.Log("End Turn button clicked");

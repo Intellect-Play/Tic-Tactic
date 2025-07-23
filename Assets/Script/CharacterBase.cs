@@ -8,7 +8,7 @@ using CartoonFX;
 public class CharacterBase : MonoBehaviour
 {
     public GameObject MainCharacter;
-    [SerializeField] Animator characterAnimator;
+    [SerializeField] public Animator characterAnimator;
     AnimatorOverrideController overrideController;
 
     [SerializeField] Image characterImage;
@@ -93,11 +93,11 @@ public class CharacterBase : MonoBehaviour
     }
     public void MovePosition(RectTransform _rectTransform)
     {
-        transform.SetParent(_rectTransform, false);
+        transform.SetParent(_rectTransform);
 
-        rectTransform.DOAnchorPos(new Vector2(0, 0), 3).SetEase(Ease.OutQuad);
+        rectTransform.DOAnchorPos(new Vector2(0, 0), 5).SetEase(Ease.OutQuad);
         rectTransform.DOScale(new Vector3(1, 1,1), 1).SetEase(Ease.OutBack);
-        originalAnchoredPos = rectTransform.anchoredPosition;
+        //originalAnchoredPos = rectTransform.anchoredPosition;
     }
     public void PlayDeathEffect(float duration = 1.2f)
     {
@@ -151,6 +151,10 @@ public class CharacterBase : MonoBehaviour
                 characterAnimator.SetInteger("AnimationInt", -1);
                 StartCoroutine(ResetToIdleAfterAnimation());
                 break;
+            case AnimationsEnum.Run:
+                characterAnimator.SetBool("Run",true);
+                //StartCoroutine(ResetToIdleAfterAnimation());
+                break;
         }
         //characterAnimator.SetInteger("AnimationInt", 0);
 
@@ -199,5 +203,6 @@ public enum AnimationsEnum
 {
     Idle,
     Attack,
-    Hit
+    Hit,
+    Run
 }

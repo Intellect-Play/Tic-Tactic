@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(SoundType type)
     {
+        Debug.Log("Playing sound: " + type.ToString());
         if (soundDict.TryGetValue(type, out AudioClip clip))
         {
             sfxSource.PlayOneShot(clip);
@@ -67,6 +68,7 @@ public enum SoundType
     Win,
     Swoop,
     Reward,
-    Line
+    Line,
+    Click
     // Əlavə səs tipləri...
 }

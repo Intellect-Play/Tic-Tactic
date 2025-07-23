@@ -112,8 +112,10 @@ public class PlayerController : MonoBehaviour
 
         
     }
+
     public void MakeMove(PieceType pieceType) {
         ActivePieces(pieceType == currentPlayerType);
+        if(currentPlayerType != pieceType) return;
         GameManager.Instance.pieceSpawner.CheckBuy();
         CheckSizePieces();
     }

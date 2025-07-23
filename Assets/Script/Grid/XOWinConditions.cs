@@ -12,11 +12,11 @@ public static class XOWinConditions
         if (rowCount * colCount != board.Count)
         {
             Debug.LogError("Invalid board: Dimensions do not match board size.");
-            return new WinResult(false, PieceType.Null, null);
+            return new WinResult(false, PieceType.Null, null, Vector3.zero, null);
         }
 
-        List<Cell> winCells = new List<Cell>();
-        HashSet<int> visitedIndices = new HashSet<int>();
+        List<Cell> winCells = null;
+        Vector3 strikeRotation = Vector3.zero;
 
         for (int y = 0; y < rowCount; y++)
         {
@@ -26,23 +26,58 @@ public static class XOWinConditions
                 if (current.cellValue == PieceType.Null)
                     continue;
 
-                TryDirection(board, rowCount, colCount, x, y, 1, 0, current.cellValue, winCells, visitedIndices);  // →
-                TryDirection(board, rowCount, colCount, x, y, 0, 1, current.cellValue, winCells, visitedIndices);  // ↓
-                TryDirection(board, rowCount, colCount, x, y, 1, 1, current.cellValue, winCells, visitedIndices);  // ↘
-                TryDirection(board, rowCount, colCount, x, y, -1, 1, current.cellValue, winCells, visitedIndices); // ↙
+                // Check all 4 directions
+                var res = TryDirectionWithRotation(board, rowCount, colCount, x, y, 1, 0, current.cellValue);  // →
+                if (res.found)
+                {
+                    winCells = res.cells;
+                    strikeRotation = res.rotation;
+                    goto FoundWin; // Qələbə tapıldı, dayanırıq
+                }
+
+                res = TryDirectionWithRotation(board, rowCount, colCount, x, y, 0, 1, current.cellValue);  // ↓
+                if (res.found)
+                {
+                    winCells = res.cells;
+                    strikeRotation = res.rotation;
+                    goto FoundWin;
+                }
+
+                res = TryDirectionWithRotation(board, rowCount, colCount, x, y, 1, 1, current.cellValue);  // ↘
+                if (res.found)
+                {
+                    winCells = res.cells;
+                    strikeRotation = res.rotation;
+                    goto FoundWin;
+                }
+
+                res = TryDirectionWithRotation(board, rowCount, colCount, x, y, -1, 1, current.cellValue); // ↙
+                if (res.found)
+                {
+                    winCells = res.cells;
+                    strikeRotation = res.rotation;
+                    goto FoundWin;
+                }
             }
         }
 
-        if (winCells.Count > 0)
+    FoundWin:
+        if (winCells != null && winCells.Count > 0)
         {
             PieceType winner = winCells[0].cellValue;
-            return new WinResult(true, winner, winCells);
+            // Orta hüceyrəni tap
+            Cell middleCell = GetMiddleCell(winCells);
+
+            return new WinResult(true, winner, winCells, strikeRotation, middleCell);
         }
 
-        return new WinResult(false, PieceType.Null, null);
+        return new WinResult(false, PieceType.Null, null, Vector3.zero, null);
     }
 
-    private static void TryDirection(List<Cell> board, int rowCount, int colCount, int startX, int startY, int stepX, int stepY, PieceType pieceType, List<Cell> winCells, HashSet<int> visited)
+    // Yeni versiya: yönləndir və rotation qaytarır
+    private static (bool found, List<Cell> cells, Vector3 rotation) TryDirectionWithRotation(
+        List<Cell> board, int rowCount, int colCount, int startX, int startY,
+        int stepX, int stepY, PieceType pieceType)
     {
         List<Cell> temp = new List<Cell>();
         int x = startX;
@@ -61,29 +96,42 @@ public static class XOWinConditions
 
         if (temp.Count >= WinCount)
         {
-            foreach (var cell in temp)
-            {
-                int idx = board.IndexOf(cell);
-                if (!visited.Contains(idx))
-                {
-                    visited.Add(idx);
-                    winCells.Add(cell);
-                }
-            }
+            // Rotation hesabla (2D üçün)
+            float angle = Mathf.Atan2(stepY, stepX) * Mathf.Rad2Deg;
+            Vector3 rotation = new Vector3(0, 0, angle);
+            return (true, temp, rotation);
         }
+        return (false, null, Vector3.zero);
     }
+
+    // Hüceyrələr siyahısının ortadakını tapmaq
+    private static Cell GetMiddleCell(List<Cell> cells)
+    {
+        int count = cells.Count;
+        if (count == 0) return null;
+
+        // Middle index
+        int midIndex = count / 2;
+        return cells[midIndex];
+    }
+
 }
 
 
 public struct WinResult
 {
     public bool hasWon;
-    public PieceType winner; 
+    public PieceType winner;
     public List<Cell> winCells;
-    public WinResult(bool hasWon, PieceType winner,List<Cell> cells)
+    public Vector3 strikeRotation;
+    public Cell middleCell;
+
+    public WinResult(bool hasWon, PieceType winner, List<Cell> cells, Vector3 rotation, Cell middleCell)
     {
         this.hasWon = hasWon;
         this.winner = winner;
         this.winCells = cells;
+        this.strikeRotation = rotation;
+        this.middleCell = middleCell;
     }
 }

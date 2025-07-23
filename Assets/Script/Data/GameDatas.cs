@@ -27,7 +27,22 @@ public class GameDatas : MonoBehaviour
         }
         //DeleteData();
         Instance = this;
-        
+        if(SaveDataService.CurrentLevel == 0)
+        {
+            SaveDataService.CurrentLevel = 1;
+        }
+        if (Data.gameUnChangedDatas[SaveDataService.CurrentLevel-1].PlayerSpecialUnlock != SpecialPieceType.Null)
+        {
+            mainGameDatasSO.BoardSizeX = 4;
+            mainGameDatasSO.BoardSizeY = 3;
+
+        }
+        else
+        {
+            mainGameDatasSO.BoardSizeX = 3;
+            mainGameDatasSO.BoardSizeY = 3;
+
+        }
         DeepCopy();
         SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas8");
         //LoadData();

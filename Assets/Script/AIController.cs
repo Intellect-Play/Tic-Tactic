@@ -134,6 +134,7 @@ public class AIController : MonoBehaviour
             {
                 Health.Instance.Heal(2,PieceType.Player);
                 Health.Instance.InitEnemy(gameUnChangedDatas[0].EnemyHP);
+                GameManager.Instance.RunPlayer();
                 aiCharacters[0].MovePosition(aiCharactersSpawnPoints[0]);
                 RemoveAllAiPieces();
             }

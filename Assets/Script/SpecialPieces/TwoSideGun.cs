@@ -28,6 +28,7 @@ public class TwoSideGun : SpecialPieceCore
 
         GameManager.Instance.board.DestroyPiece(PieceCell.x + 1, PieceCell.y, playerValue, specialPieceData);
         GameManager.Instance.board.DestroyPiece(PieceCell.x - 1, PieceCell.y, playerValue, specialPieceData);
+        yield return new WaitForSeconds(0.3f); // Attack animasiyasının müddəti
         MoveEnd(onMoveComplete);
     }
 

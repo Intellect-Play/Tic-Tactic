@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
 
     public void OnPlayClicked()
     {
-        Debug.Log("Play clicked!");
+        SoundManager.Instance.PlaySound(SoundType.Click);
         StartCoroutine(StartGameDelay(1)); 
     }
     IEnumerator StartGameDelay(float delay)
@@ -81,6 +81,8 @@ public class UIManager : MonoBehaviour
     }
     public void DeckPanelClicked()
     {
+        SoundManager.Instance.PlaySound(SoundType.Click);
+
         StartCoroutine(DeckDelay(.5f)); // 0.5 saniyə gecikmə ilə paneli aç
     }
 
@@ -96,6 +98,8 @@ public class UIManager : MonoBehaviour
     }
     public void ExitClicked()
     {
+        SoundManager.Instance.PlaySound(SoundType.Click);
+
         StartCoroutine(ExitDelay(3.5f)); // 0.5 saniyə gecikmə ilə paneli aç
     }
     public void Claim() { 

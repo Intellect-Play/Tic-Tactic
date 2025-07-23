@@ -75,16 +75,22 @@ public class Health : MonoBehaviour
     }
     public void Damage(int health,PieceType pieceType)
     {
+        StartCoroutine(DamageDelay(health, pieceType));
+    }
+    IEnumerator DamageDelay(int health, PieceType pieceType)
+    {
+        yield return new WaitForSeconds(1);
         if (pieceType == PieceType.Player)
         {
             HealthEnemy -= health;
 
             PlayerController.Instance.Attack();
             AIController.Instance.Damage((float)HealthEnemy / MaxHealthEnemy);
-          
+
             TextEnemy(HealthEnemy);
         }
-        else {
+        else
+        {
             HealthPlayer -= health;
 
             AIController.Instance.Attack();

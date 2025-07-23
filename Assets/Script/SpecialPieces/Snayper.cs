@@ -33,6 +33,7 @@ public class Snayper : SpecialPieceCore
 
 
             board.DestroyPiece(PieceCell.x, PieceCell.y, playerValue, specialPieceData);
+            yield return new WaitForSeconds(0.3f); // Attack animasiyasının müddəti
 
         }
         MoveEnd(onMoveComplete);

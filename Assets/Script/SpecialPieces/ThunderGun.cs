@@ -30,6 +30,8 @@ public class ThunderGun : SpecialPieceCore
         board.DestroyPiece(PieceCell.x + 1, PieceCell.y - 1, playerValue, specialPieceData);
         board.DestroyPiece(PieceCell.x - 1, PieceCell.y + 1, playerValue, specialPieceData);
         board.DestroyPiece(PieceCell.x - 1, PieceCell.y - 1, playerValue, specialPieceData);
+        yield return new WaitForSeconds(0.3f); // Attack animasiyasının müddəti
+
         MoveEnd(onMoveComplete);
     }
 }
