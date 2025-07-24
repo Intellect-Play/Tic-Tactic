@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
     {
  
         
-        CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.PlayerCat);
+        CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(Characters.PlayerCat, GameManager.Instance.currenGameUnChangedData.PlayerHP);
         playerCharacters.Add(enemyCharacterBase);            
         enemyCharacterBase.GetPosition(playerCharactersSpawnPoints[0], 1);
        

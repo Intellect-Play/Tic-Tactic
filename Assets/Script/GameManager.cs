@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public AllSpecialPiecesMove allSpecialPiecesMove;
     [SerializeField] public PieceSpawner pieceSpawner;
     [SerializeField] public Button EndTurnButton;
-    [SerializeField] public HorizontalInfiniteScroll horizontalInfiniteScroll;
+    [SerializeField] public BGImages horizontalInfiniteScroll;
 
     [Header("Game UI")]
     [SerializeField] public GameObject GameFinishWin;
@@ -47,13 +47,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         EndTurnButtonPressed = true;
+        currentPlayer = PieceType.Player;
+        gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
+        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.CurrentLevel - 1];
     }
 
     private void Start()
     {
-        currentPlayer = PieceType.Player;
-        gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
-        currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.CurrentLevel-1];
+       
         int lvl = SaveDataService.CurrentLevel;
         int index;
 
@@ -80,7 +81,6 @@ public class GameManager : MonoBehaviour
     {
         GameActions.Instance.InvokeStartGame();
         cellController.cells = board.Cells;
-        Debug.Log("Game Started");
         //StartCoroutine(StartTime());
     }
     private void OnDisable()
@@ -141,14 +141,14 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator RunDelay()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.7f);
 
         RunPanel.SetActive(true);
-        horizontalInfiniteScroll.RunBool = true;
+        horizontalInfiniteScroll.ActiveScrollImages(true);
         playerController.playerCharacters[0].characterAnimator.SetBool("CatRun", true);
         yield return new WaitForSeconds(3f);
         RunPanel.SetActive(false);
-        horizontalInfiniteScroll.RunBool = false;
+        horizontalInfiniteScroll.ActiveScrollImages(false);
 
         playerController.playerCharacters[0].characterAnimator.SetBool("CatRun", false);
 
@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
             if (winResult.winner == PieceType.Player)
             {
                 board.GetSTRIKE(winResult.middleCell, winResult.strikeRotation, PieceType.Player);
-                SaveDataService.Coins += (GameDatas.Instance.mainGameDatasSO.CoinGet* winResult.winCells.Count);
+                Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetFromEnemy * winResult.winCells.Count);
                 UIManager.Instance.UpdateCoinText(SaveDataService.Coins);
                 enemyAttack.AttackPlayer(winResult.winCells);
             }
@@ -205,13 +205,11 @@ public class GameManager : MonoBehaviour
     public void DiedCase(PieceType pieceType)
     {
         if (IsGameFinished) return;
-        Debug.Log("Game Over: " + pieceType);
         if (pieceType == PieceType.Enemy)
         {
             SaveDataService.CurrentLevel++;
             if (currenGameUnChangedData.PlayerSpecialUnlock != SpecialPieceType.Null)
             {
-                Debug.Log("Player Special Unlock: " + currenGameUnChangedData.PlayerSpecialUnlock);
                 var list = SaveDataService.UnlockedWeapons;
                 list.Add(currenGameUnChangedData.PlayerSpecialUnlock);
                 SaveDataService.UnlockedWeapons = list;
@@ -244,6 +242,8 @@ public class GameManager : MonoBehaviour
         IsGameFinished = true;
         GameFinishWin.SetActive(true);
         SoundManager.Instance.PlaySound(SoundType.Win);
+        Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetReward);
+
     }
     public void GameLose()
     {Debug.Log("Game Lose");

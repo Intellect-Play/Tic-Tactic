@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using CartoonFX;
+using TMPro;
 
 public class CharacterBase : MonoBehaviour
 {
@@ -15,12 +16,15 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] Slider healthBar;
     [SerializeField] ParticleSystem HitEnemy;
     [SerializeField] ParticleSystem DamageParticle;
+    [SerializeField] List<Image> DeathImages;
 
     [SerializeField] ShakeEffect HitShakeEnemy;
+    [SerializeField] TextMeshProUGUI HealthCharacter;
 
     Button attackButton;
     RectTransform rectTransform;
     Vector3 originalAnchoredPos;
+    int healthCharacter;
     private void Awake()
     {
         characterAnimator = MainCharacter.GetComponent<Animator>();
@@ -30,7 +34,7 @@ public class CharacterBase : MonoBehaviour
         if(attackButton!=null)
         attackButton.onClick.AddListener(AttackButton);
     }
-    public void SetupSpecial(CharacterData _character)
+    public void SetupSpecial(CharacterData _character, float health)
     {
         characterImage.sprite = _character.CharacterSprite;
 
@@ -44,6 +48,8 @@ public class CharacterBase : MonoBehaviour
 
         AnimationStart(AnimationsEnum.Idle);
         originalAnchoredPos = rectTransform.anchoredPosition;
+        healthCharacter = (int)health;
+        HealthCharacter.text = health.ToString()+"/"+health.ToString();
     }
     public void AttackButton()
     {
@@ -62,7 +68,7 @@ public class CharacterBase : MonoBehaviour
             if (scale < 1) scale = .5f;
             else scale = 1;
             
-            rectTransform.localScale = new Vector3(scale, scale, scale);
+            //rectTransform.localScale = new Vector3(scale, scale, scale);
         }
         originalAnchoredPos = rectTransform.anchoredPosition;
     }
@@ -76,7 +82,13 @@ public class CharacterBase : MonoBehaviour
     {
         if (healthBar != null)
         {
-            healthBar.value = health;
+            if(health <= 0)
+            {
+                health = 0;
+            }
+            HealthCharacter.text = health.ToString() + "/" + healthCharacter.ToString();
+
+            healthBar.value = (float)health/healthCharacter;
         }
     }
     public void DestroyPiece()
@@ -95,8 +107,8 @@ public class CharacterBase : MonoBehaviour
     {
         transform.SetParent(_rectTransform);
 
-        rectTransform.DOAnchorPos(new Vector2(0, 0), 5).SetEase(Ease.OutQuad);
-        rectTransform.DOScale(new Vector3(1, 1,1), 1).SetEase(Ease.OutBack);
+        rectTransform.DOAnchorPos(new Vector2(0, 0), 3.5f).SetEase(Ease.Linear);
+       // rectTransform.DOScale(new Vector3(1, 1,1), 1).SetEase(Ease.OutBack);
         //originalAnchoredPos = rectTransform.anchoredPosition;
     }
     public void PlayDeathEffect(float duration = 1.2f)
@@ -115,7 +127,11 @@ public class CharacterBase : MonoBehaviour
         // Qızarma və fade paralel getsin
         deathEffect.Join(characterImage.DOColor(redColor, duration).SetEase(Ease.InOutQuad));
         deathEffect.Join(characterImage.DOFade(0f, duration).SetEase(Ease.OutQuad));
-
+        foreach (var image in DeathImages)
+        {
+            // Hər bir image üçün fade out
+            deathEffect.Join(image.DOFade(0f, duration).SetEase(Ease.OutQuad));
+        }
         // Sonda tamamilə disable et və orijinal rəngi bərpa et (əgər təkrar istifadə olunacaqsa)
         deathEffect.OnComplete(() =>
         {

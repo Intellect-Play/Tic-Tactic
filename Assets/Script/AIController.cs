@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AIController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class AIController : MonoBehaviour
     public List<PieceBase> aiPieces = new List<PieceBase>();
     public List<CharacterBase> aiCharacters = new List<CharacterBase>();
 
+    public RectTransform aiPieceParent;
     public List<RectTransform> aiCharactersSpawnPoints = new List<RectTransform>();
 
     bool DiedAIBool;
@@ -62,12 +64,12 @@ public class AIController : MonoBehaviour
         };
 
         int lvl = SaveDataService.CurrentLevel;
-        int characterIndex = (lvl / 4) % characterCycle.Length;
+        int characterIndex = (lvl / 3) % characterCycle.Length;
         Characters selectedCharacter = characterCycle[characterIndex];
 
         for (int i = 0; i < gameUnChangedDatas.Count; i++)
         {
-            CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(selectedCharacter);
+            CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(selectedCharacter, gameUnChangedDatas[i].EnemyHP);
             aiCharacters.Add(enemyCharacterBase);
 
             enemyCharacterBase.GetPosition(aiCharactersSpawnPoints[i], 1 - (0.3f * i));

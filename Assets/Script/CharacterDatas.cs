@@ -21,11 +21,11 @@ public class CharacterDatas : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public CharacterBase SetupSpecial(Characters _character)
+    public CharacterBase SetupSpecial(Characters _character, float health)
     {
         CharacterData characterData = AnimationDataList.Find(data => data.CharacterName == _character);
         CharacterBase characterBase = Instantiate(characterData.CharacterPrefab).GetComponent<CharacterBase>();
-        characterBase.SetupSpecial(characterData);        
+        characterBase.SetupSpecial(characterData,  health);        
 
         return characterBase;
     }

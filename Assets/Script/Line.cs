@@ -13,7 +13,6 @@ public class Line : MonoBehaviour
     }
     public void PlayStrikeEffect(float fadeDuration = 0.3f, float fillDuration = 0.2f, float delayAfterFill = 0.6f)
     {
-        Debug.Log("PlayStrikeEffect called");
         // İlk hazırlıq: şəffaf və fill = 0
         Color color = lineImage.color;
         color.a = 0f;

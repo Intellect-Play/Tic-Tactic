@@ -82,6 +82,10 @@ public class Board : MonoBehaviour
         {
             return;
         }
+        if(pieceType == PieceType.Player)
+        {
+            Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetFromEnemy);
+        }
         ParticleSystem particle = Instantiate(specialPieceData.SpecialParticleEffect, Vector3.zero, Quaternion.identity, GameManager.Instance.board.CellArray[x, y].transform);
         particle.transform.localPosition = new Vector3(0, 0, particle.transform.localPosition.z);
         particle.Play();

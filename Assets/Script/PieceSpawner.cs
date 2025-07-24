@@ -66,9 +66,9 @@ public class PieceSpawner : MonoBehaviour
         {
             if (PlayerPieceParent[i].pieceBase == null)
             {
-                if(j==0)
+                if(j==0&&SaveDataService.Coins>=GameDatas.Instance.mainGameDatasSO.Buy1Piece)
                 PlayerPieceParent[i].BuyPiece( BuyPlayerPieceOneA, 200,1);
-                else
+                else if(SaveDataService.Coins >= GameDatas.Instance.mainGameDatasSO.Buy3Piece)
                     PlayerPieceParent[i].BuyPiece( BuyPlayerPieceAllA, 300, 3);
 
                 j++;
@@ -87,6 +87,7 @@ public class PieceSpawner : MonoBehaviour
         if (GameManager.Instance.IsGameFinished) return;
         if (SaveDataService.UnlockedWeapons.Count > 0)
         {
+            Coin.Instance.GetCoin(-GameDatas.Instance.mainGameDatasSO.Buy1Piece);
             Debug.Log("BuyPlayerPieceOne");
             PieceType pieceType = PieceType.Player;
 
@@ -100,6 +101,7 @@ public class PieceSpawner : MonoBehaviour
         if (GameManager.Instance.IsGameFinished) return;
         if (SaveDataService.UnlockedWeapons.Count > 0)
         {
+            Coin.Instance.GetCoin(-GameDatas.Instance.mainGameDatasSO.Buy3Piece);
             PieceType pieceType = PieceType.Player;
             PlayerController.Instance.RemoveAllPlayerPieces();
             foreach (var i in PlayerPieceParent)

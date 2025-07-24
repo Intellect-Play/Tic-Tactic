@@ -85,7 +85,7 @@ public class Health : MonoBehaviour
             HealthEnemy -= health;
 
             PlayerController.Instance.Attack();
-            AIController.Instance.Damage((float)HealthEnemy / MaxHealthEnemy);
+            AIController.Instance.Damage(HealthEnemy );
 
             TextEnemy(HealthEnemy);
         }
@@ -94,7 +94,7 @@ public class Health : MonoBehaviour
             HealthPlayer -= health;
 
             AIController.Instance.Attack();
-            PlayerController.Instance.Damage((float)HealthPlayer / MaxHealthPlayer);
+            PlayerController.Instance.Damage(HealthPlayer );
         }
         ChechkDiedCase();
     }

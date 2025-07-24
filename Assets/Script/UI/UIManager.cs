@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     public TextMeshProUGUI Level;
     public TextMeshProUGUI Coin;
+    public TextMeshProUGUI CoinGame;
+
     [Header("Buttons")]
     public RectTransform Buttons;
     public Button playButton;
@@ -48,6 +50,7 @@ public class UIManager : MonoBehaviour
         StartButtonAnime.gameObject.SetActive(false);
         MoveDown(deckPanel, Screen.height+200); // 100f qədər aşağı hərəkət et
         Debug.Log(Screen.height+200);
+        UpdateCoinText(SaveDataService.Coins);
     }
 
     public void OnPlayClicked()
@@ -128,5 +131,6 @@ public class UIManager : MonoBehaviour
     public void UpdateCoinText(int coins)
     {
         Coin.text = coins.ToString();
+        CoinGame.text = coins.ToString();
     }
 }

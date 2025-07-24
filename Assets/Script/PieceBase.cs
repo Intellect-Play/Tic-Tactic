@@ -101,6 +101,7 @@ public class PieceBase : MonoBehaviour
     {
         Health.Instance.Damage(1, playerValue);
         DestroyPiece();
+
         //rectTransform.DOMove(targetPosition.position, moveDuration)
         //   .SetEase(moveEase)
         //   .OnComplete(() =>

@@ -20,10 +20,8 @@ public class Deck : MonoBehaviour
     }
     public void GetDeckCards()
     {
-       Debug.Log("GetDeckCards called. UnlockedWeapons count: " + SaveDataService.UnlockedWeapons.Count);
         for (int i = 0; i < SaveDataService.UnlockedWeapons.Count; i++)
         {
-            Debug.Log("DeckCard: " + i + " " + SaveDataService.UnlockedWeapons[i]);
             DeckCards[i].GetSprite(specialPieceController.specialPieces.Find(x => x.specialPieceType == SaveDataService.UnlockedWeapons[i]).XSprite);
 
         }
