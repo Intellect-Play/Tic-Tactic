@@ -689,6 +689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a4c4c5b20c1964b9070aae1e4854a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 3695626064093922253, guid: f00ed86067e9c3e47915a5af36a3ab6d,
+    type: 3}
+  targetUI: {fileID: 814673479}
+  ParentCanvas: {fileID: 1690764868}
 --- !u!1001 &57975402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5021,7 +5025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -189}
+  m_AnchoredPosition: {x: -32, y: -189}
   m_SizeDelta: {x: 0, y: 560.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &640229719
@@ -16467,7 +16471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 36.844746, y: -271.60004}
+  m_AnchoredPosition: {x: 0.000040954237, y: -271.60004}
   m_SizeDelta: {x: -1080, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &850107008324518445

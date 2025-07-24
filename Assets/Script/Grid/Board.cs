@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,17 +83,52 @@ public class Board : MonoBehaviour
         {
             return;
         }
-        if(pieceType == PieceType.Player)
-        {
-            Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetFromEnemy);
-        }
+       
         ParticleSystem particle = Instantiate(specialPieceData.SpecialParticleEffect, Vector3.zero, Quaternion.identity, GameManager.Instance.board.CellArray[x, y].transform);
         particle.transform.localPosition = new Vector3(0, 0, particle.transform.localPosition.z);
         particle.Play();
         if (cell != null && cell._PlayerPiece != null&&cell._PlayerPiece.playerValue!=pieceType)
         {
             cell._PlayerPiece.DestroyPiece();
+            if (pieceType == PieceType.Player)
+            {
+                Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetFromEnemy);
+                Coin.Instance.PlayCoinEffect(cell.GetComponent<RectTransform>());
+            }
         }
+    }
+
+    public static void PlayCoinEffect(GameObject coinPrefab, Transform startParent, Transform targetUI, float duration = 1.0f)
+    {
+        // 1. Coin Image yarat (Particle kimi)
+        GameObject coin = Instantiate(coinPrefab, startParent.position, Quaternion.identity, startParent.parent);
+        RectTransform coinRect = coin.GetComponent<RectTransform>();
+
+        // Başlanğıc mövqeyini UI koordinatına çevir
+        Vector3 startPos = startParent.position;
+        coinRect.position = startPos;
+
+        // Kiçik scale ilə başlayır
+        coinRect.localScale = Vector3.zero;
+
+        // 2. Animasiya (DOTween)
+        Sequence seq = DOTween.Sequence();
+
+        // Scale In (sürətli böyümə)
+        seq.Append(coinRect.DOScale(1f, 0.3f).SetEase(Ease.OutBack));
+
+        // Move to Target UI (coin icon)
+        seq.Append(coinRect.DOMove(targetUI.position, duration).SetEase(Ease.InQuad));
+
+        // Fade Out (Image alpha ilə)
+        Image img = coin.GetComponent<Image>();
+        if (img != null)
+        {
+            seq.Join(img.DOFade(0, duration * 0.5f).SetDelay(duration * 0.5f));
+        }
+
+        // 3. Bitəndə obyekt silinsin
+        seq.OnComplete(() => Destroy(coin));
     }
     public void DestroyAllPiece(PieceType pieceType)
     {

@@ -44,7 +44,17 @@ public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndD
 
                 return;
             }
+        }else if(obj != null && obj.TryGetComponent(out PieceBase pieceBase))
+        {
+            if (pieceBase.playerValue == playerValue && !pieceBase.IsPlaced)
+            {
+                ChangeCell(pieceBase.PieceCell);
+                PlayerController.Instance.GetPiece(this);
+                targetImage.raycastTarget = true;
+                //pieceBase.BackCell();
+                return;
+            }
         }
-        BackCell();
+            BackCell();
     }
 }

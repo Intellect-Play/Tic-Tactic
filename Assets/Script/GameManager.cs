@@ -167,6 +167,10 @@ public class GameManager : MonoBehaviour
                 Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetFromEnemy * winResult.winCells.Count);
                 UIManager.Instance.UpdateCoinText(SaveDataService.Coins);
                 enemyAttack.AttackPlayer(winResult.winCells);
+                foreach (var cell in winResult.winCells)
+                {
+                    Coin.Instance.PlayCoinEffect(cell.GetComponent<RectTransform>());
+                }
             }
             else if (winResult.winner == PieceType.Enemy)
             {
