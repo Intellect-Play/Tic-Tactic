@@ -147,7 +147,7 @@ MonoBehaviour:
     PlayerSpecialUnlock: 6
   - PlayerHP: 16
     Enemies:
-    - EnemyHP: 3
+    - EnemyHP: 4
       EnemySpecials: 06000000
     - EnemyHP: 4
       EnemySpecials: 0500000002000000

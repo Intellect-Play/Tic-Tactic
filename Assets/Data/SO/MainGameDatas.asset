@@ -32,7 +32,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7f92cf30dbd59c5488227e058545cc9f, type: 3}
   - {fileID: 21300000, guid: 0afd4b0b9649c524886f410ff1864dfd, type: 3}
   - {fileID: 21300000, guid: 69e7745eee974074db46cc4462466293, type: 3}
-  - {fileID: 21300000, guid: 39c8809564b66fe49a792918427cb3a5, type: 3}
+  - {fileID: 21300000, guid: 343ec1f6fa685574a9a3271f2c1750d5, type: 3}
   MainMenuGroundSprites:
   - {fileID: 21300000, guid: 2fa19881e5a393841933e5295637a1aa, type: 3}
   - {fileID: 21300000, guid: f2f2e6999015c23449f3344b5cb810f9, type: 3}
