@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameUnChangedDatas
   m_EditorClassIdentifier: 
   gameUnChangedDatas:
-  - PlayerHP: 10
+  - PlayerHP: 8
     Enemies:
     - EnemyHP: 3
       EnemySpecials: 00000000
@@ -81,7 +81,7 @@ MonoBehaviour:
     Enemies:
     - EnemyHP: 3
       EnemySpecials: 05000000
-    - EnemyHP: 3
+    - EnemyHP: 4
       EnemySpecials: 05000000
     PlayerSpecialUnlock: 0
   - PlayerHP: 14
@@ -141,13 +141,13 @@ MonoBehaviour:
   - PlayerHP: 16
     Enemies:
     - EnemyHP: 2
-      EnemySpecials: 
+      EnemySpecials: 00000000
     - EnemyHP: 8
       EnemySpecials: 06000000
     PlayerSpecialUnlock: 6
   - PlayerHP: 16
     Enemies:
-    - EnemyHP: 4
+    - EnemyHP: 3
       EnemySpecials: 06000000
     - EnemyHP: 4
       EnemySpecials: 0500000002000000
@@ -224,7 +224,7 @@ MonoBehaviour:
     Enemies:
     - EnemyHP: 5
       EnemySpecials: 00000000
-    - EnemyHP: 1
+    - EnemyHP: 3
       EnemySpecials: 08000000
     - EnemyHP: 5
       EnemySpecials: 00000000

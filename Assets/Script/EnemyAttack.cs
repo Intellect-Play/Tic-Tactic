@@ -25,13 +25,13 @@ public class EnemyAttack : MonoBehaviour
     }
     public void AttackEnemy(List<Cell> cells)
     {
-        StartCoroutine(AttackTime(cells, EnnemyAttackPoint,0));
+        StartCoroutine(AttackTime(cells));
     }
     public void AttackPlayer(List<Cell> cells)
     {
-        StartCoroutine(AttackTime(cells, PlayerAttackPoint,1));
+        StartCoroutine(AttackTime(cells));
     }
-    IEnumerator AttackTime(List<Cell> cells, RectTransform rectTransform,float time)
+    IEnumerator AttackTime(List<Cell> cells)
     {
 
         foreach (Cell cell in cells)

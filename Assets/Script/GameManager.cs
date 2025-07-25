@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public List<GameUnChangedData> gameUnChangedDatas;
     public bool EndTurnButtonPressed = false;
     public bool IsGameFinished = false;
+
+    public WinResult winResult;
     private void Awake()
     {
         if (Instance == null)
@@ -157,16 +159,20 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(.3f);
 
-        WinResult winResult = board.Cells.CheckWin();
+        winResult = board.Cells.CheckWin();
         if (winResult.hasWon)
         {
             CameraShakeVibration.Instance.Shake();
             if (winResult.winner == PieceType.Player)
             {
+                //
+                Debug.Log($"Player wins with {winResult.winCells.Count} cells!");
                 board.GetSTRIKE(winResult.middleCell, winResult.strikeRotation, PieceType.Player);
                 Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetFromEnemy * winResult.winCells.Count);
                 UIManager.Instance.UpdateCoinText(SaveDataService.Coins);
                 enemyAttack.AttackPlayer(winResult.winCells);
+                //Health.Instance.Damage(winResult.winCells.Count, PieceType.Player);
+
                 foreach (var cell in winResult.winCells)
                 {
                     Coin.Instance.PlayCoinEffect(cell.GetComponent<RectTransform>());
@@ -174,12 +180,14 @@ public class GameManager : MonoBehaviour
             }
             else if (winResult.winner == PieceType.Enemy)
             {
+                //
+                Debug.Log($"Enemy wins with {winResult.winCells.Count} cells!");
                 board.GetSTRIKE(winResult.middleCell, winResult.strikeRotation, PieceType.Enemy);
 
                 yield return new WaitForSeconds(.7f);
 
+                //Health.Instance.Damage(winResult.winCells.Count, PieceType.Enemy);
                 enemyAttack.AttackEnemy(winResult.winCells);
-
             }
             SoundManager.Instance.PlaySound(SoundType.Line);
             yield return new WaitForSeconds(1.3f);

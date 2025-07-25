@@ -36,46 +36,53 @@ public class Coin : MonoBehaviour
 
     public void PlayCoinEffect(RectTransform startParent, float duration = 1)
     {
+        StartCoroutine(PlayCoinEffectCoroutine(startParent, duration));
+    }
+    public void PlayCoinEffectOne(RectTransform startParent, float duration = 1)
+    {
+        // Coin Image yaradılır (UI obyekti)
+        GameObject coin = Instantiate(coinPrefab, startParent.position, Quaternion.identity, ParentCanvas);
+        RectTransform coinRect = coin.GetComponent<RectTransform>();
+
+        // Başlanğıc mövqeyi
+        coinRect.position = startParent.position;
+        // coinRect.localScale = Vector3.zero;
+
+        // Random yayılma mövqeyi (ilk mərhələ)
+        Vector3 randomSpread = startParent.position + new Vector3(
+            Random.Range(-randomNum, randomNum),
+            Random.Range(-randomNum, randomNum),
+            0f
+        );
+        // DOTween Sequence
+        Sequence seq = DOTween.Sequence();
+
+        // 1. Kiçik effekt: scale artımı
+        seq.Append(coinRect.DOScale(1f, 0.2f).SetEase(Ease.OutBack));
+
+        // 2. Random yayılma (ilk partlayış)
+        seq.Append(coinRect.DOMove(randomSpread, duration * .6f).SetEase(Ease.OutQuad));
+
+        // 3. Target UI-a doğru uçuş
+        seq.Append(coinRect.DOMove(targetUI.position, duration * .6f).SetEase(Ease.InQuad));
+
+        // 4. Fade out effekti
+        Image img = coin.GetComponent<Image>();
+        if (img != null)
+        {
+            seq.Join(img.DOFade(0f, duration * .5f).SetDelay(duration));
+        }
+
+        // 5. Bitəndə obyekt silinsin
+        seq.OnComplete(() => Destroy(coin));
+    }
+    IEnumerator PlayCoinEffectCoroutine(RectTransform startParent, float duration = 1)
+    {
         for (int i = 0; i < 3; i++)
         {
-            // Coin Image yaradılır (UI obyekti)
-            GameObject coin = Instantiate(coinPrefab, startParent.position, Quaternion.identity, ParentCanvas);
-            RectTransform coinRect = coin.GetComponent<RectTransform>();
-
-            // Başlanğıc mövqeyi
-            coinRect.position = startParent.position;
-            // coinRect.localScale = Vector3.zero;
-
-            // Random yayılma mövqeyi (ilk mərhələ)
-            Vector3 randomSpread = startParent.position + new Vector3(
-                Random.Range(-randomNum, randomNum),
-                Random.Range(-randomNum, randomNum),
-                0f
-            );
-            Debug.Log("Random Spread Position: " + randomSpread);
-            // DOTween Sequence
-            Sequence seq = DOTween.Sequence();
-
-            // 1. Kiçik effekt: scale artımı
-            seq.Append(coinRect.DOScale(1f, 0.2f).SetEase(Ease.OutBack));
-
-            // 2. Random yayılma (ilk partlayış)
-            seq.Append(coinRect.DOMove(randomSpread, duration*.5f ).SetEase(Ease.OutQuad));
-
-            // 3. Target UI-a doğru uçuş
-            seq.Append(coinRect.DOMove(targetUI.position, duration * .5f).SetEase(Ease.InQuad));
-
-            // 4. Fade out effekti
-            Image img = coin.GetComponent<Image>();
-            if (img != null)
-            {
-                seq.Join(img.DOFade(0f, duration ).SetDelay(duration));
-            }
-
-            // 5. Bitəndə obyekt silinsin
-            seq.OnComplete(() => Destroy(coin));
+            PlayCoinEffectOne(startParent, duration);
+            yield return new WaitForSeconds(0.07f);
         }
     }
-
 
 }

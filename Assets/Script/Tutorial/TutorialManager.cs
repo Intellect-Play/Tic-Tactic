@@ -23,6 +23,8 @@ public class TutorialManager : MonoBehaviour
     private Tweener currentTween;
     public Cell cell;
     public bool IsTutorialActive = false;
+    public bool IsTutorialActiveBuy = false;
+
     int tutorialLevel;
     private void Awake()
     {
@@ -34,31 +36,34 @@ public class TutorialManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        HideHandTouchEndTurn();
-        if (PlayerPrefs.GetInt("Tutorial2", 0) == 0)
-        {
-            IsTutorialActive = true;
-            tutorialLevel = 0;
-            StartButton.interactable = true;
-            ShopButton.interactable = false;
-            //EndTurnButton.interactable = false;
-        }
-        else if(PlayerPrefs.GetInt("Tutorial2", 0) == 1)
-        {
-            tutorialHandAnimator.gameObject.SetActive(true);
-            IsTutorialActive = true;
+        IsTutorialActive = SaveDataService.CurrentLevel == 1;
+        //if (PlayerPrefs.GetInt("Tutorial2", 0) == 0)
+        //{
+        //    tutorialLevel = 0;
+        //    StartButton.interactable = true;
+        //    ShopButton.interactable = false;
+        //    //EndTurnButton.interactable = false;
+        //}
+        //else if(PlayerPrefs.GetInt("Tutorial2", 0) == 1)
+        //{
+        //    tutorialHandAnimator.gameObject.SetActive(true);
 
-            StartButton.interactable = false;
-            ShopButton.interactable = true;
-          //  tutorialHandAnimator.ShowTapAnimationUI(ShopButton.gameObject.GetComponent<RectTransform>(), new Vector3(-300, 0, 0));
+        //    StartButton.interactable = false;
+        //    ShopButton.interactable = true;
+        //  //  tutorialHandAnimator.ShowTapAnimationUI(ShopButton.gameObject.GetComponent<RectTransform>(), new Vector3(-300, 0, 0));
 
-        }
-        else
-        {
-            HideTutorialHand();
-            IsTutorialActive = false;
+        //}
+        //else
+        //{
+        //    HideTutorialHand();
+        //    IsTutorialActive = false;
 
-        }
+        //}
+    }
+
+    public void TutorialStart()
+    {
+
     }
 
     public void SelectCard(int currentCardCount)
@@ -167,7 +172,7 @@ public class TutorialManager : MonoBehaviour
     {
         currentTween?.Kill();
         currentTween = null;
-        EndTurnImage.gameObject.SetActive(false);
+       // EndTurnImage.gameObject.SetActive(false);
 
     }
     public void TutorialHandClickButton(RectTransform rectTransform)

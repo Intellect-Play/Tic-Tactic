@@ -122,7 +122,7 @@ public class PieceSpawner : MonoBehaviour
         //SpawnPlayerPiece(0, EnemyPiecePrefab, pieceType);
         int i = 0;
        
-        if (GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0] != SpecialPieceType.Null)
+        if (GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials.Count>0 && GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0] != SpecialPieceType.Null)
         {
             SpawnSpecialPieceEnemy(EnemyPieceParent[i], GameManager.Instance.currenGameUnChangedData.Enemies[0].EnemySpecials[0], pieceType);
             i = 1;
