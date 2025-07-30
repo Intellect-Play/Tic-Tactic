@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1be5893e6d087464eb39a4da38af0d34, type: 3}
-  m_Name: GameUnChangedDatas
+  m_Name: GameUnChangedDatas 1
   m_EditorClassIdentifier: 
   gameUnChangedDatas:
   - PlayerHP: 8
     Enemies:
     - EnemyHP: 3
       EnemySpecials: 00000000
-      WinEnemy: 13
+      WinEnemy: 32
     PlayerSpecialUnlock: 1
   - PlayerHP: 10
     Enemies:
     - EnemyHP: 1
       EnemySpecials: 00000000
-      WinEnemy: 89
+      WinEnemy: 40
     - EnemyHP: 2
       EnemySpecials: 02000000
-      WinEnemy: 39
+      WinEnemy: 45
     PlayerSpecialUnlock: 0
   - PlayerHP: 10
     Enemies:

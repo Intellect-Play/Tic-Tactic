@@ -4,12 +4,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
     public PieceType cellValue;
     public PieceBase _PlayerPiece;
- 
+
+    [SerializeField] Sprite mainSprite;
+    [SerializeField] Sprite redSprite;
+
+    private Image _Image;
+
+    private void Awake()
+    {
+        _Image = GetComponent<Image>();
+    }
     public bool HasValue => !(cellValue==PieceType.Null);
 
     public int x, y;
@@ -19,6 +29,17 @@ public class Cell : MonoBehaviour
         cellValue = PieceType.Null;
         x = _x;
         y = _y;
+    }
+    public void SetImage(bool isMain)
+    {
+        if (isMain)
+        {
+            _Image.sprite = mainSprite;
+        }
+        else
+        {
+            _Image.sprite = redSprite;
+        }
     }
 
     public void SetValue(PieceBase value)

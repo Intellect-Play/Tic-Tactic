@@ -12,9 +12,34 @@ public class ThunderGun : SpecialPieceCore
         board = GameManager.Instance.board;
         //anim.Play();
     }
- 
 
 
+    public override void ChangeCell(Cell cell)
+    {
+        base.ChangeCell(cell);
+        board.SetMainColorCells();
+
+        board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, false);
+        board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, false);
+        board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, false);
+        board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, false);
+    }
+    public override void Back()
+    {
+        base.Back();
+        board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
+        board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
+        board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, true);
+        board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, true);
+    }
+    public override void BackCell()
+    {
+        base.BackCell();
+        board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
+        board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
+        board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, true);
+        board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, true);
+    }
     public override void MoveStart(Action onMoveComplete)
     {
         StartCoroutine(WaitForAttackComplete(onMoveComplete));

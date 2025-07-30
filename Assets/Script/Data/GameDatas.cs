@@ -95,7 +95,8 @@ public class GameDatas : MonoBehaviour
                 EnemiesUnChangedData enemyCopy = new EnemiesUnChangedData
                 {
                     EnemyHP = enemy.EnemyHP,
-                    EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials)
+                    EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials),
+                    WinEnemy = enemy.WinEnemy // Uncomment if you want to copy WinEnemy as well
                 };
                 copy.Enemies.Add(enemyCopy);
             }

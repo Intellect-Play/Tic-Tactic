@@ -33,6 +33,7 @@ public class Board : MonoBehaviour
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
         gridLayoutGroup.constraintCount = boardSizeX;
         GameActions.Instance.OnStartGame += Generate;
+        GameActions.Instance.OnEndTurn += SetMainColorCells;
 
     }
 
@@ -58,8 +59,28 @@ public class Board : MonoBehaviour
     private void OnDisable()
     {
         GameActions.Instance.OnStartGame -= Generate;
+        GameActions.Instance.OnEndTurn -= SetMainColorCells;
+
     }
- 
+
+    public void SetMainColorCells()
+    {
+        foreach (var cell in Cells)
+        {
+            if (cell != null)
+            {
+                cell.SetImage(true);
+            }
+        }
+    }
+    public void SetCellColor(int x, int y, bool colorCell)
+    {
+        Cell cell = GetCell(x, y);
+        if (cell != null)
+        {
+            cell.SetImage(colorCell);
+        }
+    }
 
     public void Generate()
     {
@@ -153,21 +174,25 @@ public class Board : MonoBehaviour
 
         return CellArray[x,y];
     }
-    public Cell EmptyCell()
+    public Cell EmptyCell(int winCount)
     {
-        emptyCells.Clear();
-        foreach (var cell in Cells)
+        // Limitləri yoxla (təhlükəsizlik üçün)
+
+        int randomValue = UnityEngine.Random.Range(0, 100);
+
+        if (randomValue < winCount)
         {
-            if (!cell.HasValue)
-            {
-                emptyCells.Add(cell);
-            }
+            Debug.Log("WinEnemy" + randomValue + " " + winCount);
+            // Ağıllı qərar (yaxşı ehtimal daxilindədirsə)
+            return XOEnemyMoveSuggester.GetBestMove(Cells, PieceType.Enemy, PieceType.Player);
         }
-        if (emptyCells.Count>0)
+        else
         {
-            return emptyCells[UnityEngine.Random.Range(0, emptyCells.Count)];
+            Debug.Log("LoseEnemy" + randomValue + " " + winCount);
+
+            // Pis qərar (qalan faiz daxilindədirsə)
+            return XOEnemyMoveSuggester.GetWorstMove(Cells, PieceType.Enemy, PieceType.Player);
         }
-        else return null;
     }
     public void CleanBoard() {
 

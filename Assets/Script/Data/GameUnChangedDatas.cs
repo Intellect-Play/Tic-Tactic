@@ -21,6 +21,8 @@ public class EnemiesUnChangedData
 {
     public int EnemyHP;
     public List<SpecialPieceType> EnemySpecials=new List<SpecialPieceType>(1);
+    [Range(1, 100)] public int WinEnemy;
+
 }
 
 #if UNITY_EDITOR

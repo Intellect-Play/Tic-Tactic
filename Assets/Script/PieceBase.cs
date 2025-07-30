@@ -123,7 +123,6 @@ public class PieceBase : MonoBehaviour
         cell.SetValue(this);
         //ShowPopupBounce(1);
         SoundManager.Instance.PlaySound(SoundType.PutPiece);
-
     }
     public virtual void ChangeCellDelay(Cell cell)
     {

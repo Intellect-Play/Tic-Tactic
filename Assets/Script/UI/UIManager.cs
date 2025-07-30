@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     public TextMeshProUGUI Level;
+    public TextMeshProUGUI MainLevel;
+
     public TextMeshProUGUI Coin;
     public TextMeshProUGUI CoinGame;
 
@@ -127,6 +129,7 @@ public class UIManager : MonoBehaviour
     public void LevelText(string x)
     {
         Level.text = x;
+        MainLevel.text = "Level " + x;
     }
     public void UpdateCoinText(int coins)
     {

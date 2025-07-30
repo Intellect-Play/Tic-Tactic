@@ -59,6 +59,8 @@ public class Health : MonoBehaviour
     }
     public void InitEnemy(int healthEnemy)
     {
+        isLive = true;
+
         HealthEnemy = healthEnemy;
         MaxHealthEnemy = healthEnemy;
 
@@ -126,6 +128,7 @@ public class Health : MonoBehaviour
         if (HealthEnemy <= 0)
         {
             AIController.Instance.DiedAI();
+            isLive = false;
 
 
         }

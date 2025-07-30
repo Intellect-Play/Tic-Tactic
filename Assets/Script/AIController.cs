@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,11 @@ public class AIController : MonoBehaviour
     public RectTransform aiPieceParent;
     public List<RectTransform> aiCharactersSpawnPoints = new List<RectTransform>();
 
+    [SerializeField] TextMeshProUGUI enemyCountText;
     bool DiedAIBool;
+    int enemyMaxCount;
+    int enemyCount;
+
     private void Awake()
     {
         if (Instance == null)
@@ -42,13 +47,15 @@ public class AIController : MonoBehaviour
     public void EnemyStart()
     {
         gameUnChangedDatas = new List<EnemiesUnChangedData>();
-
+        enemyMaxCount = GameManager.Instance.currenGameUnChangedData.Enemies.Count;
+        enemyCount = 1;
         foreach (var enemy in GameManager.Instance.currenGameUnChangedData.Enemies)
         {
             var enemyCopy = new EnemiesUnChangedData
             {
                 EnemyHP = enemy.EnemyHP,
-                EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials)
+                EnemySpecials = new List<SpecialPieceType>(enemy.EnemySpecials),
+                WinEnemy = enemy.WinEnemy
             };
 
             gameUnChangedDatas.Add(enemyCopy);
@@ -74,8 +81,14 @@ public class AIController : MonoBehaviour
 
             enemyCharacterBase.GetPosition(aiCharactersSpawnPoints[i], 1 - (0.3f * i));
         }
+        GetEnemyCountText();
     }
-
+    private void GetEnemyCountText()
+    {
+        if (enemyCount > enemyMaxCount) return;
+        enemyCountText.text = "Enemy: "+ enemyCount.ToString()+"/"+ enemyMaxCount;
+        enemyCount++;
+    }
 
     public void Damage(float health)
     {
@@ -88,6 +101,7 @@ public class AIController : MonoBehaviour
     {
         aiCharacters[0].DestroyPiece();
         DiedAIBool = true;
+        GetEnemyCountText();   
     }
     public void Attack() {
         aiCharacters[0].Attack(PlayerController.Instance.playerCharacters[0].MainCharacter.GetComponent<RectTransform>());
@@ -145,7 +159,9 @@ public class AIController : MonoBehaviour
         //CheckSizePieces();
         if (pieceType == currentPlayer)
         {
-            aiPieces[0].ChangeCellDelay(GameManager.Instance.board.EmptyCell());
+            aiPieces[0].ChangeCellDelay(GameManager.Instance.board.EmptyCell(gameUnChangedDatas[0].WinEnemy));
+            //aiPieces[0].ChangeCellDelay(XOEnemyMoveSuggester.GetBestMove(board, PieceType.Enemy, PieceType.Player));
+
             aiPieces.RemoveAt(0);
             GameActions.Instance?.InvokeEndTurn();
 

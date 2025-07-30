@@ -135,5 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellValue: 0
   _PlayerPiece: {fileID: 0}
+  mainSprite: {fileID: 21300000, guid: c9fd4abfd18cca24da2c1c15b81f3829, type: 3}
+  redSprite: {fileID: 21300000, guid: 53984a9d5ab8b2f4fbe9ae94d56e4c0e, type: 3}
   x: 0
   y: 0
