@@ -22,7 +22,7 @@ public class TwoSideGun : SpecialPieceCore
     public override void ChangeCell(Cell cell)
     {
         base.ChangeCell(cell);
-
+        board = GameManager.Instance.board;
         board.SetMainColorCells();
         Debug.Log($"ChangeCell: {PieceCell.x}, {PieceCell.y} for {playerValue}");
         board.SetCellColor(PieceCell.x + 1, PieceCell.y, false);
@@ -31,7 +31,7 @@ public class TwoSideGun : SpecialPieceCore
     }
     public override void Back()
     {
-
+        board = GameManager.Instance.board;
         board.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
         board.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
         base.Back();
@@ -39,7 +39,7 @@ public class TwoSideGun : SpecialPieceCore
     }
     public override void BackCell()
     {
-
+        board = GameManager.Instance.board;
         board.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
         board.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
         base.BackCell();

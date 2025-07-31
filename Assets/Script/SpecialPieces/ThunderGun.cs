@@ -16,6 +16,7 @@ public class ThunderGun : SpecialPieceCore
 
     public override void ChangeCell(Cell cell)
     {
+        board = GameManager.Instance.board;
         base.ChangeCell(cell);
         board.SetMainColorCells();
 
@@ -26,6 +27,7 @@ public class ThunderGun : SpecialPieceCore
     }
     public override void Back()
     {
+        board = GameManager.Instance.board;
         base.Back();
         board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
         board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
@@ -34,6 +36,7 @@ public class ThunderGun : SpecialPieceCore
     }
     public override void BackCell()
     {
+        board = GameManager.Instance.board;
         base.BackCell();
         board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
         board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
