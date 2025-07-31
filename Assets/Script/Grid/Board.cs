@@ -26,8 +26,17 @@ public class Board : MonoBehaviour
     }
     private void OnEnable()
     {
-        boardSizeX = GameDatas.Instance.mainGameDatasSO.BoardSizeX;
-        boardSizeY = GameDatas.Instance.mainGameDatasSO.BoardSizeY;
+        if(SaveDataService.CurrentLevel == 1)
+        {
+            boardSizeX = 3;
+            boardSizeY = 3;
+        }
+        else
+        {
+            boardSizeX = GameDatas.Instance.mainGameDatasSO.BoardSizeX;
+            boardSizeY = GameDatas.Instance.mainGameDatasSO.BoardSizeY;
+        }
+            
 
         CellArray = new Cell[boardSizeX, boardSizeY];
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
