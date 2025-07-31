@@ -19,32 +19,32 @@ public class TwoSideGun : SpecialPieceCore
 
         //GetComponent<RectTransform>().localScale = new Vector2(2.4f, 2.4f);
     }
-    public override void ChangeCell(Cell cell)
-    {
-        base.ChangeCell(cell);
-        board = GameManager.Instance.board;
-        board.SetMainColorCells();
-        Debug.Log($"ChangeCell: {PieceCell.x}, {PieceCell.y} for {playerValue}");
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y, false);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y, false);
+    //public override void ChangeCell(Cell cell)
+    //{
+    //    base.ChangeCell(cell);
+    //    board = GameManager.Instance.board;
+    //    board.SetMainColorCells();
+    //    Debug.Log($"ChangeCell: {PieceCell.x}, {PieceCell.y} for {playerValue}");
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y, false);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y, false);
 
-    }
-    public override void Back()
-    {
-        board = GameManager.Instance.board;
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
-        base.Back();
+    //}
+    //public override void Back()
+    //{
+    //    board = GameManager.Instance.board;
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+    //    base.Back();
 
-    }
-    public override void BackCell()
-    {
-        board = GameManager.Instance.board;
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
-        base.BackCell();
+    //}
+    //public override void BackCell()
+    //{
+    //    board = GameManager.Instance.board;
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+    //    base.BackCell();
 
-    }
+    //}
     public override void MoveStart(Action onMoveComplete)
     {
         StartCoroutine(WaitForAttackComplete(onMoveComplete));

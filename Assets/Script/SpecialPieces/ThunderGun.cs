@@ -14,35 +14,35 @@ public class ThunderGun : SpecialPieceCore
     }
 
 
-    public override void ChangeCell(Cell cell)
-    {
-        board = GameManager.Instance.board;
-        base.ChangeCell(cell);
-        board.SetMainColorCells();
+    //public override void ChangeCell(Cell cell)
+    //{
+    //    board = GameManager.Instance.board;
+    //    base.ChangeCell(cell);
+    //    board.SetMainColorCells();
 
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, false);
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, false);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, false);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, false);
-    }
-    public override void Back()
-    {
-        board = GameManager.Instance.board;
-        base.Back();
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, true);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, true);
-    }
-    public override void BackCell()
-    {
-        board = GameManager.Instance.board;
-        base.BackCell();
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
-        board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, true);
-        board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, true);
-    }
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, false);
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, false);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, false);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, false);
+    //}
+    //public override void Back()
+    //{
+    //    board = GameManager.Instance.board;
+    //    base.Back();
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, true);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, true);
+    //}
+    //public override void BackCell()
+    //{
+    //    board = GameManager.Instance.board;
+    //    base.BackCell();
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y + 1, true);
+    //    board.SetCellColor(PieceCell.x + 1, PieceCell.y - 1, true);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y + 1, true);
+    //    board.SetCellColor(PieceCell.x - 1, PieceCell.y - 1, true);
+    //}
     public override void MoveStart(Action onMoveComplete)
     {
         StartCoroutine(WaitForAttackComplete(onMoveComplete));
