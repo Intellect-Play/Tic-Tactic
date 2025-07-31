@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
-using System.ComponentModel;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,7 +72,7 @@ public class AIController : MonoBehaviour
 
         int lvl = SaveDataService.CurrentLevel;
         int characterIndex = (lvl / 3) % characterCycle.Length;
-        Characters selectedCharacter = characterCycle[characterIndex];
+        Characters selectedCharacter = characterCycle[ Random.Range(0,characterCycle.Length)];
 
         for (int i = 0; i < gameUnChangedDatas.Count; i++)
         {
