@@ -6,6 +6,8 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "GameUnChangedDatas", menuName = "GameData/GameUnChangedDatas")]
 public class GameUnChangedDatasSO : ScriptableObject
 {
+    public int Level;
+
     public List<GameUnChangedData> gameUnChangedDatas;
 }
 

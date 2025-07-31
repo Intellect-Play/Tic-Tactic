@@ -6,11 +6,15 @@ using UnityEngine;
 public class TwoSideGun : SpecialPieceCore
 {
     Board board;
+    private void OnEnable()
+    {
+        board = GameManager.Instance.board;
+
+    }
     public override void Start()
     {
         base.Start();
         size = 2.4f;
-        board = GameManager.Instance.board;
         ShowPopupBounce(sizeX);
 
         //GetComponent<RectTransform>().localScale = new Vector2(2.4f, 2.4f);

@@ -27,7 +27,8 @@ public class GameDatas : MonoBehaviour
         }
         //DeleteData();
         Instance = this;
-        if(SaveDataService.CurrentLevel == 0)
+        SaveDataService.CurrentLevel = Data.Level;
+        if (SaveDataService.CurrentLevel == 0)
         {
             SaveDataService.CurrentLevel = 1;
         }
