@@ -28,10 +28,7 @@ public class GameDatas : MonoBehaviour
         //DeleteData();
         Instance = this;
         SaveDataService.CurrentLevel = Data.Level;
-        if (SaveDataService.CurrentLevel == 0)
-        {
-            SaveDataService.CurrentLevel = 1;
-        }
+       
         if (Data.gameUnChangedDatas[SaveDataService.CurrentLevel-1].PlayerSpecialUnlock != SpecialPieceType.Null)
         {
             mainGameDatasSO.BoardSizeX = 4;
@@ -43,6 +40,11 @@ public class GameDatas : MonoBehaviour
             mainGameDatasSO.BoardSizeX = 3;
             mainGameDatasSO.BoardSizeY = 3;
 
+        }
+        if (SaveDataService.CurrentLevel == 1)
+        {
+            mainGameDatasSO.BoardSizeX = 3;
+            mainGameDatasSO.BoardSizeY = 3;
         }
         DeepCopy();
         SaveFilePath = Path.Combine(Application.persistentDataPath, "/GameData/GameUnChangedDatas8");
