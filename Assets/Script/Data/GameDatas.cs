@@ -16,10 +16,11 @@ public class GameDatas : MonoBehaviour
     public List<GameUnChangedData> gameUnChangedDatas;
 
     public string SaveFilePath;
-
+    public List<SpecialPieceType> Specials;
 
     private void Awake()
     {
+        SaveDataService.DeleteAll();
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -83,7 +84,9 @@ public class GameDatas : MonoBehaviour
     }
     public void DeepCopy()
     {
+       
         gameUnChangedDatas = new List<GameUnChangedData>();
+        int levelCount = 1;
         foreach (var data in Data.gameUnChangedDatas)
         {
             GameUnChangedData copy = new GameUnChangedData
@@ -92,8 +95,15 @@ public class GameDatas : MonoBehaviour
                 PlayerSpecialUnlock = data.PlayerSpecialUnlock,
                 Enemies = new List<EnemiesUnChangedData>()
             };
-
-            foreach (var enemy in data.Enemies)
+            if (levelCount < Data.Level && copy.PlayerSpecialUnlock != SpecialPieceType.Null)
+            {
+                var list = SaveDataService.UnlockedWeapons;
+                list.Add(copy.PlayerSpecialUnlock);
+                SaveDataService.UnlockedWeapons = list;
+               
+                SaveDataService.Save();
+            }
+                foreach (var enemy in data.Enemies)
             {
                 EnemiesUnChangedData enemyCopy = new EnemiesUnChangedData
                 {
@@ -105,7 +115,9 @@ public class GameDatas : MonoBehaviour
             }
 
             gameUnChangedDatas.Add(copy);
+            levelCount++;
         }
+        Specials = SaveDataService.UnlockedWeapons;
     }
     private void OnDisable()
     {

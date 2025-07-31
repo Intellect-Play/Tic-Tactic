@@ -46,7 +46,7 @@ public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndD
             }
         }else if(obj != null && obj.TryGetComponent(out PieceBase pieceBase))
         {
-            if (pieceBase.playerValue == playerValue && !pieceBase.IsPlaced)
+            if (pieceBase.playerValue == playerValue && !pieceBase.IsPlaced&&pieceBase.PieceCell!=null)
             {
                 ChangeCell(pieceBase.PieceCell);
                 PlayerController.Instance.GetPiece(this);

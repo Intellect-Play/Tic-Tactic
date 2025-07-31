@@ -53,6 +53,7 @@ public class Cell : MonoBehaviour
     }
     public void RemoveCell()
     {
+        Debug.Log("Removing cell at coordinates (" + x + ", " + y + ")");
         cellValue = PieceType.Null;
         if(_PlayerPiece != null)
         {

@@ -83,26 +83,29 @@ public static class XOEnemyMoveSuggester
         {
             int index = board.IndexOf(cell);
 
-            // Temporarily simulate putting enemy's piece
+            // Temporarily simulate enemy move
             cell.cellValue = enemyPiece;
 
-            int threatScore = EvaluateThreatPotential(board, rowCount, colCount, enemyPiece);
-            int blockScore = EvaluateThreatPotential(board, rowCount, colCount, playerPiece);
+            int enemyScore = EvaluateThreatPotential(board, rowCount, colCount, enemyPiece);
+            int playerScore = EvaluateThreatPotential(board, rowCount, colCount, playerPiece);
+
+            // Extra penalty: əgər bu cell player-in 2 ardıcıl line-ının yanındadırsa
+            int proximityPenalty = IsNearPotentialWin(board, rowCount, colCount, cell, playerPiece, 2) ? 100 : 0;
 
             // Reset
             cell.cellValue = PieceType.Null;
 
-            // Pis qərarlar: aşağı skorlu və opponentə imkan verənlər
-            int totalScore = threatScore - blockScore;
+            int totalScore = enemyScore - playerScore + proximityPenalty; // pis yer: yüksək proximityPenalty
             scoredCells.Add((cell, totalScore));
         }
 
-        // Ən pis (ən aşağı skorlu və opponentin lehine olan) yeri tap
+        // Ən pis: ən yüksək totalScore olan
         return scoredCells
-            .OrderBy(c => c.score) // ən aşağı scor
-            .ThenBy(c => Random.value) // eyni scor varsa random
+            .OrderBy(c => c.score) // aşağı scor – yəni pis
+            .ThenBy(c => Random.value)
             .FirstOrDefault().cell;
     }
+
     private static int EvaluateThreatPotential(List<Cell> board, int rowCount, int colCount, PieceType target)
     {
         int score = 0;
@@ -143,6 +146,35 @@ public static class XOEnemyMoveSuggester
         return score;
     }
 
+    private static bool IsNearPotentialWin(List<Cell> board, int rowCount, int colCount, Cell targetCell, PieceType playerPiece, int requiredInARow)
+    {
+        int index = board.IndexOf(targetCell);
+        int x = index % colCount;
+        int y = index / colCount;
+
+        foreach (var dir in directions)
+        {
+            int match = 0;
+            for (int i = -requiredInARow; i <= requiredInARow; i++)
+            {
+                if (i == 0) continue;
+                int nx = x + i * dir.x;
+                int ny = y + i * dir.y;
+
+                if (nx < 0 || ny < 0 || nx >= colCount || ny >= rowCount)
+                    continue;
+
+                int ni = ny * colCount + nx;
+                if (board[ni].cellValue == playerPiece)
+                    match++;
+            }
+
+            if (match >= requiredInARow)
+                return true;
+        }
+
+        return false;
+    }
 
     // Dörd istiqamət
     private static readonly List<Vector2Int> directions = new List<Vector2Int>

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be5893e6d087464eb39a4da38af0d34, type: 3}
   m_Name: GameUnChangedDatas
   m_EditorClassIdentifier: 
-  Level: 2
+  Level: 1
   gameUnChangedDatas:
   - PlayerHP: 9
     Enemies:
     - EnemyHP: 4
       EnemySpecials: 00000000
       WinEnemy: 1
-    PlayerSpecialUnlock: 0
+    PlayerSpecialUnlock: 1
   - PlayerHP: 10
     Enemies:
     - EnemyHP: 4
