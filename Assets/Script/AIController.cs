@@ -70,12 +70,12 @@ public class AIController : MonoBehaviour
         Characters.EnemyYork // Əgər 4-cü düşmənin yoxdursa, dəyişdir və ya sil
         };
 
-        int lvl = SaveDataService.CurrentLevel;
-        int characterIndex = (lvl / 3) % characterCycle.Length;
-        Characters selectedCharacter = characterCycle[ Random.Range(0,characterCycle.Length)];
+      
 
         for (int i = 0; i < gameUnChangedDatas.Count; i++)
         {
+            Characters selectedCharacter = characterCycle[Random.Range(0, characterCycle.Length)];
+
             CharacterBase enemyCharacterBase = CharacterDatas.Instance.SetupSpecial(selectedCharacter, gameUnChangedDatas[i].EnemyHP);
             aiCharacters.Add(enemyCharacterBase);
 
