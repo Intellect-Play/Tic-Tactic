@@ -20,7 +20,6 @@ public class GameDatas : MonoBehaviour
 
     private void Awake()
     {
-        SaveDataService.DeleteAll();
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -28,8 +27,13 @@ public class GameDatas : MonoBehaviour
         }
         //DeleteData();
         Instance = this;
-        SaveDataService.CurrentLevel = Data.Level;
-       
+        if (!Data.LevelUp)
+        {
+            SaveDataService.DeleteAll();
+            SaveDataService.CurrentLevel = Data.Level;
+
+        }
+
         if (Data.gameUnChangedDatas[SaveDataService.CurrentLevel-1].PlayerSpecialUnlock != SpecialPieceType.Null)
         {
             mainGameDatasSO.BoardSizeX = 4;
@@ -95,7 +99,7 @@ public class GameDatas : MonoBehaviour
                 PlayerSpecialUnlock = data.PlayerSpecialUnlock,
                 Enemies = new List<EnemiesUnChangedData>()
             };
-            if (levelCount < Data.Level && copy.PlayerSpecialUnlock != SpecialPieceType.Null)
+            if (levelCount < SaveDataService.CurrentLevel && copy.PlayerSpecialUnlock != SpecialPieceType.Null)
             {
                 var list = SaveDataService.UnlockedWeapons;
                 list.Add(copy.PlayerSpecialUnlock);

@@ -6,6 +6,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "GameUnChangedDatas", menuName = "GameData/GameUnChangedDatas")]
 public class GameUnChangedDatasSO : ScriptableObject
 {
+    public bool LevelUp; // Bütün səviyyələr açıqdırsa true, yoxsa false
     public int Level;
 
     public List<GameUnChangedData> gameUnChangedDatas;
