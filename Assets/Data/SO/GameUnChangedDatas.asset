@@ -168,7 +168,7 @@ MonoBehaviour:
       EnemySpecials: 09000000
       WinEnemy: 100
     PlayerSpecialUnlock: 0
-  - PlayerHP: 21
+  - PlayerHP: 22
     Enemies:
     - EnemyHP: 12
       EnemySpecials: 00000000
