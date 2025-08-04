@@ -18,7 +18,6 @@ public class FollowMouseImage : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
-        // Mouse mövqeyini ekran koordinatından canvas koordinatına çevir
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             rectTransform.parent as RectTransform,
@@ -26,7 +25,6 @@ public class FollowMouseImage : MonoBehaviour, IPointerClickHandler
             null,
             out pos);
 
-        // Yumşaq hərəkət
         rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, pos, followSpeed * Time.deltaTime);
     }
 

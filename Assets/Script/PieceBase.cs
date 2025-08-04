@@ -205,7 +205,8 @@ public class PieceBase : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            targetImage.gameObject.SetActive(false); 
+            //targetImage.gameObject.SetActive(false); 
+            Destroy(gameObject); // Obyekti məhv et
         });
         
     }

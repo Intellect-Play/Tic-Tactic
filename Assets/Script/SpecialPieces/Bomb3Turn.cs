@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bomb3Turn : SpecialPieceCore
 {
@@ -17,20 +18,38 @@ public class Bomb3Turn : SpecialPieceCore
         GameActions.Instance.OnEndTurn -= Turn;
     }
     public void Turn() {
+        Debug.Log("Bomb3 1");
 
-        if (GameManager.Instance.currentPlayer != playerValue) return;
+        if (GameManager.Instance.currentPlayer != playerValue&& turnCount!=0) return;
         turnCount++;
+        Debug.Log("Bomb3 2");
         if (turnCount >= 3)
         {
-
-            animator.SetTrigger("Attack");
-            animator.SetTrigger("FinalIdle");
-
             AddToList();
-            turnCount = 0;
+
         }
         else animator.SetTrigger("Bomb" + turnCount);
 
+    }
+    IEnumerator BombDelay()
+    {
+        animator.SetTrigger("Attack");
+        animator.SetTrigger("FinalIdle");
+        Image image = GetComponent<Image>();
+        animator.enabled = false;
+        AddToList();
+        turnCount = 0;
+        Debug.Log($"Bomb3Turn: {PieceCell.x}, {PieceCell.y} for {playerValue} - Turn Count: {turnCount}");
+        yield return new WaitForSeconds(1f); // Bomb animasiyasının müddəti
+        Debug.Log("Bomb3 turnCount  " + turnCount);
+        image.sprite = playerValue == PieceType.Player ? specialPieceData.XSprite : specialPieceData.OSprite;
+
+
+    }
+    private void OnDestroy()
+    {
+        GameActions.Instance.OnEndTurn -= Turn;
+        StopCoroutine(BombDelay());
     }
     public override void Placed(bool _isPlaced)
     {
@@ -52,7 +71,6 @@ public class Bomb3Turn : SpecialPieceCore
     IEnumerator WaitForAttackComplete(Action onMoveComplete)
     {
       
-        yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
         SoundManager.Instance.PlaySound(SoundType.Bomb);
 
         for (int dx = -1; dx <= 1; dx++)
@@ -71,6 +89,20 @@ public class Bomb3Turn : SpecialPieceCore
                 GameManager.Instance.board.DestroyPiece(targetX, targetY, playerValue, specialPieceData);
             }
         }
+        animator.SetTrigger("Attack");
+        animator.SetTrigger("FinalIdle");
+        Image image = GetComponent<Image>();
+        animator.enabled = false;
+        Debug.Log("Bomb3Turn: " + PieceCell.x + ", " + PieceCell.y + " for " + playerValue);
+        turnCount = 0;
+        Debug.Log($"Bomb3Turn: {PieceCell.x}, {PieceCell.y} for {playerValue} - Turn Count: {turnCount}");
+      //  yield return new WaitForSeconds(1f); // Bomb animasiyasının müddəti
+        Debug.Log("Bomb3 turnCount  " + turnCount);
+
+
+        yield return new WaitForSeconds(0.5f); // Attack animasiyasının müddəti
+        image.sprite = playerValue == PieceType.Player ? specialPieceData.XSprite : specialPieceData.OSprite;
+
         MoveEnd(onMoveComplete);
     }
 }

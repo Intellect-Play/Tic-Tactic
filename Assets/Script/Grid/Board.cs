@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
-
+    public static Board Instance;
     [SerializeField]public int boardSizeX;
     [SerializeField] public int boardSizeY;
     [SerializeField] public GameObject LinePlayer;
@@ -20,9 +20,16 @@ public class Board : MonoBehaviour
     public Cell[,] CellArray;
     private List<Cell> emptyCells = new List<Cell>();
     public Cell MiddleCell;
-    private void Start()
+    private void Awake()
     {
-       
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void OnEnable()
     {

@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
             index = loopStart + ((lvl - 35) % loopLength);
         }
 
+
         currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[index];
         GameActions.Instance.OnEndTurn += EndTurn;
         GameFinishLose.SetActive(false);
