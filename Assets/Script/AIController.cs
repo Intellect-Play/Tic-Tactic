@@ -38,11 +38,12 @@ public class AIController : MonoBehaviour
     }
     private void Start()
     {
-        GameActions.Instance.OnStartGame += EnemyStart;
+        EnemyStart();
+        //GameActions.Instance.OnStartGame += EnemyStart;
     }
     private void OnDisable()
     {
-        GameActions.Instance.OnStartGame -= EnemyStart;
+        //GameActions.Instance.OnStartGame -= EnemyStart;
     }
     public void EnemyStart()
     {
