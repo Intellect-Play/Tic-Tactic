@@ -51,7 +51,7 @@ public class PieceSpawner : MonoBehaviour
         if (SaveDataService.UnlockedWeapons.Count > 0)
         {
             SpecialPieceType special = SaveDataService.UnlockedWeapons[UnityEngine.Random.Range(0, SaveDataService.UnlockedWeapons.Count)];
-            SpawnSpecialPieceEnemy(PlayerPieceParent[i], special, pieceType);
+            SpawnSpecialPieceEnemy(PlayerPieceParent[i], SpecialPieceType.Bomb3Turn, pieceType);
             i = 1;
         }
         for (; i < count - 1; i++)
