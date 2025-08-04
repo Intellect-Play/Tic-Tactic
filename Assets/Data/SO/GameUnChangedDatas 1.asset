@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be5893e6d087464eb39a4da38af0d34, type: 3}
   m_Name: GameUnChangedDatas 1
   m_EditorClassIdentifier: 
+  LevelUp: 0
+  Level: 0
   gameUnChangedDatas:
   - PlayerHP: 8
     Enemies:
@@ -380,6 +382,15 @@ MonoBehaviour:
     Enemies:
     - EnemyHP: 6
       EnemySpecials: 00000000
+      WinEnemy: 0
+    - EnemyHP: 23
+      EnemySpecials: 08000000
+      WinEnemy: 0
+    - EnemyHP: 23
+      EnemySpecials: 08000000
+      WinEnemy: 0
+    - EnemyHP: 23
+      EnemySpecials: 08000000
       WinEnemy: 0
     - EnemyHP: 23
       EnemySpecials: 08000000

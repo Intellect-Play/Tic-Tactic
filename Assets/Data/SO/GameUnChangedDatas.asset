@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameUnChangedDatas
   m_EditorClassIdentifier: 
   LevelUp: 0
-  Level: 33
+  Level: 38
   gameUnChangedDatas:
   - PlayerHP: 9
     Enemies:
@@ -341,76 +341,64 @@ MonoBehaviour:
     PlayerSpecialUnlock: 0
   - PlayerHP: 24
     Enemies:
-    - EnemyHP: 3
-      EnemySpecials: 00000000
-      WinEnemy: 0
-    - EnemyHP: 10
+    - EnemyHP: 12
       EnemySpecials: 07000000
-      WinEnemy: 0
+      WinEnemy: 100
+    - EnemyHP: 12
+      EnemySpecials: 07000000
+      WinEnemy: 100
     PlayerSpecialUnlock: 7
   - PlayerHP: 24
     Enemies:
-    - EnemyHP: 5
-      EnemySpecials: 00000000
-      WinEnemy: 0
-    - EnemyHP: 3
+    - EnemyHP: 9
+      EnemySpecials: 01000000
+      WinEnemy: 50
+    - EnemyHP: 6
       EnemySpecials: 080000000500000002000000
-      WinEnemy: 0
-    - EnemyHP: 6
+      WinEnemy: 84
+    - EnemyHP: 12
       EnemySpecials: 0100000005000000
-      WinEnemy: 0
+      WinEnemy: 65
     PlayerSpecialUnlock: 0
   - PlayerHP: 24
     Enemies:
-    - EnemyHP: 3
+    - EnemyHP: 9
       EnemySpecials: 0300000005000000
-      WinEnemy: 0
-    - EnemyHP: 2
+      WinEnemy: 66
+    - EnemyHP: 12
       EnemySpecials: 0600000007000000
-      WinEnemy: 0
-    - EnemyHP: 5
-      EnemySpecials: 0700000009000000
-      WinEnemy: 0
-    - EnemyHP: 8
-      EnemySpecials: 0a0000000100000002000000
-      WinEnemy: 0
+      WinEnemy: 59
     PlayerSpecialUnlock: 0
   - PlayerHP: 24
     Enemies:
-    - EnemyHP: 5
+    - EnemyHP: 18
       EnemySpecials: 0300000005000000
-      WinEnemy: 0
-    - EnemyHP: 2
-      EnemySpecials: 0600000007000000
-      WinEnemy: 0
-    - EnemyHP: 6
-      EnemySpecials: 0700000009000000
-      WinEnemy: 0
-    - EnemyHP: 8
-      EnemySpecials: 0a0000000100000002000000
-      WinEnemy: 0
+      WinEnemy: 82
     PlayerSpecialUnlock: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 8
-      EnemySpecials: 0300000005000000
-      WinEnemy: 0
+      EnemySpecials: 0100000005000000
+      WinEnemy: 57
     - EnemyHP: 9
       EnemySpecials: 0600000007000000
-      WinEnemy: 0
+      WinEnemy: 70
+    - EnemyHP: 12
+      EnemySpecials: 0600000007000000
+      WinEnemy: 62
     PlayerSpecialUnlock: 0
-  - PlayerHP: 25
+  - PlayerHP: 24
     Enemies:
-    - EnemyHP: 4
-      EnemySpecials: 0300000005000000
-      WinEnemy: 0
-    - EnemyHP: 2
+    - EnemyHP: 6
+      EnemySpecials: 0200000005000000
+      WinEnemy: 77
+    - EnemyHP: 9
       EnemySpecials: 0800000003000000
-      WinEnemy: 0
-    - EnemyHP: 7
+      WinEnemy: 65
+    - EnemyHP: 12
       EnemySpecials: 0700000009000000
-      WinEnemy: 0
-    - EnemyHP: 8
+      WinEnemy: 62
+    - EnemyHP: 6
       EnemySpecials: 0a0000000100000002000000
-      WinEnemy: 0
+      WinEnemy: 63
     PlayerSpecialUnlock: 0
