@@ -16,6 +16,7 @@ public class Bomb3Turn : SpecialPieceCore
     private void OnDisable()
     {
         GameActions.Instance.OnEndTurn -= Turn;
+        StopAllCoroutines();
     }
     public void Turn() {
         Debug.Log("Bomb3 1");
