@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be5893e6d087464eb39a4da38af0d34, type: 3}
   m_Name: GameUnChangedDatas
   m_EditorClassIdentifier: 
-  LevelUp: 1
-  Level: 30
+  LevelUp: 0
+  Level: 33
   gameUnChangedDatas:
   - PlayerHP: 9
     Enemies:
@@ -297,44 +297,38 @@ MonoBehaviour:
       EnemySpecials: 08000000
       WinEnemy: 60
     PlayerSpecialUnlock: 8
-  - PlayerHP: 23
+  - PlayerHP: 21
     Enemies:
-    - EnemyHP: 3
-      EnemySpecials: 00000000
-      WinEnemy: 0
-    - EnemyHP: 3
-      EnemySpecials: 07000000
-      WinEnemy: 0
-    - EnemyHP: 3
-      EnemySpecials: 07000000
-      WinEnemy: 0
-    - EnemyHP: 3
-      EnemySpecials: 07000000
-      WinEnemy: 0
+    - EnemyHP: 18
+      EnemySpecials: 0100000002000000030000000400000005000000
+      WinEnemy: 70
     PlayerSpecialUnlock: 0
   - PlayerHP: 23
     Enemies:
-    - EnemyHP: 4
-      EnemySpecials: 00000000
-      WinEnemy: 0
-    - EnemyHP: 4
-      EnemySpecials: 07000000
-      WinEnemy: 0
-    - EnemyHP: 3
-      EnemySpecials: 00000000
-      WinEnemy: 0
-    - EnemyHP: 6
-      EnemySpecials: 07000000
-      WinEnemy: 0
+    - EnemyHP: 12
+      EnemySpecials: 060000000300000001000000
+      WinEnemy: 74
+    - EnemyHP: 12
+      EnemySpecials: 070000000400000005000000
+      WinEnemy: 70
     PlayerSpecialUnlock: 0
   - PlayerHP: 23
     Enemies:
     - EnemyHP: 6
-      EnemySpecials: 00000000
-      WinEnemy: 0
-    - EnemyHP: 23
+      EnemySpecials: 03000000
+      WinEnemy: 60
+    - EnemyHP: 6
       EnemySpecials: 08000000
-      WinEnemy: 0
+      WinEnemy: 48
+    - EnemyHP: 6
+      EnemySpecials: 06000000
+      WinEnemy: 58
+    - EnemyHP: 6
+      EnemySpecials: 01000000
+      WinEnemy: 60
+    - EnemyHP: 15
+      EnemySpecials: 01000000
+      WinEnemy: 67
     PlayerSpecialUnlock: 0
   - PlayerHP: 23
     Enemies:
