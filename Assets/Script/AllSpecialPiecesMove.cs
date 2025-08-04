@@ -36,6 +36,11 @@ public class AllSpecialPiecesMove : MonoBehaviour
         for (int i = 0; i < allMovePieces.Count; i++)
         {
             bool isDone = false;
+            if(allMovePieces[i] == null)
+            {
+                Debug.LogWarning($"Piece at index {i} is null. Skipping.");
+                continue;
+            }
             allMovePieces[i].MoveStart(() =>
             {
                 //Debug.Log($"Piece {piece.name} has finished moving.");
