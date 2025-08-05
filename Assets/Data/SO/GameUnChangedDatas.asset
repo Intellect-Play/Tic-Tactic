@@ -21,24 +21,28 @@ MonoBehaviour:
       EnemySpecials: 00000000
       WinEnemy: 1
     PlayerSpecialUnlock: 1
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 10
     Enemies:
     - EnemyHP: 4
       EnemySpecials: 00000000
       WinEnemy: 15
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 10
     Enemies:
     - EnemyHP: 5
       EnemySpecials: 02000000
       WinEnemy: 20
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 12
     Enemies:
     - EnemyHP: 6
       EnemySpecials: 02000000
       WinEnemy: 25
     PlayerSpecialUnlock: 2
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 12
     Enemies:
     - EnemyHP: 3
@@ -48,12 +52,14 @@ MonoBehaviour:
       EnemySpecials: 0a000000
       WinEnemy: 20
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 12
     Enemies:
     - EnemyHP: 5
       EnemySpecials: 0a000000
       WinEnemy: 30
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 13
     Enemies:
     - EnemyHP: 4
@@ -63,6 +69,7 @@ MonoBehaviour:
       EnemySpecials: 0a000000
       WinEnemy: 30
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 18
     Enemies:
     - EnemyHP: 6
@@ -72,12 +79,14 @@ MonoBehaviour:
       EnemySpecials: 0a000000
       WinEnemy: 30
     PlayerSpecialUnlock: 10
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 18
     Enemies:
     - EnemyHP: 8
       EnemySpecials: 05000000
       WinEnemy: 20
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 18
     Enemies:
     - EnemyHP: 5
@@ -90,6 +99,7 @@ MonoBehaviour:
       EnemySpecials: 05000000
       WinEnemy: 25
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 18
     Enemies:
     - EnemyHP: 6
@@ -99,18 +109,21 @@ MonoBehaviour:
       EnemySpecials: 00000000
       WinEnemy: 30
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 18
     Enemies:
     - EnemyHP: 6
       EnemySpecials: 00000000
       WinEnemy: 50
     PlayerSpecialUnlock: 5
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 18
     Enemies:
     - EnemyHP: 9
       EnemySpecials: 06000000
       WinEnemy: 60
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 18
     Enemies:
     - EnemyHP: 5
@@ -123,6 +136,7 @@ MonoBehaviour:
       EnemySpecials: 00000000
       WinEnemy: 25
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 20
     Enemies:
     - EnemyHP: 3
@@ -138,12 +152,14 @@ MonoBehaviour:
       EnemySpecials: 06000000
       WinEnemy: 25
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 20
     Enemies:
     - EnemyHP: 15
       EnemySpecials: 00000000
       WinEnemy: 50
     PlayerSpecialUnlock: 6
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 20
     Enemies:
     - EnemyHP: 9
@@ -156,6 +172,7 @@ MonoBehaviour:
       EnemySpecials: 0200000001000000
       WinEnemy: 30
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 20
     Enemies:
     - EnemyHP: 6
@@ -168,6 +185,7 @@ MonoBehaviour:
       EnemySpecials: 09000000
       WinEnemy: 100
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 22
     Enemies:
     - EnemyHP: 12
@@ -177,12 +195,14 @@ MonoBehaviour:
       EnemySpecials: 09000000
       WinEnemy: 50
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 15
       EnemySpecials: 09000000
       WinEnemy: 70
     PlayerSpecialUnlock: 9
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 12
@@ -195,6 +215,7 @@ MonoBehaviour:
       EnemySpecials: 00000000
       WinEnemy: 80
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 9
@@ -210,6 +231,7 @@ MonoBehaviour:
       EnemySpecials: 03000000
       WinEnemy: 50
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 9
@@ -219,6 +241,7 @@ MonoBehaviour:
       EnemySpecials: 01000000020000000300000005000000
       WinEnemy: 60
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 9
@@ -231,6 +254,7 @@ MonoBehaviour:
       EnemySpecials: 010000000200000009000000
       WinEnemy: 60
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 12
@@ -239,13 +263,15 @@ MonoBehaviour:
     - EnemyHP: 12
       EnemySpecials: 09000000
       WinEnemy: 0
-    PlayerSpecialUnlock: 9
+    PlayerSpecialUnlock: 3
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 15
       EnemySpecials: 09000000
       WinEnemy: 90
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 9
@@ -258,6 +284,7 @@ MonoBehaviour:
       EnemySpecials: 09000000
       WinEnemy: 60
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 6
@@ -267,6 +294,7 @@ MonoBehaviour:
       EnemySpecials: 0100000006000000
       WinEnemy: 90
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 3
@@ -282,6 +310,7 @@ MonoBehaviour:
       EnemySpecials: 0a000000
       WinEnemy: 80
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 3
@@ -297,12 +326,14 @@ MonoBehaviour:
       EnemySpecials: 08000000
       WinEnemy: 60
     PlayerSpecialUnlock: 8
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 21
     Enemies:
     - EnemyHP: 18
       EnemySpecials: 0100000002000000030000000400000005000000
       WinEnemy: 70
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 23
     Enemies:
     - EnemyHP: 12
@@ -312,6 +343,7 @@ MonoBehaviour:
       EnemySpecials: 070000000400000005000000
       WinEnemy: 70
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 23
     Enemies:
     - EnemyHP: 6
@@ -330,6 +362,7 @@ MonoBehaviour:
       EnemySpecials: 01000000
       WinEnemy: 67
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 23
     Enemies:
     - EnemyHP: 6
@@ -339,6 +372,7 @@ MonoBehaviour:
       EnemySpecials: 07000000
       WinEnemy: 0
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 12
@@ -348,6 +382,7 @@ MonoBehaviour:
       EnemySpecials: 07000000
       WinEnemy: 100
     PlayerSpecialUnlock: 7
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 9
@@ -360,6 +395,7 @@ MonoBehaviour:
       EnemySpecials: 0100000005000000
       WinEnemy: 65
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 9
@@ -369,12 +405,14 @@ MonoBehaviour:
       EnemySpecials: 0600000007000000
       WinEnemy: 59
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 18
       EnemySpecials: 0300000005000000
       WinEnemy: 82
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 8
@@ -387,6 +425,7 @@ MonoBehaviour:
       EnemySpecials: 0600000007000000
       WinEnemy: 62
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 24
     Enemies:
     - EnemyHP: 6
@@ -402,3 +441,4 @@ MonoBehaviour:
       EnemySpecials: 0a0000000100000002000000
       WinEnemy: 63
     PlayerSpecialUnlock: 0
+    PlayerSpecialUnlockTutorialBool: 0

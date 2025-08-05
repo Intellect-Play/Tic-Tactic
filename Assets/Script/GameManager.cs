@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public AIController aiController;
     [SerializeField] public AllSpecialPiecesMove allSpecialPiecesMove;
     [SerializeField] public PieceSpawner pieceSpawner;
-    [SerializeField] public Button EndTurnButton;
+    [SerializeField] public EndTurn EndTurnButton;
     [SerializeField] public BGImages horizontalInfiniteScroll;
 
     [Header("Game UI")]
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public List<GameUnChangedData> gameUnChangedDatas;
     public bool EndTurnButtonPressed = false;
     public bool IsGameFinished = false;
+    public bool MoveActive = false;
 
     public WinResult winResult;
     private void Awake()
@@ -48,7 +49,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        EndTurnButtonPressed = true;
+        MoveActive = true;
+        EndTurnButton.GetIncretible(false);
+        EndTurnButtonPressed = false;
         currentPlayer = PieceType.Player;
         gameUnChangedDatas = GameDatas.Instance.Data.gameUnChangedDatas;
         currenGameUnChangedData = GameDatas.Instance.Data.gameUnChangedDatas[SaveDataService.CurrentLevel - 1];
@@ -104,6 +107,8 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         if(IsGameFinished) return;
+        MoveActive = false;
+
         cellController.IsPlacedCellPieces();
         allSpecialPiecesMove.MoveSpecialPieces(() =>
         {
@@ -112,10 +117,14 @@ public class GameManager : MonoBehaviour
 
 
         });
+
         //StartCoroutine(EndTurnTime());
     }
     public void EndTurnFunc() {
         StartCoroutine(CheckResult());
+        playerController.ChangeColorsActive(currentPlayer == PieceType.Player);
+
+
     }
     //IEnumerator EndTurnTime()
     //{
@@ -126,14 +135,13 @@ public class GameManager : MonoBehaviour
     //    {
     //        StartCoroutine(CheckResult());
     //        Debug.Log("All special pieces have moved.");
-           
+
     //    });
     //}
     public void SwitchTurn()
     {
         currentPlayer = currentPlayer == PieceType.Player ? PieceType.Enemy : PieceType.Player;
-        EndTurnButton.interactable = false;        
-        playerController.ChangeColorsActive(currentPlayer == PieceType.Player);
+        //EndTurnButton.GetIncretible(false);        
     }
 
     public void RunPlayer()
@@ -206,6 +214,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         aiController.MakeMove(currentPlayer);
         playerController.MakeMove(currentPlayer);
+        MoveActive = true;
+
         //EndTurnButtonPressed = true;
 
     }

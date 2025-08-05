@@ -8,8 +8,8 @@ public class PieceSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject PlayerPiecePrefab;
     [SerializeField] private GameObject EnemyPiecePrefab;
-    [SerializeField] private List<PlayerSpawnButtons> PlayerPieceParent;
-    [SerializeField] private List<PlayerSpawnButtons> EnemyPieceParent;
+    [SerializeField] public List<PlayerSpawnButtons> PlayerPieceParent;
+    [SerializeField] public List<PlayerSpawnButtons> EnemyPieceParent;
 
     private SpecialPieceController specialPieceController;
     public int StartSpawnCount = 5;
@@ -48,7 +48,15 @@ public class PieceSpawner : MonoBehaviour
         ResetBuys();
         PieceType pieceType = PieceType.Player;
         int i = 0;
-        if (SaveDataService.UnlockedWeapons.Count > 0)
+        if (GameManager.Instance.currenGameUnChangedData.PlayerSpecialUnlockTutorialBool)
+        {
+            for (; i < count - 1; i++)
+            {
+                SpecialPieceType special = SaveDataService.UnlockedWeapons[SaveDataService.UnlockedWeapons.Count-1];
+                SpawnSpecialPieceEnemy(PlayerPieceParent[i], special, pieceType);
+            }
+        }
+        else if (SaveDataService.UnlockedWeapons.Count > 0)
         {
             SpecialPieceType special = SaveDataService.UnlockedWeapons[UnityEngine.Random.Range(0, SaveDataService.UnlockedWeapons.Count)];
             SpawnSpecialPieceEnemy(PlayerPieceParent[i], special, pieceType);
@@ -88,7 +96,6 @@ public class PieceSpawner : MonoBehaviour
         if (SaveDataService.UnlockedWeapons.Count > 0)
         {
             Coin.Instance.GetCoin(-GameDatas.Instance.mainGameDatasSO.Buy1Piece);
-            Debug.Log("BuyPlayerPieceOne");
             PieceType pieceType = PieceType.Player;
 
             SpecialPieceType special = SaveDataService.UnlockedWeapons[UnityEngine.Random.Range(0, SaveDataService.UnlockedWeapons.Count)];
@@ -143,7 +150,6 @@ public class PieceSpawner : MonoBehaviour
     {
        
         SpecialPieceData specialPieceData = specialPieceController.specialPieces.Find(x => x.specialPieceType == specialPieceType);
-        Debug.Log($"SpawnSpecialPieceEnemy: {specialPieceData.pieceName} - {specialPieceType}");
         SpawnPlayerPiece(count, specialPieceData.piecePrefab, pieceType, specialPieceData);
     }
     public void SpawnPlayerPiece(PlayerSpawnButtons i,GameObject gameObject,PieceType pieceType,SpecialPieceData specialPieceData=null)
@@ -160,7 +166,7 @@ public class PieceSpawner : MonoBehaviour
 
             piece = Instantiate(gameObject, i.transform);
             GameManager.Instance.playerController.playerPieces.Add(piece.GetComponent<PieceBase>());
-
+            
         }
         i.GetPiece(piece.GetComponent<PieceBase>());
         RectTransform rect = piece.GetComponent<RectTransform>();
@@ -174,6 +180,16 @@ public class PieceSpawner : MonoBehaviour
         {
             piece.GetComponent<SpecialPieceCore>().SetupSpecial(specialPieceData);
         }
+        if (TutorialManager.Instance.IsTutorialActive)
+        {
+
+            StartCoroutine(tutorialTime());
+        }
+    }
+    IEnumerator tutorialTime()
+    {
+        yield return new WaitForSeconds(2f);
+        TutorialManager.Instance.TutorialStart();
     }
     public void SpawnPiece(GameObject piece, Transform parentTransform)
     {

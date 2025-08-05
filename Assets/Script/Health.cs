@@ -81,7 +81,6 @@ public class Health : MonoBehaviour
     }
     IEnumerator DamageDelay(int health, PieceType pieceType)
     {
-        Debug.Log(pieceType + " Damage: " + health);
         yield return new WaitForSeconds(1);
         if (pieceType == PieceType.Player)
         {
@@ -115,6 +114,7 @@ public class Health : MonoBehaviour
         {
 
             HealthEnemy += health;
+
             AIController.Instance.aiCharacters[0].ChangeHealth(HealthEnemy);
 
             TextEnemy(HealthEnemy);

@@ -25,6 +25,12 @@ public class CharacterBase : MonoBehaviour
     RectTransform rectTransform;
     Vector3 originalAnchoredPos;
     int healthCharacter;
+
+    private Color flashColor = Color.red;
+    private int flashCount = 2;
+    private float flashDuration = .3f;
+    Sequence flashSequence;
+    private Color originalColor;
     private void Awake()
     {
         characterAnimator = MainCharacter.GetComponent<Animator>();
@@ -33,6 +39,11 @@ public class CharacterBase : MonoBehaviour
         attackButton = MainCharacter.GetComponent<Button>();
         if(attackButton!=null)
         attackButton.onClick.AddListener(AttackButton);
+        originalColor = characterImage.color;
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
     public void SetupSpecial(CharacterData _character, float health)
     {
@@ -191,8 +202,23 @@ public class CharacterBase : MonoBehaviour
         
         ChangeHealth(health);
         yield return new WaitForSeconds(.6f);
+        Flash();
         if (DamageParticle != null)
             DamageParticle.Play();
+    }
+    public void Flash()
+    {
+        if (flashSequence!=null&&flashSequence.active) return;
+        characterImage.DOKill();
+        flashSequence = DOTween.Sequence();
+
+        for (int i = 0; i < flashCount; i++)
+        {
+            flashSequence.Append(characterImage.DOColor(flashColor, flashDuration));
+            flashSequence.Append(characterImage.DOColor(originalColor, flashDuration));
+        }
+
+        flashSequence.Play();
     }
     private IEnumerator DiedE()
     {

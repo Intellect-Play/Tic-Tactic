@@ -73,3 +73,15 @@ public class AllSpecialPiecesMove : MonoBehaviour
         }
     }
 }
+/*
+1 2side
+4 thunder
+8 flame
+12 snayper
+16 plus2
+20 healer
+25 bomb3turn
+30 random
+35 immortal
+
+*/

@@ -99,14 +99,14 @@ public class GameDatas : MonoBehaviour
                 PlayerSpecialUnlock = data.PlayerSpecialUnlock,
                 Enemies = new List<EnemiesUnChangedData>()
             };
-            if (levelCount < SaveDataService.CurrentLevel && copy.PlayerSpecialUnlock != SpecialPieceType.Null)
-            {
-                var list = SaveDataService.UnlockedWeapons;
-                list.Add(copy.PlayerSpecialUnlock);
-                SaveDataService.UnlockedWeapons = list;
+            //if (levelCount < SaveDataService.CurrentLevel && copy.PlayerSpecialUnlock != SpecialPieceType.Null)
+            //{
+            //    var list = SaveDataService.UnlockedWeapons;
+            //    list.Add(copy.PlayerSpecialUnlock);
+            //    SaveDataService.UnlockedWeapons = list;
                
-                SaveDataService.Save();
-            }
+            //    SaveDataService.Save();
+            //}
                 foreach (var enemy in data.Enemies)
             {
                 EnemiesUnChangedData enemyCopy = new EnemiesUnChangedData

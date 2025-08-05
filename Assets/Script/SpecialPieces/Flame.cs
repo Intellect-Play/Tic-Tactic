@@ -14,31 +14,38 @@ public class Flame : SpecialPieceCore
         //anim.Play();
     }
 
-    //public override void ChangeCell(Cell cell)
-    //{
-    //    board = GameManager.Instance.board;
-    //    base.ChangeCell(cell);
-    //    board.SetMainColorCells();
-
-    //    board.SetCellColor(PieceCell.x, PieceCell.y + 1, false);
-    //    board.SetCellColor(PieceCell.x, PieceCell.y - 1, false);
-    //}
-    //public override void Back()
-    //{
-    //    board = GameManager.Instance.board;
-    //    base.Back();
-    //    board.SetCellColor(PieceCell.x, PieceCell.y + 1, true);
-    //    board.SetCellColor(PieceCell.x, PieceCell.y - 1, true);
+    public override void ChangeCell(Cell cell)
+    {
+        board = GameManager.Instance.board;
+        base.ChangeCell(cell);
+        board.SetMainColorCells();
+        if (PieceCell == null) return;
+        board.SetCellColor(PieceCell.x, PieceCell.y + 1, false);
+        board.SetCellColor(PieceCell.x, PieceCell.y - 1, false);
+    }
+    public override void Back()
+    {
+        board = GameManager.Instance.board;
+        base.Back();
+        if (PieceCell != null)
+        {
+            board.SetCellColor(PieceCell.x, PieceCell.y + 1, true);
+            board.SetCellColor(PieceCell.x, PieceCell.y - 1, true);
+        }
     
-    //}
-    //public override void BackCell()
-    //{
-    //    board = GameManager.Instance.board;
-    //    base.BackCell();
-    //    board.SetCellColor(PieceCell.x, PieceCell.y + 1, true);
-    //    board.SetCellColor(PieceCell.x, PieceCell.y - 1, true);
- 
-    //}
+
+    }
+    public override void BackCell()
+    {
+        board = GameManager.Instance.board;
+        base.BackCell();
+        if (PieceCell != null)
+        {
+            board.SetCellColor(PieceCell.x, PieceCell.y + 1, true);
+            board.SetCellColor(PieceCell.x, PieceCell.y - 1, true);
+        }
+
+    }
     public override void MoveStart(Action onMoveComplete)
     {
       

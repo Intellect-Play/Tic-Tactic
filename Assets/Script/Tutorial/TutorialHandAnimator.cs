@@ -30,43 +30,33 @@ public class TutorialHandAnimator : MonoBehaviour
             HideHand();
             return;
         }
+        handImage.gameObject.SetActive(true);
+
+        Debug.Log("ShowMoveHandAnimationUI called with target: " + uiTarget.anchoredPosition);
 
         TweenPlay = true;
 
-        // Dünyadakı mövqe
-        Vector3 worldPos = uiTarget.position + offset;
+        // Dünya mövqeyini al
+        Vector3[] corners = new Vector3[4];
+        uiTarget.GetWorldCorners(corners);
+        Vector3 centerWorldPos = (corners[0] + corners[2]) * 0.5f + offset;
 
-        // Ekran mövqeyi
-        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(
-            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main,
-            worldPos
-        );
-
-        // Lokal mövqe
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            handImage.parent as RectTransform,
-            screenPos,
-            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main,
-            out localPoint
-        );
-
-        // Əsas mövqeyi təyin et
-        handImage.anchoredPosition = localPoint;
-        handImage.gameObject.SetActive(true);
+        // Hand-in world mövqeyini təyin et
+        handImage.position = centerWorldPos;
         gameObject.SetActive(true);
 
         currentTween?.Kill();
         handImage.localScale = Vector3.one;
 
-        // ✳️ Animasiya: sağ-yuxarıya sürüş → geri
-        Vector2 targetPos = localPoint + new Vector2(60f, 700f); // sağ-yuxarı offset
+        // ✳️ World space-də yuxarı-aşağı animasiya
+        Vector3 upOffset = new Vector3(1f, 3f, 0f); // yuxarı-aşağı animasiya miqdarı
 
         currentTween = handImage
-            .DOAnchorPos(targetPos, duration * 0.8f)
+            .DOMove(centerWorldPos + upOffset, duration * 0.7f)
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
     }
+
 
     public void ShowTapAnimationWorldUI(RectTransform uiTarget, Vector3 offset)
     {
@@ -75,7 +65,10 @@ public class TutorialHandAnimator : MonoBehaviour
             HideHand();
             return;
         }
+        Debug.Log("ShowTapAnimationWorldUI called with target: " + uiTarget.anchoredPosition);
 
+        handImage.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         TweenPlay = true;
 
         bool isWorldCanvas = canvas.renderMode == RenderMode.WorldSpace;
@@ -102,8 +95,6 @@ public class TutorialHandAnimator : MonoBehaviour
             handImage.localPosition = localPoint;
         }
 
-        handImage.gameObject.SetActive(true);
-        gameObject.SetActive(true);
 
         currentTween?.Kill();
         handImage.localScale = Vector3.one;

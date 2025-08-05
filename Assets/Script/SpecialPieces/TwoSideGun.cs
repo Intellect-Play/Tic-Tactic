@@ -23,22 +23,30 @@ public class TwoSideGun : SpecialPieceCore
     {
         base.ChangeCell(cell);
         Board.Instance.SetMainColorCells();
-        Debug.Log($"ChangeCell: {PieceCell.x}, {PieceCell.y} for {playerValue}");
+        if (PieceCell == null) return;
+
         Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, false);
         Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, false);
 
     }
     public override void Back()
     {
-        Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
-        Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+        if(PieceCell != null)
+        {
+            Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
+            Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+        }
+     
         base.Back();
 
     }
     public override void BackCell()
     {
-        Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
-        Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+        if (PieceCell != null)
+        {
+            Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
+            Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+        }
         base.BackCell();
 
     }

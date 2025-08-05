@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
 
         LevelText(SaveDataService.CurrentLevel.ToString());
         StartButtonAnime.gameObject.SetActive(false);
-        MoveDown(deckPanel, Screen.height+200); // 100f qədər aşağı hərəkət et
+        MoveDown(deckPanel, Screen.height+500); // 100f qədər aşağı hərəkət et
         Debug.Log(Screen.height+200);
         UpdateCoinText(SaveDataService.Coins);
     }
@@ -114,7 +114,7 @@ public class UIManager : MonoBehaviour
     }
     IEnumerator ExitDelay(float delay)
     {
-        MoveDown(deckPanel, Screen.height + 200); // 100f qədər aşağı hərəkət et
+        MoveDown(deckPanel, Screen.height + 500); // 100f qədər aşağı hərəkət et
 
         MoveDown(Buttons, 0); // 100f qədər aşağı hərəkət et
         yield return new WaitForSeconds(delay);

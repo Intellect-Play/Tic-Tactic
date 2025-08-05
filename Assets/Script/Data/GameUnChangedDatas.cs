@@ -18,6 +18,7 @@ public class GameUnChangedData
     public int PlayerHP;
     public List<EnemiesUnChangedData> Enemies = new List<EnemiesUnChangedData>(1);
     public SpecialPieceType PlayerSpecialUnlock;
+    public bool PlayerSpecialUnlockTutorialBool;
 }
 [Serializable]
 public class EnemiesUnChangedData

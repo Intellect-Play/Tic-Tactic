@@ -37,6 +37,7 @@ public class TutorialManager : MonoBehaviour
             Destroy(gameObject);
         }
         IsTutorialActive = SaveDataService.CurrentLevel == 1;
+       
         //if (PlayerPrefs.GetInt("Tutorial2", 0) == 0)
         //{
         //    tutorialLevel = 0;
@@ -60,114 +61,27 @@ public class TutorialManager : MonoBehaviour
 
         //}
     }
+  
 
     public void TutorialStart()
     {
-
-    }
-
-    public void SelectCard(int currentCardCount)
-    {
-
-    }
-    public void AddTutorial()
-    {
-        tutorialLevel++;
-        switch (tutorialLevel)
+        if (IsTutorialActive)
         {
-            case 0:
-                StartCoroutine(ShowTutorialHandWithDelay(0));
-                break;
-            case 1:
-                StartCoroutine(ShowTutorialHandWithDelay(0));
-                break;
-            case 2:
-                StartCoroutine(ShowTutorialHandWithDelay(0));
-                break;
-            case 3:
-                //StartCoroutine(ShowTutorialHandWithDelay());
-                break;
-            case 4:
-                StartCoroutine(ShowTutorialHandWithDelay(0));
-                break;
-            case 5:
-                {
-                    StartCoroutine(ShowTutorialHandWithDelay(2));
+            EndTurnImage = GameManager.Instance.pieceSpawner.PlayerPieceParent[0].GetComponent<RectTransform>();
 
-                }
-                break;
-            case 7:
-                StartCoroutine(ShowTutorialHandWithDelay(3));
-                break;
-            case 8:
-                TutorialCardSelected();
-                EndTurnButton.interactable = true;
-                break;
-            case 9:
-                StartCoroutine(ShowTutorialHandWithDelay(2));
-                break;
-            case 10:
-                StartCoroutine(ShowTutorialHandWithDelay(2));
-                break;
-        }   
-
-    }
-    IEnumerator ShowTutorialHandWithDelay(int CardCount)
-    {
-       // Debug.Log("ShowTutorialHandWithDelay  "+ tutorialLevel);
-        yield return new WaitForSeconds(1);
-        if (IsTutorialActive) {
-            if (tutorialLevel < 3)
-                tutorialHandAnimator.ShowTapAnimationUI(GetComponent<RectTransform>(), new Vector3(50, 0, 0));
-            else tutorialHandAnimator.ShowMoveHandAnimationUI(gameObject.GetComponent<RectTransform>(), new Vector3(50, 0, 0));
-          
-        }        
-    }
-    public void TutorialCardSelected()
-    {
-        if (!IsTutorialActive) return;
-        if ( tutorialLevel < 9)
-        {
-
-            if (tutorialLevel == 1)
-            {
-                tutorialHandAnimator.ShowTapAnimationWorldUI(cell.GetComponent<RectTransform>(), new Vector3(3, -3, 0));
-
-            }
-            else if (tutorialLevel == 4)
-            {
-                tutorialHandAnimator.ShowTapAnimationWorldUI(cell.GetComponent<RectTransform>(), new Vector3(3, -3, 0));
-
-            }
-            else if (tutorialLevel == 8)
-                ShowTapAnimationUIEndTurn();
-
-            else tutorialHandAnimator.ShowTapAnimationWorldUI(GameManager.Instance.GetComponent<RectTransform>(), Vector3.zero);
+            tutorialHandAnimator.ShowMoveHandAnimationUI(EndTurnImage, new Vector3(0, 0, 0));
+            //IsTutorialActive = false;
         }
-    }
-    public void CardStartClickTutorial()
-    {
-        if (tutorialLevel >= 1&&tutorialLevel!=8)
-        {
-            HideTutorialHand();
-        }
-    }
-    public void ShowTapAnimationUIEndTurn()
-    {
-       
 
-        // 4. handImage yerləşdir
-        EndTurnImage.gameObject.SetActive(true);
-        gameObject.SetActive(true);
-
-        // 5. Animasiya təmizlənir və yenidən başlayır
-        currentTween?.Kill();
-
-        currentTween = EndTurnImage
-            .DOScale(1.3f, 1 * 0.5f)
-            .SetEase(Ease.OutSine)
-            .SetLoops(-1, LoopType.Yoyo);
     }
+
+    public void TutorialEnd()
+    {Debug.Log("Tutorial Ended");
+        HideTutorialHand();
+        IsTutorialActive = false;
+    }
+ 
+ 
     public void HideHandTouchEndTurn()
     {
         currentTween?.Kill();
@@ -175,20 +89,7 @@ public class TutorialManager : MonoBehaviour
        // EndTurnImage.gameObject.SetActive(false);
 
     }
-    public void TutorialHandClickButton(RectTransform rectTransform)
-    {
-        if (!IsTutorialActive) return;
-        tutorialHandAnimator.ShowTapAnimationUI(rectTransform, ButtonClickOffset);
-    }
-    public void TutorialHandClickButtonClose(RectTransform rectTransform)
-    {
-        tutorialHandAnimator.ShowTapAnimationUI(rectTransform, -new Vector3(0,150,0));
-    }
-    public void TutorialHandClickButtonShop(RectTransform rectTransform)
-    {
-        if (!IsTutorialActive) return;
-        tutorialHandAnimator.ShowTapAnimationUI(rectTransform, new Vector3(200,0,0));
-    }
+   
     public void HideTutorialMoveHand()
     {
         if (!IsTutorialActive || tutorialLevel == 1 || tutorialLevel==4) return;
@@ -196,35 +97,10 @@ public class TutorialManager : MonoBehaviour
     }
     public void HideTutorialHand()
     {
+        Debug.Log("HideTutorialHand called");
         if (!IsTutorialActive) return;
         tutorialHandAnimator.HideHandTouch();
     }
 
-    //public void CardMoveTutorialinGame()
-    //{
-    //    if ((CardManagerMove.Instance.currentCardClick != null && !CardManagerMove.Instance.currentCardClick.MoveCard)|| CardManagerMove.Instance.currentCardClick == null)
-    //    {
-    //        if (CardManagerMove.Instance.spawnedCards.Count>0 && CardManagerMove.Instance.spawnedCards[0] != null)
-    //        {
-    //            tutorialHandAnimator.ShowMoveHandAnimationUI(CardManagerMove.Instance.spawnedCards[0].GetComponent<RectTransform>(), new Vector3(50, 0, 0));
-
-    //        }
-
-    //    }
-    //}
-
-    //public void MoveCardTutorialinGame()
-    //{
-    //    if (CardManagerMove.Instance.currentCardClick != null && CardManagerMove.Instance.currentCardClick.MoveCard)
-    //    {
-    //        tutorialHandAnimator.ShowTapAnimationWorldUI(GameManager.Instance.mBoard.mAllCells[2, 3].GetComponent<RectTransform>(), new Vector3(3, -3, 0));
-
-    //    }
-    //}
-
-    //public void EndGameTutorial()
-    //{
-
-    //    tutorialHandAnimator.HideHandTouch();
-    //}
+   
 }

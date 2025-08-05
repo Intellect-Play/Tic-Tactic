@@ -50,11 +50,13 @@ public class PlayerController : MonoBehaviour
         }
         currentPlayer = piece;
         GameManager.Instance.EndTurnButtonPressed = true;
-        GameManager.Instance.EndTurnButton.interactable=true;
+        GameManager.Instance.EndTurnButton.GetIncretible(true);
     }
     private void EndTurn() { 
         if(currentPlayer != null)
         {
+            currentPlayer.pieceImage.DOFade(true ? 1 : .5f, 0.2f).SetEase(Ease.OutQuad);
+
             playerPieces.Remove(currentPlayer);
         }
     }

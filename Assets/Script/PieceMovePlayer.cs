@@ -9,15 +9,22 @@ public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndD
     // Start is called before the first frame update
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
+        if (!GameManager.Instance.MoveActive) return;
         if (IsPlaced||GameManager.Instance.IsGameFinished||playerValue!=GameManager.Instance.currentPlayer) return;
         targetImage.raycastTarget=false;
         canvasGroup.blocksRaycasts = false;
         transform.parent = canvas.transform;
         BeginBool = true;
+        if(TutorialManager.Instance.IsTutorialActive)
+        {
+            TutorialManager.Instance.TutorialEnd();
+        }
     }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
+        if (!GameManager.Instance.MoveActive) return;
+
         if (IsPlaced||!BeginBool) return;
 
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
@@ -25,6 +32,8 @@ public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndD
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
+        if (!GameManager.Instance.MoveActive) return;
+
         if (IsPlaced || GameManager.Instance.IsGameFinished || playerValue != GameManager.Instance.currentPlayer) return;
         BeginBool = false;
         //RemoveCell();
