@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be5893e6d087464eb39a4da38af0d34, type: 3}
   m_Name: GameUnChangedDatas
   m_EditorClassIdentifier: 
-  LevelUp: 0
+  LevelUp: 1
   Level: 38
   gameUnChangedDatas:
   - PlayerHP: 9
