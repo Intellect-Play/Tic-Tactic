@@ -33,14 +33,14 @@ MonoBehaviour:
     Enemies:
     - EnemyHP: 5
       EnemySpecials: 02000000
-      WinEnemy: 20
+      WinEnemy: 40
     PlayerSpecialUnlock: 0
     PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 12
     Enemies:
     - EnemyHP: 6
       EnemySpecials: 02000000
-      WinEnemy: 25
+      WinEnemy: 40
     PlayerSpecialUnlock: 2
     PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 12
@@ -50,7 +50,7 @@ MonoBehaviour:
       WinEnemy: 20
     - EnemyHP: 3
       EnemySpecials: 0a000000
-      WinEnemy: 20
+      WinEnemy: 40
     PlayerSpecialUnlock: 0
     PlayerSpecialUnlockTutorialBool: 1
   - PlayerHP: 12
@@ -64,10 +64,10 @@ MonoBehaviour:
     Enemies:
     - EnemyHP: 4
       EnemySpecials: 0a000000
-      WinEnemy: 30
+      WinEnemy: 50
     - EnemyHP: 4
       EnemySpecials: 0a000000
-      WinEnemy: 30
+      WinEnemy: 40
     PlayerSpecialUnlock: 0
     PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 18
@@ -77,7 +77,7 @@ MonoBehaviour:
       WinEnemy: 30
     - EnemyHP: 6
       EnemySpecials: 0a000000
-      WinEnemy: 30
+      WinEnemy: 60
     PlayerSpecialUnlock: 10
     PlayerSpecialUnlockTutorialBool: 0
   - PlayerHP: 18

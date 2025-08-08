@@ -19,37 +19,37 @@ public class TwoSideGun : SpecialPieceCore
 
         //GetComponent<RectTransform>().localScale = new Vector2(2.4f, 2.4f);
     }
-    public override void ChangeCell(Cell cell)
-    {
-        base.ChangeCell(cell);
-        Board.Instance.SetMainColorCells();
-        if (PieceCell == null) return;
+    //public override void ChangeCell(Cell cell)
+    //{
+    //    base.ChangeCell(cell);
+    //    Board.Instance.SetMainColorCells();
+    //    if (PieceCell == null) return;
 
-        Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, false);
-        Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, false);
+    //    Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, false);
+    //    Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, false);
 
-    }
-    public override void Back()
-    {
-        if(PieceCell != null)
-        {
-            Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
-            Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
-        }
+    //}
+    //public override void Back()
+    //{
+    //    if(PieceCell != null)
+    //    {
+    //        Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
+    //        Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+    //    }
      
-        base.Back();
+    //    base.Back();
 
-    }
-    public override void BackCell()
-    {
-        if (PieceCell != null)
-        {
-            Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
-            Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
-        }
-        base.BackCell();
+    //}
+    //public override void BackCell()
+    //{
+    //    if (PieceCell != null)
+    //    {
+    //        Board.Instance.SetCellColor(PieceCell.x + 1, PieceCell.y, true);
+    //        Board.Instance.SetCellColor(PieceCell.x - 1, PieceCell.y, true);
+    //    }
+    //    base.BackCell();
 
-    }
+    //}
     public override void MoveStart(Action onMoveComplete)
     {
         StartCoroutine(WaitForAttackComplete(onMoveComplete));

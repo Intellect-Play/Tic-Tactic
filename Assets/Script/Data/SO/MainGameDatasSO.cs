@@ -16,6 +16,7 @@ public class MainGameDatasSO : ScriptableObject
     public float MoveDuration;
     public int CoinGetFromEnemy;
     public int CoinGetReward;
+    public int loseIncreaseDamageEnemy;
 
     public float EnemyPieceSize=0.5f;
     public float PlayerPieceSize=1.2f;

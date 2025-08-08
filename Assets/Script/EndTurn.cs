@@ -38,6 +38,7 @@ public class EndTurn : MonoBehaviour
     {
         button.interactable = Active;
         ToggleScaleLoop(Active);
+        if (Active) OnEndTurnButtonClicked();
     }
     public void ShowPopupBounce(float x)
     {

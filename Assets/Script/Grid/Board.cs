@@ -193,7 +193,8 @@ public class Board : MonoBehaviour
     public Cell EmptyCell(int winCount)
     {
         // Limitləri yoxla (təhlükəsizlik üçün)
-
+        winCount = winCount - GameManager.Instance.lastWinCase;
+        if(winCount < 0) winCount = 0;
         int randomValue = UnityEngine.Random.Range(0, 100);
 
         if (randomValue < winCount)

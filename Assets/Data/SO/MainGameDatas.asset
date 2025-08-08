@@ -19,6 +19,7 @@ MonoBehaviour:
   MoveDuration: 0.4
   CoinGetFromEnemy: 20
   CoinGetReward: 200
+  loseIncreaseDamageEnemy: 10
   EnemyPieceSize: 0.5
   PlayerPieceSize: 1.2
   MovedGroundSprites:

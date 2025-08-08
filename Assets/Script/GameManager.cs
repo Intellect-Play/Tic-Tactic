@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public bool MoveActive = false;
 
     public WinResult winResult;
+    public int lastWinCase;
     private void Awake()
     {
         if (Instance == null)
@@ -62,7 +63,9 @@ public class GameManager : MonoBehaviour
        
         int lvl = SaveDataService.CurrentLevel;
         int index;
-
+        if(lvl==1)PlayerPrefs.SetInt("Win",0);
+        else lastWinCase = PlayerPrefs.GetInt("Win", 0); // 0 - lose, 1 - win, 2 - not played yet
+        lastWinCase = GameDatas.Instance.mainGameDatasSO.loseIncreaseDamageEnemy * lastWinCase;
         if (lvl <= 40)
         {
             index = lvl - 1;
@@ -266,13 +269,15 @@ public class GameManager : MonoBehaviour
         GameFinishWin.SetActive(true);
         SoundManager.Instance.PlaySound(SoundType.Win);
         Coin.Instance.GetCoin(GameDatas.Instance.mainGameDatasSO.CoinGetReward);
-
+        PlayerPrefs.SetInt("Win", 0);
     }
     public void GameLose()
     {Debug.Log("Game Lose");
         if (IsGameFinished) return;
         IsGameFinished = true;
-          StartCoroutine(FinishTime(false));
+        PlayerPrefs.SetInt("Win", PlayerPrefs.GetInt("Win",0)+1);
+
+        StartCoroutine(FinishTime(false));
     }
     IEnumerator FinishTime(bool Win)
     {
