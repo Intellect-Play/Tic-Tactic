@@ -45,8 +45,8 @@ public class PieceMovePlayer : PieceBase, IBeginDragHandler, IDragHandler, IEndD
           
             if (!cell.HasValue ||(cell.HasValue&&cell.cellValue==playerValue&&!cell._PlayerPiece.IsPlaced))
             {
-                PlayerController.Instance.GetPiece(this);
                 ChangeCell(cell);
+                PlayerController.Instance.GetPiece(this);
                 targetImage.raycastTarget = true;
 
                 //cell.SetValue(this);

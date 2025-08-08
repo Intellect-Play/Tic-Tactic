@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         {
             currentPlayer.Back();
         }
+        Debug.Log("GetPiece: " + piece.playerValue);
         currentPlayer = piece;
         GameManager.Instance.EndTurnButtonPressed = true;
         GameManager.Instance.EndTurnButton.GetIncretible(true);
